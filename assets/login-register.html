@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap / Üye Ol - EWA</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+    <!-- Header kısmı buraya gelecek (mevcut headerınız) -->
+    <header class="header">
+        <!-- Mevcut header içeriği -->
+    </header>
+
+    <main class="main">
+        <section class="auth-section">
+            <div class="auth-container">
+                <div class="auth-form-container">
+                    <div class="auth-tabs">
+                        <div class="auth-tab active" data-tab="login">Giriş Yap</div>
+                        <div class="auth-tab" data-tab="register">Üye Ol</div>
+                    </div>
+
+                    <!-- Giriş Yap Formu -->
+                    <form id="login-form" class="auth-form active">
+                        <div class="form-group">
+                            <label for="login-email">E-posta Adresi</label>
+                            <input type="email" id="login-email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="login-password">Şifre</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox"> Beni Hatırla
+                            </label>
+                        </div>
+
+                        <button type="submit" class="auth-btn">Giriş Yap</button>
+
+                        <div class="auth-links">
+                            <a href="#" id="forgot-password">Şifremi Unuttum</a>
+                        </div>
+
+                        <div class="social-login">
+                            <p>Veya sosyal medya ile giriş yap</p>
+                            <div class="social-icons">
+                                <div class="social-icon facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </div>
+                                <div class="social-icon google">
+                                    <i class="fab fa-google"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Üye Ol Formu -->
+                    <form id="register-form" class="auth-form" action="kayit_ol.php" method="POST">
+                        <div class="form-group">
+                            <label for="register-ad">Ad</label>
+                            <input type="text" id="register-ad" name="ad" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-soyad">Soyad</label>
+                            <input type="text" id="register-soyad" name="soyad" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-email">E-posta Adresi</label>
+                            <input type="email" id="register-email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-password">Şifre</label>
+                            <input type="password" id="register-password" name="sifre" required minlength="6">
+                            <small>En az 6 karakter olmalıdır.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-confirm-password">Şifre Tekrar</label>
+                            <input type="password" id="register-confirm-password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" required> <a href="#">Kullanım Koşulları</a>'nı okudum ve kabul
+                                ediyorum.
+                            </label>
+                        </div>
+
+                        <button type="submit" class="auth-btn">Üye Ol</button>
+
+                        <div class="auth-links">
+                            Zaten üye misiniz? <a href="#" id="go-to-login">Giriş Yap</a>
+                        </div>
+                    </form>
+
+                    <!-- Şifremi Unuttum Formu -->
+                    <form id="forgot-form" class="auth-form">
+                        <div class="form-group">
+                            <label for="forgot-email">E-posta Adresi</label>
+                            <input type="email" id="forgot-email" required>
+                        </div>
+
+                        <p>Şifre sıfırlama bağlantısı e-posta adresinize gönderilecektir.</p>
+
+                        <button type="submit" class="auth-btn">Gönder</button>
+
+                        <div class="auth-links">
+                            <a href="#" id="back-to-login">Giriş sayfasına dön</a>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="auth-image">
+                    <img src="img/login-image.jpg" alt="EWA Handmade Ürünleri">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer kısmı buraya gelecek (mevcut footerınız) -->
+    <footer class="footer container">
+        <!-- Mevcut footer içeriği -->
+    </footer>
+
+    <script>
+        // Tab geçişleri
+        const tabs = document.querySelectorAll('.auth-tab');
+        const forms = document.querySelectorAll('.auth-form');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Tüm tab ve formları pasif yap
+                tabs.forEach(t => t.classList.remove('active'));
+                forms.forEach(f => f.classList.remove('active'));
+
+                // Tıklanan tab ve ilgili formu aktif yap
+                tab.classList.add('active');
+                const formId = tab.getAttribute('data-tab') + '-form';
+                document.getElementById(formId).classList.add('active');
+            });
+        });
+
+        // Giriş/Üye ol linkleri
+        document.getElementById('go-to-login')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            tabs.forEach(t => t.classList.remove('active'));
+            forms.forEach(f => f.classList.remove('active'));
+
+            document.querySelector('.auth-tab[data-tab="login"]').classList.add('active');
+            document.getElementById('login-form').classList.add('active');
+        });
+
+        document.getElementById('forgot-password')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            tabs.forEach(t => t.classList.remove('active'));
+            forms.forEach(f => f.classList.remove('active'));
+
+            document.getElementById('forgot-form').classList.add('active');
+        });
+
+        document.getElementById('back-to-login')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            tabs.forEach(t => t.classList.remove('active'));
+            forms.forEach(f => f.classList.remove('active'));
+
+            document.querySelector('.auth-tab[data-tab="login"]').classList.add('active');
+            document.getElementById('login-form').classList.add('active');
+        });
+
+        // Form gönderme işlemleri
+        document.getElementById('login-form')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            // Burada gerçek giriş işlemi yapılacak
+            console.log('Giriş yapılıyor:', email, password);
+            alert('Giriş başarılı! Yönlendiriliyorsunuz...');
+            // window.location.href = 'index.html';
+        });
+
+        document.getElementById('register-form')?.addEventListener('submit', (e) => {
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                alert('Şifreler eşleşmiyor!');
+                return;
+            }
+        });
+
+        document.getElementById('forgot-form')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('forgot-email').value;
+
+            // Burada şifre sıfırlama işlemi yapılacak
+            console.log('Şifre sıfırlama isteği:', email);
+            alert('Şifre sıfırlama bağlantısı e-posta adresinize gönderildi!');
+
+            // Giriş formuna geç
+            tabs.forEach(t => t.classList.remove('active'));
+            forms.forEach(f => f.classList.remove('active'));
+
+            document.querySelector('.auth-tab[data-tab="login"]').classList.add('active');
+            document.getElementById('login-form').classList.add('active');
+        });
+    </script>
+</body>
+
+</html>

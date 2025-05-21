@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # POST metoduna izin ver
+    RewriteCond %{REQUEST_METHOD} !^(GET|POST)
+    RewriteRule ^ - [R=405,L]
+    
+    # PHP dosyalarını koru
+    <FilesMatch "\.php$">
+        SetHandler application/x-httpd-php
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "POST, GET, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type"
+</IfModule>
+
+# Hata mesajlarını gizle (production için)
+php_flag display_errors off
+php_value error_reporting 0
