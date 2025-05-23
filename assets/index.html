@@ -107,55 +107,214 @@
             </div>
         </section>
 
-        <section class="categories container section">
-            <h3 class="section__title">Ürünlerimiz</h3>
-            <div class="categories__container swiper">
-                <div class="swiper-wrapper">
-                    <a href="shop.html" class="category__item swiper-slide">
-                        <img src="img/elbise.png" alt="Elbise" class="category__img">
-                        <h3 class="category__title">Elbise</h3>
-                    </a>
-                    <a href="shop.html" class="category__item swiper-slide">
-                        <img src="img/tunik.png" alt="Tunik" class="category__img">
-                        <h3 class="category__title">Tunik</h3>
-                    </a>
-                    <a href="shop.html" class="category__item swiper-slide">
-                        <img src="img/bolero.png" alt="Bolero" class="category__img">
-                        <h3 class="category__title">Bolero</h3>
-                    </a>
-                    <a href="shop.html" class="category__item swiper-slide">
-                        <img src="img/panco.png" alt="Panço" class="category__img">
-                        <h3 class="category__title">Panço</h3>
-                    </a>
-                    <a href="shop.html" class="category__item swiper-slide">
-                        <img src="img/yoreselD.png" alt="Yöresel El Dokuması" class="category__img">
-                        <h3 class="category__title">Yöresel El Dokuması</h3>
-                    </a>
-                    <a href="shop.html" class="category__item swiper-slide">
-                        <img src="img/sal.png" alt="Şal" class="category__img">
-                        <h3 class="category__title">Şal</h3>
-                    </a>
-                    <a href="shop.html" class="category__item swiper-slide">
-                        <img src="img/pestemal.png" alt="Peştemal" class="category__img">
-                        <h3 class="category__title">Peştemal</h3>
-                    </a>
-                </div>
-                <div class="swiper-button-next">
-                    <i class="fi fi-rs-angle-right"></i>
-                </div>
-                <div class="swiper-button-prev">
-                    <i class="fi fi-rs-angle-left"></i>
-                </div>
+       <html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün Slider</title>
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <!-- Font Awesome (ok ikonları için) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <style>
+        /* Özel stiller */
+        .categories {
+            padding: 40px 0;
+        }
+        
+        .section__title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .category__item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+            padding: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .category__item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category__img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .category__item:hover .category__img {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .category__title {
+            font-size: 16px;
+            font-weight: 500;
+            text-align: center;
+            margin-top: 10px;
+            color: #333;
+            line-height: 1.4;
+            padding: 0 10px;
+        }
+        
+        /* Swiper oklarını özelleştirme */
+        .swiper-button-next,
+        .swiper-button-prev {
+            background: rgba(255,255,255,0.8);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: #333;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* Swiper container düzenlemeleri */
+        .categories__container {
+            padding: 20px 0;
+        }
+
+        .swiper-wrapper {
+            align-items: center;
+        }
+
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+        }
+
+        /* Responsive düzenlemeler */
+        @media screen and (max-width: 768px) {
+            .category__img {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .category__title {
+                font-size: 14px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .category__img {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .category__title {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="categories container section">
+        <h3 class="section__title">Ürünlerimiz</h3>
+        <div class="categories__container swiper">
+            <div class="swiper-wrapper">
+                <a href="elbise.html" class="category__item swiper-slide">
+                    <img src="img/elbise1-1.png.png" alt="Elbise" class="category__img">
+                    <h3 class="category__title">Elbise</h3>
+                </a>
+                <a href="tunik.html" class="category__item swiper-slide">
+                    <img src="img/tunik1-1.png.png" alt="Tunik" class="category__img">
+                    <h3 class="category__title">Tunik</h3>
+                </a>
+                <a href="bolero.html" class="category__item swiper-slide">
+                    <img src="img/bolero1-1.png.png" alt="Bolero" class="category__img">
+                    <h3 class="category__title">Bolero</h3>
+                </a>
+                <a href="panco.html" class="category__item swiper-slide">
+                    <img src="img/panco1-1.png.png" alt="Panço" class="category__img">
+                    <h3 class="category__title">Panço</h3>
+                </a>
+                <a href="yorselD.html" class="category__item swiper-slide">
+                    <img src="img/yoreselD1-1.png.png" alt="Yöresel El Dokuması" class="category__img">
+                    <h3 class="category__title">Yöresel El Dokuması</h3>
+                </a>
+                <a href="sal.html" class="category__item swiper-slide">
+                    <img src="img/sal1-1.png.png" alt="Şal" class="category__img">
+                    <h3 class="category__title">Şal</h3>
+                </a>
+                <a href="pestemal.html" class="category__item swiper-slide">
+                    <img src="img/peştemal3.1.jpg" alt="Peştemal" class="category__img">
+                    <h3 class="category__title">Peştemal</h3>
+                </a>
             </div>
-        </section>
+            
+            <!-- Oklar -->
+            <div class="swiper-button-next">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="swiper-button-prev">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <script>
+        // Swiper'ı başlatma
+        document.addEventListener('DOMContentLoaded', function() {
+            var swiper = new Swiper('.swiper', {
+                slidesPerView: 4,
+                spaceBetween: 20,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1
+                    },
+                    768: {
+                        slidesPerView: 2
+                    },
+                    1024: {
+                        slidesPerView: 3
+                    },
+                    1200: {
+                        slidesPerView: 4
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
 
         <section class="products section container">
             <h2 class="section__title">Öne Çıkan Ürünler</h2>
             <div class="products__container grid">
-                <div class="product__item">
-                    <div class="product__banner">
-                        <img src="img/kıyafetler2/urun1.jpg" alt="El Dokuması Tunik" class="product__img default">
-                        <img src="img/kıyafetler2/urun1-2.jpg" alt="El Dokuması Tunik" class="product__img hover">
+                <div class="product__item" data-id="E002">
+                    <div class="product__bunner">
+                        <a href="details.html?id=E002" class="product__images">
+                            <img src="img/elbise2-1.png.png" alt="Elbise" class="product__img default">
+                            <img src="img/elbise2-2.png.png" alt="Elbise" class="product__img hover">
+                        </a>
                         <div class="product__actions">
                             <button class="action__btn">
                                 <i class="fa-regular fa-heart"></i>
@@ -169,18 +328,19 @@
                         </div>
                     </div>
                     <div class="product__content">
-                        <h3 class="product__title">El Dokuması Tunik</h3>
+                        <h3 class="product__title">Elbise Sarı Tekli Yaprak</h3>
                         <div class="product__price">
-                            <span class="new__price">₺1.200</span>
-                            <span class="old__price">₺1.500</span>
+                            <span class="new__price">₺1725</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="product__item">
-                    <div class="product__banner">
-                        <img src="img/kıyafetler2/urun2.jpg" alt="Otantik Yelek" class="product__img default">
-                        <img src="img/kıyafetler2/urun2-2.jpg" alt="Otantik Yelek" class="product__img hover">
+                <div class="product__item" data-id="P003">
+                    <div class="product__bunner">
+                        <a href="details.html?id=P003" class="product__images">
+                            <img src="img/panco3-1.png.png" alt="Panço" class="product__img default">
+                            <img src="img/panco3-2.png.png" alt="Panço" class="product__img hover">
+                        </a>
                         <div class="product__actions">
                             <button class="action__btn">
                                 <i class="fa-regular fa-heart"></i>
@@ -194,18 +354,19 @@
                         </div>
                     </div>
                     <div class="product__content">
-                        <h3 class="product__title">Otantik Yelek</h3>
+                        <h3 class="product__title">Panço Etnik Çift Taraflı Tüy</h3>
                         <div class="product__price">
-                            <span class="new__price">₺950</span>
-                            <span class="old__price">₺1.200</span>
+                            <span class="new__price">₺1140</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="product__item">
-                    <div class="product__banner">
-                        <img src="img/kıyafetler2/urun3.jpg" alt="El Dokuması Şal" class="product__img default">
-                        <img src="img/kıyafetler2/urun3-2.jpg" alt="El Dokuması Şal" class="product__img hover">
+                <div class="product__item" data-id="T002">
+                    <div class="product__bunner">
+                        <a href="details.html?id=T002" class="product__images">
+                            <img src="img/tunik2-1.png.png" alt="Tunik" class="product__img default">
+                            <img src="img/tunik2-2.png.png" alt="Tunik" class="product__img hover">
+                        </a>
                         <div class="product__actions">
                             <button class="action__btn">
                                 <i class="fa-regular fa-heart"></i>
@@ -219,18 +380,19 @@
                         </div>
                     </div>
                     <div class="product__content">
-                        <h3 class="product__title">El Dokuması Şal</h3>
+                        <h3 class="product__title">Tunik Yavru Ağzı Çiçek</h3>
                         <div class="product__price">
-                            <span class="new__price">₺450</span>
-                            <span class="old__price">₺600</span>
+                            <span class="new__price">₺1790</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="product__item">
-                    <div class="product__banner">
-                        <img src="img/kıyafetler2/urun4.jpg" alt="Yöresel Peştemal" class="product__img default">
-                        <img src="img/kıyafetler2/urun4-2.jpg" alt="Yöresel Peştemal" class="product__img hover">
+                <div class="product__item" data-id="YD001">
+                    <div class="product__bunner">
+                        <a href="details.html?id=YD001" class="product__images">
+                            <img src="img/yoreselD1-1.png.png" alt="Şal" class="product__img default">
+                            <img src="img/yoreselD1-2.png.png" alt="Şal" class="product__img hover">
+                        </a>
                         <div class="product__actions">
                             <button class="action__btn">
                                 <i class="fa-regular fa-heart"></i>
@@ -244,10 +406,9 @@
                         </div>
                     </div>
                     <div class="product__content">
-                        <h3 class="product__title">Yöresel Peştemal</h3>
+                        <h3 class="product__title">Şal Turkuaz Beyaz Baklava</h3>
                         <div class="product__price">
-                            <span class="new__price">₺350</span>
-                            <span class="old__price">₺450</span>
+                            <span class="new__price">₺1200</span>
                         </div>
                     </div>
                 </div>

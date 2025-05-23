@@ -52,6 +52,41 @@ class Urun {
             return false;
         }
     }
+
+    public function yeniUrunIDOlustur($kategori) {
+        try {
+            // Kategori önekini belirle
+            $prefix = '';
+            switch($kategori) {
+                case 'Panço': $prefix = 'P'; break;
+                case 'Elbise': $prefix = 'E'; break;
+                case 'Sal': $prefix = 'S'; break;
+                case 'Yöresel Dokuma': $prefix = 'YD'; break;
+                case 'Fular': $prefix = 'F'; break;
+                case 'Tunik': $prefix = 'T'; break;
+                case 'Otantik Yelek': $prefix = 'OY'; break;
+                case 'Bolero': $prefix = 'PE'; break;
+                case 'Pestemel': $prefix = 'B'; break;
+                default: $prefix = 'D';
+            }
+            
+            // Bu kategorideki en son ID'yi bul
+            $sql = "SELECT MAX(CAST(SUBSTRING(UrunID, LEN(?) + 1, LEN(UrunID)) AS INT)) as max_num 
+                   FROM Urunler 
+                   WHERE UrunID LIKE ? + '%'";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([$prefix, $prefix]);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            // Yeni numarayı oluştur
+            $nextNum = ($result['max_num'] ?? 0) + 1;
+            return $prefix . str_pad($nextNum, 3, '0', STR_PAD_LEFT);
+            
+        } catch(PDOException $e) {
+            error_log("ID oluşturma hatası: " . $e->getMessage());
+            return false;
+        }
+    }
 }
 
 // Test kodu (sadece geliştirme ortamında)

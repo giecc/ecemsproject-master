@@ -556,3 +556,414 @@ document.getElementById('contactForm').addEventListener('submit', async function
     }, 8000);
   }
 });
+
+// === HESABIM SEKME GEÇİŞLERİ ===
+document.addEventListener('DOMContentLoaded', function() {
+    const accountTabs = document.querySelectorAll('.account-nav a');
+    const tabContents = document.querySelectorAll('.account-tab');
+
+    accountTabs.forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            // Sadece logout linki hariç
+            if (tab.classList.contains('logout')) return;
+            e.preventDefault();
+            // Tüm sekmelerden active kaldır
+            accountTabs.forEach(t => t.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            // Tıklanan sekmeye active ekle
+            tab.classList.add('active');
+            // İlgili içeriği göster
+            const targetId = tab.getAttribute('href').replace('#', '');
+            const targetContent = document.getElementById(targetId);
+            if (targetContent) targetContent.classList.add('active');
+        });
+    });
+});
+
+// Form Submissions
+const accountForms = document.querySelectorAll('.account-form');
+
+accountForms.forEach(form => {
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Here you would typically send the form data to your backend
+        // For now, we'll just show a success message
+        alert('Bilgileriniz başarıyla güncellendi!');
+    });
+});
+
+// Address Actions
+const addressActions = document.querySelectorAll('.address-actions button');
+
+addressActions.forEach(button => {
+    button.addEventListener('click', () => {
+        if (button.classList.contains('btn--danger')) {
+            if (confirm('Bu adresi silmek istediğinizden emin misiniz?')) {
+                // Here you would typically send a delete request to your backend
+                button.closest('.address-item').remove();
+            }
+        } else {
+            // Here you would typically show an edit form
+            alert('Adres düzenleme özelliği yakında eklenecek!');
+        }
+    });
+});
+
+// Add to Cart from Favorites
+const addToCartButtons = document.querySelectorAll('.favorite-item .btn');
+
+addToCartButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        // Here you would typically add the item to cart
+        alert('Ürün sepete eklendi!');
+    });
+});
+
+// Favoriler Sayfası İşlevselliği
+document.addEventListener('DOMContentLoaded', function() {
+    const favoritesGrid = document.querySelector('.favorites-grid');
+    const favoritesEmpty = document.querySelector('.favorites-empty');
+    
+    if (favoritesGrid) {
+        // Favorilerden Kaldırma
+        const removeButtons = document.querySelectorAll('.favorite-item__remove');
+        removeButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const favoriteItem = this.closest('.favorite-item');
+                const productId = favoriteItem.dataset.id;
+                
+                // Animasyonlu kaldırma
+                favoriteItem.style.opacity = '0';
+                favoriteItem.style.transform = 'scale(0.8)';
+                
+                setTimeout(() => {
+                    favoriteItem.remove();
+                    
+                    // Favori kalmadıysa boş durum mesajını göster
+                    if (favoritesGrid.children.length === 0) {
+                        favoritesGrid.style.display = 'none';
+                        favoritesEmpty.style.display = 'block';
+                    }
+                }, 300);
+                
+                // API çağrısı burada yapılacak
+                console.log('Ürün favorilerden kaldırıldı:', productId);
+            });
+        });
+        
+        // Sepete Ekleme
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.dataset.id;
+                const favoriteItem = this.closest('.favorite-item');
+                
+                // Buton durumunu güncelle
+                this.innerHTML = '<i class="fas fa-check"></i> Sepete Eklendi';
+                this.disabled = true;
+                this.style.backgroundColor = '#4CAF50';
+                
+                // 2 saniye sonra butonu eski haline getir
+                setTimeout(() => {
+                    this.innerHTML = 'Sepete Ekle';
+                    this.disabled = false;
+                    this.style.backgroundColor = '';
+                }, 2000);
+                
+                // API çağrısı burada yapılacak
+                console.log('Ürün sepete eklendi:', productId);
+            });
+        });
+    }
+});
+
+// Wishlist functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Favori ürünleri localStorage'dan al
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    updateWishlistCount();
+
+    // Favori butonlarına tıklama olayı ekle
+    const wishlistButtons = document.querySelectorAll('.action__btn i.fa-heart');
+    wishlistButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const productItem = this.closest('.product__item');
+            const product = {
+                id: productItem.dataset.id,
+                title: productItem.querySelector('.product__title').textContent,
+                price: productItem.querySelector('.new__price').textContent,
+                image: productItem.querySelector('.product__img').src
+            };
+
+            toggleWishlist(product);
+        });
+    });
+
+    // Favori sayfasındaki kaldır butonlarına tıklama olayı ekle
+    const removeButtons = document.querySelectorAll('.wishlist__btn.remove');
+    removeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const wishlistItem = this.closest('.wishlist__item');
+            const productId = wishlistItem.dataset.id;
+            removeFromWishlist(productId);
+            wishlistItem.remove();
+        });
+    });
+
+    // Sepete ekle butonlarına tıklama olayı ekle
+    const addToCartButtons = document.querySelectorAll('.wishlist__btn.add-to-cart');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const wishlistItem = this.closest('.wishlist__item');
+            const productId = wishlistItem.dataset.id;
+            addToCart(productId);
+        });
+    });
+});
+
+// Favori listesine ekle/çıkar
+function toggleWishlist(product) {
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const index = wishlist.findIndex(item => item.id === product.id);
+
+    if (index === -1) {
+        wishlist.push(product);
+        this.classList.remove('fa-regular');
+        this.classList.add('fa-solid');
+    } else {
+        wishlist.splice(index, 1);
+        this.classList.remove('fa-solid');
+        this.classList.add('fa-regular');
+    }
+
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    updateWishlistCount();
+}
+
+// Favori listesinden kaldır
+function removeFromWishlist(productId) {
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    wishlist = wishlist.filter(item => item.id !== productId);
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    updateWishlistCount();
+}
+
+// Favori sayısını güncelle
+function updateWishlistCount() {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const countElements = document.querySelectorAll('.header__action-btn .count');
+    countElements.forEach(element => {
+        element.textContent = wishlist.length;
+    });
+}
+
+// Sepete ekle
+function addToCart(productId) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const product = wishlist.find(item => item.id === productId);
+
+    if (product) {
+        cart.push(product);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        removeFromWishlist(productId);
+        alert('Ürün sepete eklendi!');
+    }
+}
+
+// Product Details Page
+const productDetails = () => {
+    // Small Images
+    const smallImages = document.querySelectorAll('.details__small-img');
+    const mainImage = document.querySelector('.details__main-img');
+
+    smallImages.forEach(img => {
+        img.addEventListener('click', () => {
+            // Remove active class from all images
+            smallImages.forEach(img => img.classList.remove('active'));
+            // Add active class to clicked image
+            img.classList.add('active');
+            // Update main image
+            mainImage.src = img.src;
+        });
+    });
+
+    // Size Selection
+    const sizeLinks = document.querySelectorAll('.size__link');
+    
+    sizeLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            // Remove active class from all sizes
+            sizeLinks.forEach(link => link.classList.remove('size-active'));
+            // Add active class to clicked size
+            link.classList.add('size-active');
+        });
+    });
+
+    // Quantity
+    const minusBtn = document.querySelector('.quantity__btn.minus');
+    const plusBtn = document.querySelector('.quantity__btn.plus');
+    const quantityInput = document.querySelector('.quantity__input');
+
+    minusBtn.addEventListener('click', () => {
+        let value = parseInt(quantityInput.value);
+        if (value > 1) {
+            quantityInput.value = value - 1;
+        }
+    });
+
+    plusBtn.addEventListener('click', () => {
+        let value = parseInt(quantityInput.value);
+        if (value < 10) {
+            quantityInput.value = value + 1;
+        }
+    });
+
+    // Add to Cart
+    const addToCartBtn = document.querySelector('.add-to-cart');
+    
+    addToCartBtn.addEventListener('click', () => {
+        const product = {
+            id: 'T07',
+            name: document.querySelector('.details__title').textContent,
+            price: document.querySelector('.new__price').textContent,
+            size: document.querySelector('.size__link.size-active').textContent,
+            quantity: parseInt(quantityInput.value),
+            image: mainImage.src
+        };
+
+        // Get existing cart items
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        
+        // Check if product already exists in cart
+        const existingItemIndex = cartItems.findIndex(item => 
+            item.id === product.id && item.size === product.size
+        );
+
+        if (existingItemIndex > -1) {
+            // Update quantity if product exists
+            cartItems[existingItemIndex].quantity += product.quantity;
+        } else {
+            // Add new product if it doesn't exist
+            cartItems.push(product);
+        }
+
+        // Save updated cart
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+        // Update cart count
+        updateCartCount();
+
+        // Show success message
+        showNotification('Ürün sepete eklendi!');
+    });
+
+    // Add to Wishlist
+    const addToWishlistBtn = document.querySelector('.add-to-wishlist');
+    
+    addToWishlistBtn.addEventListener('click', () => {
+        const product = {
+            id: 'T07',
+            name: document.querySelector('.details__title').textContent,
+            price: document.querySelector('.new__price').textContent,
+            image: mainImage.src
+        };
+
+        // Get existing wishlist items
+        let wishlistItems = JSON.parse(localStorage.getItem('wishlistItems')) || [];
+        
+        // Check if product already exists in wishlist
+        const existingItemIndex = wishlistItems.findIndex(item => item.id === product.id);
+
+        if (existingItemIndex > -1) {
+            // Remove from wishlist if already exists
+            wishlistItems.splice(existingItemIndex, 1);
+            showNotification('Ürün favorilerden çıkarıldı!');
+        } else {
+            // Add to wishlist if doesn't exist
+            wishlistItems.push(product);
+            showNotification('Ürün favorilere eklendi!');
+        }
+
+        // Save updated wishlist
+        localStorage.setItem('wishlistItems', JSON.stringify(wishlistItems));
+
+        // Update wishlist count
+        updateWishlistCount();
+    });
+};
+
+// Initialize product details page
+if (document.querySelector('.details')) {
+    productDetails();
+}
+
+// Bildirim gösterme fonksiyonu
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 100);
+
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 2000);
+}
+
+// Ürün kartlarındaki göz ikonuna tıklama olayı
+document.addEventListener('DOMContentLoaded', function() {
+    const viewButtons = document.querySelectorAll('.action__btn i.fa-eye');
+    
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const productItem = this.closest('.product__item');
+            const productId = productItem.dataset.id;
+            
+            // Ürün detay sayfasına yönlendir
+            window.location.href = `details.html?id=${productId}`;
+        });
+    });
+});
+
+// Ürün detay sayfasına yönlendirme
+document.addEventListener('DOMContentLoaded', function() {
+    // Göz ikonuna tıklama
+    const viewButtons = document.querySelectorAll('.action__btn.view-product');
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const productId = this.dataset.id;
+            window.location.href = `details.html?id=${productId}`;
+        });
+    });
+
+    // Ürün resmine tıklama
+    const productImages = document.querySelectorAll('.product__images');
+    productImages.forEach(image => {
+        image.addEventListener('click', function(e) {
+            e.preventDefault();
+            const productId = this.closest('.product__item').dataset.id;
+            window.location.href = `details.html?id=${productId}`;
+        });
+    });
+
+    // Ürün başlığına tıklama
+    const productTitles = document.querySelectorAll('.product__title');
+    productTitles.forEach(title => {
+        title.addEventListener('click', function(e) {
+            e.preventDefault();
+            const productId = this.closest('.product__item').dataset.id;
+            window.location.href = `details.html?id=${productId}`;
+        });
+    });
+});

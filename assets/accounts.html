@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css" />
 
-
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel='stylesheet'
         href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css'>
-
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-
-    <link rel="stylesheet" href="css/styles.css" />
+    <title>EWA - Emel's Weaving Art</title>
 
     <title>EWA</title>
 </head>
@@ -23,197 +23,232 @@
         <div class="header__top">
             <div class="header__container container">
                 <div class="header__contact">
-                    <span>numara yaz</span>
-
-                    <span> Konumumuz </span>
+                    <span><i class="fas fa-phone"></i> 0533 773 25 05</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Fethiye / MUĞLA</span>
                 </div>
                 <p class="header__alert-news">
-                    yeni müşterilere özel %10 indirim:HOSGELDİN10
+                    Yeni müşterilere özel %10 indirim: HOSGELDİN10
                 </p>
-
-                <a href="login-register.html" class="header__top-actions">
+                <a href="login-register.html" class="header__top-action">
                     Giriş yap / Üye Ol
                 </a>
-
             </div>
         </div>
 
         <nav class="nav container">
             <a href="index.html" class="nav__logo">
-                <img src="img/logo.png" alt="" class="nav__logo-img">
+                <img src="img/logo.png" alt="EWA Logo" class="nav__logo-img">
             </a>
 
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="index.html" class="nav__link">Home</a>
+                        <a href="index.html" class="nav__link active-link">Ana Sayfa</a>
                     </li>
-
                     <li class="nav__item">
-                        <a href="shop.html" class="nav__link">Shop</a>
+                        <a href="shop.html" class="nav__link">Alışveriş</a>
                         <div class="dropdown-menu" id="shop-dropdown">
                             <a href="tunik.html">Tunik</a>
                             <a href="elbise.html">Elbise</a>
-                            <a href="otontikY.html">Otonatik Uzun Yelek</a>
+                            <a href="otontikY.html">Otantik Uzun Yelek</a>
                             <a href="bolero.html">Bolero</a>
                             <a href="yorselD.html">Yöresel El Dokuması</a>
                             <a href="panco.html">Panço</a>
-                            <a href="sal.html">Sal</a>
+                            <a href="sal.html">Şal</a>
                             <a href="fular.html">Fular</a>
                             <a href="pestemal.html">Peştemal</a>
                             <a href="diger.html">Diğer</a>
                         </div>
-
                     </li>
-
-
                     <li class="nav__item">
-                        <a href="accounts.html" class="nav__link active-link"> My Account</a>
+                        <a href="accounts.html" class="nav__link">Hesabım</a>
                     </li>
-
-
                     <li class="nav__item">
-                        <a href="compare.html" class="nav__link">Compare</a>
+                        <a href="contact.html" class="nav__link">İletişim</a>
                     </li>
-
-
                     <li class="nav__item">
-                        <a href="login-register.html" class="nav__link">Login</a>
+                        <a href="login-register.html" class="nav__link">Giriş Yap</a>
                     </li>
                 </ul>
 
                 <div class="header__search">
-                    <input type="text" placeholder="Search fot items..." class="form__input" />
-
+                    <input type="text" placeholder="Ürün ara..." class="form__input" />
                     <button class="search__btn">
-                        <i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i>
-
+                        <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
-
                 </div>
-
             </div>
 
             <div class="header__user-actions">
                 <a href="whishlist.html" class="header__action-btn">
-                    <button>
-                        <i class="fa-regular fa-heart" style="color: #000000;"></i>
-                        <span class="count">3</span>
-                    </button>
-                </a>
-
-                <a href="cart.html" class="header__action-btn">
-                    <button>
-                        <i class="fa-solid fa-bag-shopping" style="color: #000000;"></i>
-                        <span class="count">3</span>
-
-                    </button>
-                </a>
-                <!-- <a href="whishlist.html" class="header__action-btn">
-                    <img src="img/heart.png" alt="">
+                    <i class="fa-regular fa-heart"></i>
                     <span class="count">3</span>
-                </a> -->
-
-                <!-- <a href="cart.html" class="header__action-btn">
-                    <img src="img/shopping.png" alt="">
-                    <span class="count">3</span> -->
+                </a>
+                <a href="cart.html" class="header__action-btn">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="count">3</span>
                 </a>
             </div>
         </nav>
     </header>
 
 
+
     <!--============main===========-->
     <main class="main">
+        <div class="container">
+            <div class="account-section">
+                <div class="account-sidebar">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <h3>Hoş Geldiniz</h3>
+                        <p>emel@ewahandmade.com</p>
+                    </div>
+                    <nav class="account-nav">
+                        <a href="#profile" class="active"><i class="fas fa-user"></i> Profil Bilgileri</a>
+                        <a href="#orders"><i class="fas fa-shopping-bag"></i> Siparişlerim</a>
+                        <a href="#favorites"><i class="fas fa-heart"></i> Favorilerim</a>
+                        <a href="#addresses"><i class="fas fa-map-marker-alt"></i> Adreslerim</a>
+                        <a href="#password"><i class="fas fa-lock"></i> Şifre Değiştir</a>
+                        <a href="#" class="logout"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</a>
+                    </nav>
+                </div>
 
+                <div class="account-content">
+                    <!-- Profil Bilgileri -->
+                    <section id="profile" class="account-tab active">
+                        <h2>Profil Bilgileri</h2>
+                        <form class="account-form">
+                            <div class="form-group">
+                                <label>Ad Soyad</label>
+                                <input type="text" value="Emel Yılmaz">
+                            </div>
+                            <div class="form-group">
+                                <label>E-posta</label>
+                                <input type="email" value="emel@ewahandmade.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Telefon</label>
+                                <input type="tel" value="0533 773 25 05">
+                            </div>
+                            <button type="submit" class="btn btn--primary">Bilgileri Güncelle</button>
+                        </form>
+                    </section>
 
+                    <!-- Siparişlerim -->
+                    <section id="orders" class="account-tab">
+                        <h2>Siparişlerim</h2>
+                        <div class="orders-list">
+                            <div class="order-item">
+                                <div class="order-header">
+                                    <span class="order-number">#12345</span>
+                                    <span class="order-date">15.03.2024</span>
+                                    <span class="order-status">Kargoda</span>
+                                </div>
+                                <div class="order-products">
+                                    <img src="img/tunik1-1.png.png" alt="Ürün">
+                                    <div class="order-details">
+                                        <h4>TUNİK YEŞİL DALLI GÜNEŞ</h4>
+                                        <p>Beden: M | Adet: 1</p>
+                                        <p class="order-price">1225 TL</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
 
+                    <!-- Favorilerim -->
+                    <section id="favorites" class="account-tab">
+                        <h2>Favorilerim</h2>
+                        <div class="favorites-grid">
+                            <div class="favorite-item" data-id="1">
+                                <div class="favorite-item__image">
+                                    <img src="img/tunik1-1.png.png" alt="Favori Ürün">
+                                    <button class="favorite-item__remove" title="Favorilerden Kaldır">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <h4>TUNİK YEŞİL DALLI GÜNEŞ</h4>
+                                <p class="price">1225 TL</p>
+                                <button class="btn btn--sm add-to-cart" data-id="1">Sepete Ekle</button>
+                            </div>
+                            <div class="favorite-item" data-id="2">
+                                <div class="favorite-item__image">
+                                    <img src="img/bolero1-1.png.png" alt="Favori Ürün">
+                                    <button class="favorite-item__remove" title="Favorilerden Kaldır">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <h4>BOLERO KAHVERENGİ</h4>
+                                <p class="price">850 TL</p>
+                                <button class="btn btn--sm add-to-cart" data-id="2">Sepete Ekle</button>
+                            </div>
+                            <div class="favorite-item" data-id="3">
+                                <div class="favorite-item__image">
+                                    <img src="img/panco1-1.png.png" alt="Favori Ürün">
+                                    <button class="favorite-item__remove" title="Favorilerden Kaldır">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <h4>PANÇO GRİ</h4>
+                                <p class="price">950 TL</p>
+                                <button class="btn btn--sm add-to-cart" data-id="3">Sepete Ekle</button>
+                            </div>
+                        </div>
+                        <div class="favorites-empty" style="display: none;">
+                            <div class="favorites-empty__content">
+                                <i class="fas fa-heart-broken"></i>
+                                <h3>Favori Ürününüz Bulunmuyor</h3>
+                                <p>Beğendiğiniz ürünleri favorilere ekleyerek daha sonra kolayca ulaşabilirsiniz.</p>
+                                <a href="shop.html" class="btn btn--primary">Alışverişe Başla</a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Adreslerim -->
+                    <section id="addresses" class="account-tab">
+                        <h2>Adreslerim</h2>
+                        <div class="addresses-list">
+                            <div class="address-item">
+                                <h4>Ev Adresi</h4>
+                                <p>Cumhuriyet Mah. 41. Sok. No:8A</p>
+                                <p>Fethiye / MUĞLA</p>
+                                <div class="address-actions">
+                                    <button class="btn btn--sm">Düzenle</button>
+                                    <button class="btn btn--sm btn--danger">Sil</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn--primary">Yeni Adres Ekle</button>
+                    </section>
+
+                    <!-- Şifre Değiştir -->
+                    <section id="password" class="account-tab">
+                        <h2>Şifre Değiştir</h2>
+                        <form class="account-form">
+                            <div class="form-group">
+                                <label>Mevcut Şifre</label>
+                                <input type="password">
+                            </div>
+                            <div class="form-group">
+                                <label>Yeni Şifre</label>
+                                <input type="password">
+                            </div>
+                            <div class="form-group">
+                                <label>Yeni Şifre (Tekrar)</label>
+                                <input type="password">
+                            </div>
+                            <button type="submit" class="btn btn--primary">Şifreyi Güncelle</button>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
     </main>
 
 
-    <section class="details section--lg">
-        <div class="details__container container grid">
-            <div class="details__group">
-                <img src="img/tunik1-1.png.png" alt="" class="details__img">
-                <div class="details__small-images grid">
-                    <img src="img/tunik1-2.png.png" alt="" class="details__small-img">
-
-
-                    <img src="img/tunik1-1.png.png" alt="" class="details__small-img">
-
-                    <img src="img/tunik1-2.png.png" alt="" class="details__small-img">
-                </div>
-            </div>
-
-            <div class="details__group">
-                <h3 class="details__title">TUNİK YEŞİL DALLI GÜNEŞ</h3>
-                <p class="details__brand">Ürün Kodu:<span>T07</span></p>
-
-                <div class="details__price flex">
-                    <span class="new__price">1225 TL</span>
-                    <span class="old__price">1250 TL</span>
-                    <span class="save__price">%25</span>
-                </div>
-
-                <p class="short__description">
-                    * %100 PAMUK
-
-                    * EL TEZGAHI DOKUMASI
-
-                    * ELDE FIRÇA İLE ÇİZİLİR VE KUMAŞ BOYASI KULLANILARAK BOYANIR.
-
-                    * BASKI DEĞİLDİR.
-
-                    * İKİNCİSİ YOKTUR, KİŞİYE ÖZELDİR..
-
-                    * HASSAS DOKUSU VE SİZE ÖZEL ELDE ÇİZİLEN DESENLERİYLE KENDİNİZ ÖZEL HİSSEDECEKSİNİZ.
-
-                    *SUYU ÇEKEN %100 PAMUK DOKUSUYLA İSTERSENİZ PLAJ KIYAFETİ OLARAK , İSTERSENİZ YAZLIK KIYAFETİNİZİ
-                    KOMBİNLEYEREK KULLANABİLİRSİNİZ.
-                </p>
-
-                <div class="details__size flex">
-                    <span class="details__size-title"></span>
-
-                    <ul class="size__list">
-                        <li>
-                            <a href="#" class="size__link">XS</a>
-                        </li>
-
-                        <li>
-                            <a href="#" class="size__link">S</a>
-                        </li>
-
-
-                        <li>
-                            <a href="#" class="size__link size-active">M</a>
-                        </li>
-
-
-                        <li>
-                            <a href="#" class="size__link">L</a>
-                        </li>
-
-                        <li>
-                            <a href="#" class="size__link">XL</a>
-                        </li>
-
-                    </ul>
-                </div>
-
-                <div class="details__action">
-                    <input type="number" class="quantity" value="3" />
-
-                    <a href="#" class="btn btn--sm">Sepete Ekle</a>
-
-                    <a href="#" class="details__action-btn">
-                        <i class="fi fi-rs-heart"></i>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </section>
 
 
 
@@ -259,7 +294,7 @@
             <div class="footer__content">
                 <h3 class="footer__title">Biz</h3>
                 <ul class="footer__links">
-                    <li>Emel’s Weaving Art olarak, % 100</li><br>
+                    <li>Emel's Weaving Art olarak, % 100</li><br>
 
                     <li>pamuk iplikleriyle dokuduğumuz</li><br>
 
@@ -271,7 +306,7 @@
             <div class="footer__content">
                 <h3 class="footer__title">Biz Ne Yapıyoruz</h3>
                 <ul class="footer__links">
-                    <li>Emel’s Weaving Art</li><br>
+                    <li>Emel's Weaving Art</li><br>
                     <li>olarak, hayalimizdeki</li><br>
                     <li>tasarımlara uygun</li><br>
                     <li>dokumalar yaparak</li><br>
@@ -307,4 +342,4 @@
     <script src="js/main.js"></script>
 </body>
 
-</html>
+</html

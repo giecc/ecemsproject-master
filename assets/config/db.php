@@ -1,7 +1,7 @@
 <?php
 class Database {
     // Bağlantı bilgileri
-    private $host = "LAPTOP-069B9L8K\SQLEXPRESS01"; // SQL Server instance
+    private $host = "LAPTOP-069B9L8K\SQLEXPRESS"; // SQL Server instance
     private $dbname = "EWAHandmade"; // Veritabanı adı
     private $username = "Bitirme_Projesi"; // SQL Server Authentication kullanıcı adı
     private $password = "12345"; // SQL Server Authentication şifresi

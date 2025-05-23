@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <title>Favorilerim - EWA</title>
+    <title>Ürün Detayı - EWA</title>
 </head>
 
 <body>
@@ -73,89 +73,75 @@
     </header>
 
     <main class="main">
-        <section class="wishlist section container">
-            <h2 class="section__title">Favori Ürünlerim</h2>
-            
-            <div class="wishlist__container grid">
-                <!-- Örnek Favori Ürün 1 -->
-                <div class="wishlist__item" data-id="1">
-                    <div class="wishlist__product">
-                        <img src="img/kıyafetler2/urun1.jpg" alt="El Dokuması Tunik" class="wishlist__img">
-                        <div class="wishlist__content">
-                            <h3 class="wishlist__title">El Dokuması Tunik</h3>
-                            <div class="wishlist__price">
-                                <span class="new__price">₺1.200</span>
-                                <span class="old__price">₺1.500</span>
-                            </div>
-                        </div>
+        <section class="details section container">
+            <div class="details__container grid">
+                <div class="details__images">
+                    <div class="details__img">
+                        <img src="img/kıyafetler2/urun1.jpg" alt="El Dokuması Tunik" class="details__main-img">
                     </div>
-                    <div class="wishlist__actions">
-                        <button class="wishlist__btn add-to-cart">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            Sepete Ekle
-                        </button>
-                        <button class="wishlist__btn remove">
-                            <i class="fa-solid fa-trash"></i>
-                            Kaldır
-                        </button>
+                    <div class="details__small-images">
+                        <img src="img/kıyafetler2/urun1.jpg" alt="El Dokuması Tunik" class="details__small-img">
+                        <img src="img/kıyafetler2/urun2.jpg" alt="El Dokuması Tunik" class="details__small-img">
+                        <img src="img/kıyafetler2/urun3.jpg" alt="El Dokuması Tunik" class="details__small-img">
+                        <img src="img/kıyafetler2/urun4.jpg" alt="El Dokuması Tunik" class="details__small-img">
                     </div>
                 </div>
 
-                <!-- Örnek Favori Ürün 2 -->
-                <div class="wishlist__item" data-id="2">
-                    <div class="wishlist__product">
-                        <img src="img/kıyafetler2/urun2.jpg" alt="Otantik Yelek" class="wishlist__img">
-                        <div class="wishlist__content">
-                            <h3 class="wishlist__title">Otantik Yelek</h3>
-                            <div class="wishlist__price">
-                                <span class="new__price">₺950</span>
-                                <span class="old__price">₺1.200</span>
-                            </div>
+                <div class="details__content">
+                    <h1 class="details__title">El Dokuması Tunik</h1>
+                    <div class="details__brand">
+                        Marka: <span>EWA Handmade</span>
+                    </div>
+                    <div class="details__price">
+                        <span class="new__price">₺1.200</span>
+                        <span class="old__price">₺1.500</span>
+                    </div>
+                    <p class="short__description">
+                        %100 pamuk ipliklerle el dokuması olarak üretilen bu tunik, doğal ve rahat bir giyim deneyimi sunar. 
+                        Geleneksel dokuma teknikleriyle modern tasarımı bir araya getiren bu ürün, her tarzla uyum sağlar.
+                    </p>
+
+                    <div class="details__size">
+                        <h3 class="details__size-title">Beden Seçiniz:</h3>
+                        <div class="size__list">
+                            <button class="size__link">S</button>
+                            <button class="size__link size-active">M</button>
+                            <button class="size__link">L</button>
+                            <button class="size__link">XL</button>
                         </div>
                     </div>
-                    <div class="wishlist__actions">
-                        <button class="wishlist__btn add-to-cart">
+
+                    <div class="details__action">
+                        <div class="quantity">
+                            <button class="quantity__btn minus">-</button>
+                            <input type="number" value="1" min="1" max="10" class="quantity__input">
+                            <button class="quantity__btn plus">+</button>
+                        </div>
+                        <button class="details__action-btn add-to-cart">
                             <i class="fa-solid fa-cart-shopping"></i>
                             Sepete Ekle
                         </button>
-                        <button class="wishlist__btn remove">
-                            <i class="fa-solid fa-trash"></i>
-                            Kaldır
+                        <button class="details__action-btn add-to-wishlist">
+                            <i class="fa-regular fa-heart"></i>
+                            Favorilere Ekle
                         </button>
                     </div>
-                </div>
 
-                <!-- Örnek Favori Ürün 3 -->
-                <div class="wishlist__item" data-id="3">
-                    <div class="wishlist__product">
-                        <img src="img/kıyafetler2/urun3.jpg" alt="El Dokuması Şal" class="wishlist__img">
-                        <div class="wishlist__content">
-                            <h3 class="wishlist__title">El Dokuması Şal</h3>
-                            <div class="wishlist__price">
-                                <span class="new__price">₺450</span>
-                                <span class="old__price">₺600</span>
-                            </div>
+                    <div class="details__meta">
+                        <div class="meta__list">
+                            <span>Stok Durumu:</span>
+                            <span class="in-stock">Stokta</span>
+                        </div>
+                        <div class="meta__list">
+                            <span>Kategori:</span>
+                            <span>Tunik</span>
+                        </div>
+                        <div class="meta__list">
+                            <span>Ürün Kodu:</span>
+                            <span>TUN-001</span>
                         </div>
                     </div>
-                    <div class="wishlist__actions">
-                        <button class="wishlist__btn add-to-cart">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            Sepete Ekle
-                        </button>
-                        <button class="wishlist__btn remove">
-                            <i class="fa-solid fa-trash"></i>
-                            Kaldır
-                        </button>
-                    </div>
                 </div>
-            </div>
-
-            <!-- Boş Favori Listesi Durumu -->
-            <div class="wishlist__empty" style="display: none;">
-                <i class="fas fa-heart wishlist__empty-icon"></i>
-                <h3 class="wishlist__empty-title">Favori Ürününüz Bulunmuyor</h3>
-                <p class="wishlist__empty-text">Favori ürünlerinizi burada görebilir ve kolayca sepete ekleyebilirsiniz.</p>
-                <a href="shop.html" class="wishlist__empty-btn">Alışverişe Başla</a>
             </div>
         </section>
     </main>
@@ -226,4 +212,4 @@
     <script src="assets/js/main.js"></script>
 </body>
 
-</html>
+</html> 

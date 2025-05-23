@@ -1,310 +1,642 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-    <link rel='stylesheet'
-        href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css'>
-
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css'>
     <link rel="stylesheet" href="css/styles.css" />
-
-    <title>Document</title>
+    <title>Ürün Detayları</title>
+    <style>
+        body {
+            background: #fafafa;
+        }
+        .product-details__container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+            max-width: 1200px;
+            margin: 2rem auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+            padding: 2.5rem 2rem;
+        }
+        .product-details__images {
+            position: sticky;
+            top: 2rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .product-details__main-image {
+            width: 100%;
+            height: 500px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+            background: #fff;
+            margin: 0 auto 1.5rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .product-details__main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #fff;
+        }
+        .product-details__gallery {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            width: 100%;
+            justify-content: center;
+        }
+        .product-details__thumb {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            background: #fff;
+        }
+        .product-details__thumb.active,
+        .product-details__thumb:hover {
+            border: 2px solid #b48c5a;
+            transform: translateY(-2px);
+        }
+        .product-details__content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+        .product-details__header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+        .product-details__title {
+            font-size: 2rem;
+            font-family: 'Montserrat', sans-serif;
+            color: #4d3c2b;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+        .product-details__code {
+            font-size: 1rem;
+            color: #7d6b5a;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+        .product-details__price-row {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #4d3c2b;
+            margin: 1rem 0;
+        }
+        .product-details__price {
+            font-size: 1.8rem;
+            color: #b48c5a;
+            font-weight: 700;
+        }
+        .product-details__order {
+            font-size: 1rem;
+            color: #7d6b5a;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .product-details__description {
+            font-size: 1.05rem;
+            color: #444;
+            line-height: 1.7;
+            font-family: 'Montserrat', sans-serif;
+            margin: 1rem 0;
+        }
+        .product-details__actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .product-details__size {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .size__label {
+            font-size: 1.1rem;
+            color: #4d3c2b;
+            font-weight: 500;
+        }
+        .size__options {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .size__option {
+            min-width: 50px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #4d3c2b;
+            transition: all 0.2s;
+            background: #fff;
+        }
+        .size__option:hover {
+            border-color: #b48c5a;
+            color: #b48c5a;
+        }
+        .size__option.active {
+            background: #b48c5a;
+            color: #fff;
+            border-color: #b48c5a;
+        }
+        .size__option.disabled {
+            background: #f5f5f5;
+            color: #ccc;
+            cursor: not-allowed;
+            border-color: #eee;
+        }
+        .product-details__quantity {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #f5f5f5;
+            padding: 0.5rem;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+        .quantity__btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #4d3c2b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .quantity__btn:hover {
+            background: #b48c5a;
+            color: #fff;
+        }
+        .quantity__input {
+            width: 50px;
+            text-align: center;
+            border: none;
+            background: transparent;
+            font-size: 1.1rem;
+            color: #4d3c2b;
+            font-weight: 500;
+        }
+        .product-details__buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+            justify-content: center;
+        }
+        .btn-primary {
+            background: #b48c5a;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(180,140,90,0.2);
+        }
+        .btn-primary:hover {
+            background: #9a7549;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #4d3c2b;
+            border: 1px solid #eee;
+        }
+        .btn-secondary:hover {
+            background: #e5e5e5;
+            transform: translateY(-2px);
+        }
+        .product-details__info {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        .info__item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem;
+            background: #f9f9f9;
+            border-radius: 8px;
+            color: #666;
+            font-size: 0.95rem;
+        }
+        .info__item i {
+            color: #b48c5a;
+            font-size: 1.2rem;
+        }
+        @media (max-width: 900px) {
+            .product-details__container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+                gap: 2rem;
+            }
+            .product-details__images {
+                position: static;
+            }
+            .product-details__main-image {
+                height: 350px;
+            }
+            .product-details__gallery {
+                gap: 0.7rem;
+            }
+            .product-details__thumb {
+                width: 60px;
+                height: 60px;
+            }
+            .product-details__buttons {
+                flex-direction: column;
+            }
+            .product-details__info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
-    <!--============header===========-->
     <header class="header">
         <div class="header__top">
             <div class="header__container container">
                 <div class="header__contact">
-                    <span>numara yaz</span>
-
-                    <span> Konumumuz </span>
+                    <span><i class="fas fa-phone"></i> 0533 773 25 05</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Fethiye / MUĞLA</span>
                 </div>
                 <p class="header__alert-news">
-                    yeni müşterilere özel %10 indirim:HOSGELDİN10
+                    Yeni müşterilere özel %10 indirim: HOSGELDİN10
                 </p>
-
-                <a href="login-register.html" class="header__top-actions">
+                <a href="login-register.html" class="header__top-action">
                     Giriş yap / Üye Ol
                 </a>
-
             </div>
         </div>
 
         <nav class="nav container">
             <a href="index.html" class="nav__logo">
-                <img src="img/logo.png" alt="" class="nav__logo-img">
+                <img src="img/logo.png" alt="EWA Logo" class="nav__logo-img">
             </a>
 
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="index.html" class="nav__link">Home</a>
+                        <a href="index.html" class="nav__link">Ana Sayfa</a>
                     </li>
-
                     <li class="nav__item">
-                        <a href="shop.html" class="nav__link">Shop</a>
-                        <div class="dropdown-menu" id="shop-dropdown">
-                            <a href="tunik.html">Tunik</a>
-                            <a href="elbise.html">Elbise</a>
-                            <a href="otontikY.html">Otonatik Uzun Yelek</a>
-                            <a href="bolero.html">Bolero</a>
-                            <a href="yorselD.html">Yöresel El Dokuması</a>
-                            <a href="panco.html">Panço</a>
-                            <a href="sal.html">Sal</a>
-                            <a href="fular.html">Fular</a>
-                            <a href="pestemal.html">Peştemal</a>
-                            <a href="diger.html">Diğer</a>
-                        </div>
-
+                        <a href="shop.html" class="nav__link">Alışveriş</a>
                     </li>
-
-
                     <li class="nav__item">
-                        <a href="accounts.html" class="nav__link"> My Account</a>
+                        <a href="accounts.html" class="nav__link">Hesabım</a>
                     </li>
-
-
                     <li class="nav__item">
-                        <a href="compare.html" class="nav__link">Compare</a>
+                        <a href="contact.html" class="nav__link">İletişim</a>
                     </li>
-
-
                     <li class="nav__item">
-                        <a href="login-register.html" class="nav__link">Login</a>
+                        <a href="login-register.html" class="nav__link">Giriş Yap</a>
                     </li>
                 </ul>
 
                 <div class="header__search">
-                    <input type="text" placeholder="Search fot items..." class="form__input" />
-
+                    <input type="text" placeholder="Ürün ara..." class="form__input" />
                     <button class="search__btn">
-                        <i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i>
-
+                        <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
-
                 </div>
-
             </div>
 
             <div class="header__user-actions">
                 <a href="whishlist.html" class="header__action-btn">
-                    <button>
-                        <i class="fa-regular fa-heart" style="color: #000000;"></i>
-                        <span class="count">3</span>
-                    </button>
+                    <i class="fa-regular fa-heart"></i>
+                    <span class="count">0</span>
                 </a>
-
                 <a href="cart.html" class="header__action-btn">
-                    <button>
-                        <i class="fa-solid fa-bag-shopping" style="color: #000000;"></i>
-                        <span class="count">3</span>
-
-                    </button>
-                </a>
-                <!-- <a href="whishlist.html" class="header__action-btn">
-                    <img src="img/heart.png" alt="">
-                    <span class="count">3</span>
-                </a> -->
-
-                <!-- <a href="cart.html" class="header__action-btn">
-                    <img src="img/shopping.png" alt="">
-                    <span class="count">3</span> -->
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="count">0</span>
                 </a>
             </div>
         </nav>
     </header>
 
-
-    <!--============main===========-->
     <main class="main">
-
-
-
+        <section class="product-details section--lg container">
+            <div class="product-details__container">
+                <div class="product-details__images">
+                    <div class="product-details__main-image">
+                        <img src="" alt="" id="product-image" class="product-details__img">
+                    </div>
+                    <div class="product-details__gallery">
+                        <img src="" alt="" id="product-image-1" class="product-details__thumb active">
+                        <img src="" alt="" id="product-image-2" class="product-details__thumb">
+                        <img src="" alt="" id="product-image-3" class="product-details__thumb">
+                    </div>
+                </div>
+                <div class="product-details__content">
+                    <div class="product-details__header">
+                        <h1 id="product-name" class="product-details__title"></h1>
+                        <span class="product-details__code">ÜRÜN KODU:<span id="product-id"></span></span>
+                    </div>
+                    <div class="product-details__price-row">
+                        <span id="product-price" class="product-details__price"></span> TL
+                        <span class="product-details__order">Sipariş için: <i class="fas fa-phone"></i> 0533 773 25 05</span>
+                    </div>
+                    <div class="product-details__description">
+                        <p id="product-description"></p>
+                    </div>
+                    <div class="product-details__actions">
+                        <div class="product-details__size">
+                            <span class="size__label">Beden Seçimi</span>
+                            <div class="size__options">
+                                <div class="size__option" data-size="XS">XS</div>
+                                <div class="size__option" data-size="S">S</div>
+                                <div class="size__option" data-size="M">M</div>
+                                <div class="size__option" data-size="L">L</div>
+                                <div class="size__option" data-size="XL">XL</div>
+                            </div>
+                        </div>
+                        <div class="product-details__quantity">
+                            <button class="quantity__btn minus">-</button>
+                            <input type="number" value="1" min="1" class="quantity__input" readonly>
+                            <button class="quantity__btn plus">+</button>
+                        </div>
+                    </div>
+                    <div class="product-details__buttons">
+                        <button class="btn btn-primary add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Sepete Ekle
+                        </button>
+                        <button class="btn btn-secondary add-to-wishlist">
+                            <i class="far fa-heart"></i>
+                            Favorilere Ekle
+                        </button>
+                    </div>
+                    <div class="product-details__info">
+                        <div class="info__item">
+                            <i class="fas fa-truck"></i>
+                            <span>Ücretsiz Kargo</span>
+                        </div>
+                        <div class="info__item">
+                            <i class="fas fa-undo"></i>
+                            <span>14 Gün İade Garantisi</span>
+                        </div>
+                        <div class="info__item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Güvenli Ödeme</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
-
-    <section class="details section--lg">
-        <div class="details__container container grid">
-            <div class="details__group">
-                <img src="img/tunik1-1.png.png" alt="" class="details__img">
-                <div class="details__small-images grid">
-                    <img src="img/tunik1-2.png.png" alt="" class="details__small-img">
-
-
-                    <img src="img/tunik1-1.png.png" alt="" class="details__small-img">
-
-                    <img src="img/tunik1-2.png.png" alt="" class="details__small-img">
-                </div>
-            </div>
-
-            <div class="details__group">
-                <h3 class="details__title">TUNİK YEŞİL DALLI GÜNEŞ</h3>
-                <p class="details__brand">Ürün Kodu:<span>T07</span></p>
-
-                <div class="details__price flex">
-                    <span class="new__price">1225 TL</span>
-                    <span class="old__price">1250 TL</span>
-                    <span class="save__price">%25</span>
-                </div>
-
-                <p class="short__description">
-                    * %100 PAMUK
-
-                    * EL TEZGAHI DOKUMASI
-
-                    * ELDE FIRÇA İLE ÇİZİLİR VE KUMAŞ BOYASI KULLANILARAK BOYANIR.
-
-                    * BASKI DEĞİLDİR.
-
-                    * İKİNCİSİ YOKTUR, KİŞİYE ÖZELDİR..
-
-                    * HASSAS DOKUSU VE SİZE ÖZEL ELDE ÇİZİLEN DESENLERİYLE KENDİNİZ ÖZEL HİSSEDECEKSİNİZ.
-
-                    *SUYU ÇEKEN %100 PAMUK DOKUSUYLA İSTERSENİZ PLAJ KIYAFETİ OLARAK , İSTERSENİZ YAZLIK KIYAFETİNİZİ
-                    KOMBİNLEYEREK KULLANABİLİRSİNİZ.
-                </p>
-
-                <div class="details__size flex">
-                    <span class="details__size-title"></span>
-
-                    <ul class="size__list">
-                        <li>
-                            <a href="#" class="size__link">XS</a>
-                        </li>
-
-                        <li>
-                            <a href="#" class="size__link">S</a>
-                        </li>
-
-
-                        <li>
-                            <a href="#" class="size__link size-active">M</a>
-                        </li>
-
-
-                        <li>
-                            <a href="#" class="size__link">L</a>
-                        </li>
-
-                        <li>
-                            <a href="#" class="size__link">XL</a>
-                        </li>
-
-                    </ul>
-                </div>
-
-                <div class="details__action">
-                    <input type="number" class="quantity" value="3" />
-
-                    <a href="#" class="btn btn--sm">Sepete Ekle</a>
-
-                    <a href="#" class="details__action-btn">
-                        <i class="fi fi-rs-heart"></i>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-
-
-
-
-    <!--========footer==========-->
-    <footer class="footer container">
-        <div class="footer__container grid">
+    <footer class="footer">
+        <div class="footer__container container grid">
             <div class="footer__content">
                 <a href="index.html" class="footer__logo">
-                    <img src="img/logo.png" alt="" class="footer__logo-img">
+                    <img src="img/logo.png" alt="EWA Logo" class="footer__logo-img">
                 </a>
                 <h4 class="footer__subtitle">İletişim</h4>
                 <p class="footer__description">
-                    <span>Adres:</span>Cumhuriyet Mah. 41. Sok. No:8A Fethiye / MUĞLA / TÜRKİYE
-                <p>
-
+                    <span>Adres:</span> Cumhuriyet Mah. 41. Sok. No:8A Fethiye / MUĞLA / TÜRKİYE
+                </p>
                 <p class="footer__description">
                     0533 773 25 05
-                <p>
-
+                </p>
                 <p class="footer__description">
                     emel@ewahandmade.com
-                <p>
-
+                </p>
                 <div class="footer__social">
-                    <h4 class="footer__subtitle"></h4>
-
                     <div class="footer__social-links flex">
-                        <a href="">
-                            <img src="img/facebook-icon.svg" alt="" class="footer__social-icon">
+                        <a href="#">
+                            <img src="img/facebook-icon.svg" alt="Facebook" class="footer__social-icon">
                         </a>
-
-                        <a href="">
-                            <img src="img/instagram-icon.svg" alt="" class="footer__social-icon">
+                        <a href="#">
+                            <img src="img/instagram-icon.svg" alt="Instagram" class="footer__social-icon">
                         </a>
                     </div>
-
                 </div>
-
             </div>
 
             <div class="footer__content">
                 <h3 class="footer__title">Biz</h3>
                 <ul class="footer__links">
-                    <li>Emel’s Weaving Art olarak, % 100</li><br>
-
-                    <li>pamuk iplikleriyle dokuduğumuz</li><br>
-
+                    <li>Emel's Weaving Art olarak, %100</li>
+                    <li>pamuk iplikleriyle dokuduğumuz</li>
                     <li>kumaşlara ruh katarız.</li>
-
                 </ul>
             </div>
 
             <div class="footer__content">
                 <h3 class="footer__title">Biz Ne Yapıyoruz</h3>
                 <ul class="footer__links">
-                    <li>Emel’s Weaving Art</li><br>
-                    <li>olarak, hayalimizdeki</li><br>
-                    <li>tasarımlara uygun</li><br>
-                    <li>dokumalar yaparak</li><br>
-                    <li>başlarız işe. Ama %</li><br>
-                    <li>100 pamuk iplikleri</li><br>
-                    <li>kullanarak.</li>
-
+                    <li>Emel's Weaving Art olarak,</li>
+                    <li>hayalimizdeki tasarımlara uygun</li>
+                    <li>dokumalar yaparak başlarız işe.</li>
+                    <li>%100 pamuk iplikleri kullanarak.</li>
                 </ul>
             </div>
 
             <div class="footer__content">
                 <h3 class="footer__title">Ürünlerimiz</h3>
                 <ul class="footer__links">
-                    <li><a href="" class="footer__link">Elbise</a></li>
-                    <li><a href="" class="footer__link">Tunik</a></li>
-                    <li><a href="" class="footer__link">Otantik Yelek</a></li>
-                    <li><a href="" class="footer__link">Bolero</a></li>
-                    <li><a href="" class="footer__link">Panço</a></li>
-                    <li><a href="" class="footer__link">Şal/Fular</a></li>
-                    <li><a href="" class="footer__link">Peştemal</a></li>
-                    <li><a href="" class="footer__link">Yöresel Dokuma</a></li>
-
+                    <li><a href="#" class="footer__link">Elbise</a></li>
+                    <li><a href="#" class="footer__link">Tunik</a></li>
+                    <li><a href="#" class="footer__link">Otantik Yelek</a></li>
+                    <li><a href="#" class="footer__link">Bolero</a></li>
+                    <li><a href="#" class="footer__link">Panço</a></li>
+                    <li><a href="#" class="footer__link">Şal/Fular</a></li>
+                    <li><a href="#" class="footer__link">Peştemal</a></li>
+                    <li><a href="#" class="footer__link">Yöresel Dokuma</a></li>
                 </ul>
             </div>
-
         </div>
     </footer>
 
-    <!--============swiper js===========-->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="js/products.js"></script>
+    <script>
+        // URL'den ürün ID'sini al
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        
+        // Ürün bilgilerini al
+        const product = products[productId];
+        
+        if (product) {
+            // Sayfa başlığını güncelle
+            document.title = product.name + ' - Ürün Detayları';
 
-    <!--============main js===========-->
-    <script src="js/main.js"></script>
+            // Ürün bilgilerini sayfaya yerleştir
+            document.getElementById('product-name').textContent = product.name;
+            document.getElementById('product-price').textContent = product.price;
+            document.getElementById('product-id').textContent = product.id;
+            document.getElementById('product-description').innerHTML = product.description;
+            
+            // Resim yükleme fonksiyonu
+            function loadImage(imgElement, src, alt) {
+                return new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        imgElement.src = src;
+                        imgElement.alt = alt;
+                        resolve();
+                    };
+                    img.onerror = () => {
+                        imgElement.src = 'img/default-product.png';
+                        imgElement.alt = 'Resim yüklenemedi';
+                        reject();
+                    };
+                    img.src = src;
+                });
+            }
+
+            // Tüm resimleri yükle
+            async function loadAllImages() {
+                try {
+                    // Ana resmi yükle
+                    const mainImage = document.getElementById('product-image');
+                    await loadImage(mainImage, product.image, product.name);
+
+                    // Küçük resimleri yükle
+                    const image1 = document.getElementById('product-image-1');
+                    const image2 = document.getElementById('product-image-2');
+                    const image3 = document.getElementById('product-image-3');
+
+                    // İlk küçük resim ana resimle aynı
+                    await loadImage(image1, product.image, product.name + ' - Görsel 1');
+
+                    // Diğer küçük resimler
+                    if (product.images && product.images.length > 0) {
+                        await loadImage(image2, product.images[0], product.name + ' - Görsel 2');
+                        await loadImage(image3, product.images[1] || product.image, product.name + ' - Görsel 3');
+                    } else {
+                        await loadImage(image2, product.image, product.name + ' - Görsel 2');
+                        await loadImage(image3, product.image, product.name + ' - Görsel 3');
+                    }
+
+                    // Küçük resimlere tıklama olayı ekle
+                    const thumbnails = document.querySelectorAll('.product-details__thumb');
+                    thumbnails.forEach(thumb => {
+                        thumb.addEventListener('click', function() {
+                            thumbnails.forEach(t => t.classList.remove('active'));
+                            this.classList.add('active');
+                            mainImage.src = this.src;
+                        });
+                    });
+
+                    // İlk küçük resmi aktif yap
+                    image1.classList.add('active');
+                } catch (error) {
+                    console.error('Resim yükleme hatası:', error);
+                }
+            }
+
+            // Resimleri yükle
+            loadAllImages();
+        } else {
+            // Ürün bulunamadıysa
+            document.title = 'Ürün Bulunamadı';
+            document.querySelector('.product-details__container').innerHTML = '<h2>Ürün bulunamadı!</h2>';
+        }
+
+        // Miktar butonları için olay dinleyicileri
+        const minusBtn = document.querySelector('.minus');
+        const plusBtn = document.querySelector('.plus');
+        const quantityInput = document.querySelector('.quantity__input');
+
+        minusBtn.addEventListener('click', () => {
+            let value = parseInt(quantityInput.value);
+            if (value > 1) {
+                quantityInput.value = value - 1;
+            }
+        });
+
+        plusBtn.addEventListener('click', () => {
+            let value = parseInt(quantityInput.value);
+            if (value < (product?.stock || 10)) {
+                quantityInput.value = value + 1;
+            }
+        });
+
+        // Beden seçimi için olay dinleyicileri
+        const sizeOptions = document.querySelectorAll('.size__option');
+        let selectedSize = null;
+
+        sizeOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                if (!this.classList.contains('disabled')) {
+                    sizeOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    selectedSize = this.dataset.size;
+                }
+            });
+        });
+
+        // Sepete ekle butonu için olay dinleyicisi
+        const addToCartBtn = document.querySelector('.add-to-cart');
+        addToCartBtn.addEventListener('click', () => {
+            if (!selectedSize) {
+                alert('Lütfen bir beden seçiniz!');
+                return;
+            }
+            const quantity = quantityInput.value;
+            alert(`${product.name} ürünü ${selectedSize} beden, ${quantity} adet sepete eklendi!`);
+        });
+
+        // Favorilere ekle butonu için olay dinleyicisi
+        const addToWishlistBtn = document.querySelector('.add-to-wishlist');
+        addToWishlistBtn.addEventListener('click', () => {
+            alert(`${product.name} ürünü favorilere eklendi!`);
+        });
+    </script>
 </body>
 
 </html>
