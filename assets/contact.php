@@ -7,15 +7,18 @@ header("Content-Type: application/json; charset=UTF-8");
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// PHPMailer sınıflarını yükle
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php';
+
 // Sadece POST isteklerine izin ver
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     http_response_code(405);
     echo json_encode(["message" => "Method not allowed"]);
     exit;
 }
-
-// Gerekli dosyaları include edin (varsa)
-// require_once 'config.php';
 
 // Form verilerini al
 $data = json_decode(file_get_contents("php://input"), true);
@@ -31,23 +34,38 @@ if (
     exit;
 }
 
-// E-posta gönderimi
-$to = "ecemdiler@gmail.com";
-$subject = "İletişim Formu: " . $data['name'];
-$message = "
-    Ad: {$data['name']}
-    E-posta: {$data['email']}
-    Mesaj: {$data['message']}
-";
-$headers = "From: webmaster@ewahandmade.com\r\n";
-$headers .= "Reply-To: {$data['email']}\r\n";
+try {
+    $mail = new PHPMailer(true);
 
-// E-posta gönder
-if (mail($to, $subject, $message, $headers)) {
+    // SMTP ayarları
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com'; // Gmail SMTP sunucusu
+    $mail->SMTPAuth = true;
+    $mail->Username = 'your-email@gmail.com'; // Gmail adresiniz
+    $mail->Password = 'your-app-password'; // Gmail uygulama şifreniz
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port = 587;
+    $mail->CharSet = 'UTF-8';
+
+    // Gönderici ve alıcı
+    $mail->setFrom('your-email@gmail.com', 'Website Contact Form');
+    $mail->addAddress('ecemdiler@gmail.com', 'Ecem Diler');
+
+    // İçerik
+    $mail->isHTML(true);
+    $mail->Subject = "İletişim Formu: " . $data['name'];
+    $mail->Body = "
+        <h3>Yeni İletişim Formu Mesajı</h3>
+        <p><strong>Ad:</strong> {$data['name']}</p>
+        <p><strong>E-posta:</strong> {$data['email']}</p>
+        <p><strong>Mesaj:</strong><br>{$data['message']}</p>
+    ";
+
+    $mail->send();
     http_response_code(200);
-    echo json_encode(["message" => "Mesajınız gönderildi"]);
-} else {
+    echo json_encode(["message" => "Mesajınız başarıyla gönderildi"]);
+} catch (Exception $e) {
     http_response_code(500);
-    echo json_encode(["message" => "Gönderim hatası"]);
+    echo json_encode(["message" => "Gönderim hatası: " . $mail->ErrorInfo]);
 }
 ?>

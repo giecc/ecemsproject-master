@@ -18,6 +18,74 @@
 
     <title>ECOMMERCE WEBSİTE</title>
 
+    <style>
+        .product__item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .product__bunner {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+        }
+
+        .product__images {
+            display: block;
+            position: relative;
+            width: 100%;
+            height: 300px;
+        }
+
+        .product__img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product__img.hover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        .product__bunner:hover .product__img.hover {
+            opacity: 1;
+        }
+
+        .product__bunner:hover .product__img.default {
+            opacity: 0;
+        }
+
+        .products__container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        @media screen and (max-width: 768px) {
+            .products__container {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .product__images {
+                height: 250px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .products__container {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .product__images {
+                height: 200px;
+            }
+        }
+    </style>
+
 </head>
 
 <body>
@@ -27,102 +95,75 @@
         <div class="header__top">
             <div class="header__container container">
                 <div class="header__contact">
-                    <span>numara yaz</span>
-
-                    <span> Konumumuz </span>
+                    <span><i class="fas fa-phone"></i> 0533 773 25 05</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Fethiye / MUĞLA</span>
                 </div>
                 <p class="header__alert-news">
-                    yeni müşterilere özel %10 indirim:HOSGELDİN10
+                    Yeni müşterilere özel %10 indirim: HOSGELDİN10
                 </p>
-
-                <a href="login-register.html" class="header__top-actions">
+                <a href="login-register.html" class="header__top-action">
                     Giriş yap / Üye Ol
                 </a>
-
             </div>
         </div>
 
         <nav class="nav container">
             <a href="index.html" class="nav__logo">
-                <img src="img/logo.png" alt="" class="nav__logo-img">
+                <img src="img/logo.png" alt="EWA Logo" class="nav__logo-img">
             </a>
 
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="index.html" class="nav__link">Home</a>
+                        <a href="index.html" class="nav__link active-link">Ana Sayfa</a>
                     </li>
-
                     <li class="nav__item">
-                        <a href="shop.html" class="nav__link active-link">Shop</a>
+                        <a href="shop.html" class="nav__link">Mağaza</a>
                         <div class="dropdown-menu" id="shop-dropdown">
                             <a href="tunik.html">Tunik</a>
                             <a href="elbise.html">Elbise</a>
-                            <a href="otontikY.html">Otonatik Uzun Yelek</a>
+                            <a href="otontikY.html">Otantik Uzun Yelek</a>
                             <a href="bolero.html">Bolero</a>
                             <a href="yorselD.html">Yöresel El Dokuması</a>
                             <a href="panco.html">Panço</a>
-                            <a href="sal.html">Sal</a>
+                            <a href="sal.html">Şal</a>
                             <a href="fular.html">Fular</a>
                             <a href="pestemal.html">Peştemal</a>
                             <a href="diger.html">Diğer</a>
                         </div>
-
                     </li>
-
-
                     <li class="nav__item">
-                        <a href="accounts.html" class="nav__link"> My Account</a>
+                        <a href="accounts.html" class="nav__link">Hesabım</a>
                     </li>
-
-
                     <li class="nav__item">
-                        <a href="compare.html" class="nav__link">Compare</a>
+                        <a href="iletisim.html" class="nav__link">İletişim</a>
                     </li>
-
-
-                    <li class="nav__item" style="margin-right: 20px;">
-                        <a href="login-register.html" class="nav__link">Login</a>
+                    <li class="nav__item">
+                        <a href="login-register.html" class="nav__link">Giriş Yap</a>
                     </li>
                 </ul>
 
                 <div class="header__search">
-                    <input type="text" placeholder="Search for items..." class="form__input" />
+                    <input type="text" placeholder="Ürün ara..." class="form__input" />
                     <button class="search__btn">
-                        <i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i>
+                        <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
                 </div>
-
-
             </div>
 
             <div class="header__user-actions">
                 <a href="whishlist.html" class="header__action-btn">
-                    <button>
-                        <i class="fa-regular fa-heart" style="color: #000000;"></i>
-                        <span class="count">3</span>
-                    </button>
-                </a>
-
-                <a href="cart.html" class="header__action-btn">
-                    <button>
-                        <i class="fa-solid fa-bag-shopping" style="color: #000000;"></i>
-                        <span class="count">3</span>
-
-                    </button>
-                </a>
-                <!-- <a href="whishlist.html" class="header__action-btn">
-                    <img src="img/heart.png" alt="">
+                    <i class="fa-regular fa-heart"></i>
                     <span class="count">3</span>
-                </a> -->
-
-                <!-- <a href="cart.html" class="header__action-btn">
-                    <img src="img/shopping.png" alt="">
-                    <span class="count">3</span> -->
+                </a>
+                <a href="cart.html" class="header__action-btn">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="count">3</span>
                 </a>
             </div>
         </nav>
     </header>
+
 
     <!--=================MAIN=============-->
 

@@ -330,16 +330,28 @@
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="index.html" class="nav__link">Ana Sayfa</a>
+                        <a href="index.html" class="nav__link active-link">Ana Sayfa</a>
                     </li>
                     <li class="nav__item">
-                        <a href="shop.html" class="nav__link">Alışveriş</a>
+                        <a href="shop.html" class="nav__link">Mağaza</a>
+                        <div class="dropdown-menu" id="shop-dropdown">
+                            <a href="tunik.html">Tunik</a>
+                            <a href="elbise.html">Elbise</a>
+                            <a href="otontikY.html">Otantik Uzun Yelek</a>
+                            <a href="bolero.html">Bolero</a>
+                            <a href="yorselD.html">Yöresel El Dokuması</a>
+                            <a href="panco.html">Panço</a>
+                            <a href="sal.html">Şal</a>
+                            <a href="fular.html">Fular</a>
+                            <a href="pestemal.html">Peştemal</a>
+                            <a href="diger.html">Diğer</a>
+                        </div>
                     </li>
                     <li class="nav__item">
                         <a href="accounts.html" class="nav__link">Hesabım</a>
                     </li>
                     <li class="nav__item">
-                        <a href="contact.html" class="nav__link">İletişim</a>
+                        <a href="iletisim.html" class="nav__link">İletişim</a>
                     </li>
                     <li class="nav__item">
                         <a href="login-register.html" class="nav__link">Giriş Yap</a>
@@ -357,11 +369,11 @@
             <div class="header__user-actions">
                 <a href="whishlist.html" class="header__action-btn">
                     <i class="fa-regular fa-heart"></i>
-                    <span class="count">0</span>
+                    <span class="count">3</span>
                 </a>
                 <a href="cart.html" class="header__action-btn">
                     <i class="fa-solid fa-bag-shopping"></i>
-                    <span class="count">0</span>
+                    <span class="count">3</span>
                 </a>
             </div>
         </nav>
@@ -377,7 +389,6 @@
                     <div class="product-details__gallery">
                         <img src="" alt="" id="product-image-1" class="product-details__thumb active">
                         <img src="" alt="" id="product-image-2" class="product-details__thumb">
-                        <img src="" alt="" id="product-image-3" class="product-details__thumb">
                     </div>
                 </div>
                 <div class="product-details__content">
@@ -548,18 +559,15 @@
                     // Küçük resimleri yükle
                     const image1 = document.getElementById('product-image-1');
                     const image2 = document.getElementById('product-image-2');
-                    const image3 = document.getElementById('product-image-3');
 
                     // İlk küçük resim ana resimle aynı
                     await loadImage(image1, product.image, product.name + ' - Görsel 1');
 
-                    // Diğer küçük resimler
+                    // Diğer küçük resim
                     if (product.images && product.images.length > 0) {
                         await loadImage(image2, product.images[0], product.name + ' - Görsel 2');
-                        await loadImage(image3, product.images[1] || product.image, product.name + ' - Görsel 3');
                     } else {
                         await loadImage(image2, product.image, product.name + ' - Görsel 2');
-                        await loadImage(image3, product.image, product.name + ' - Görsel 3');
                     }
 
                     // Küçük resimlere tıklama olayı ekle

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <link rel='stylesheet'
         href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css'>
 
@@ -31,100 +31,70 @@
         <div class="header__top">
             <div class="header__container container">
                 <div class="header__contact">
-                    <span>numara yaz</span>
-
-                    <span> Konumumuz </span>
+                    <span><i class="fas fa-phone"></i> 0533 773 25 05</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Fethiye / MUĞLA</span>
                 </div>
                 <p class="header__alert-news">
-                    yeni müşterilere özel %10 indirim:HOSGELDİN10
+                    Yeni müşterilere özel %10 indirim: HOSGELDİN10
                 </p>
-
-                <a href="login-register.html" class="header__top-actions">
+                <a href="login-register.html" class="header__top-action">
                     Giriş yap / Üye Ol
                 </a>
-
             </div>
         </div>
 
         <nav class="nav container">
             <a href="index.html" class="nav__logo">
-                <img src="img/logo.png" alt="" class="nav__logo-img">
+                <img src="img/logo.png" alt="EWA Logo" class="nav__logo-img">
             </a>
 
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="index.html" class="nav__link">Home</a>
+                        <a href="index.html" class="nav__link active-link">Ana Sayfa</a>
                     </li>
-
                     <li class="nav__item">
-                        <a href="shop.html" class="nav__link">Shop</a>
+                        <a href="shop.html" class="nav__link">Mağaza</a>
                         <div class="dropdown-menu" id="shop-dropdown">
                             <a href="tunik.html">Tunik</a>
                             <a href="elbise.html">Elbise</a>
-                            <a href="otontikY.html">Otonatik Uzun Yelek</a>
+                            <a href="otontikY.html">Otantik Uzun Yelek</a>
                             <a href="bolero.html">Bolero</a>
                             <a href="yorselD.html">Yöresel El Dokuması</a>
                             <a href="panco.html">Panço</a>
-                            <a href="sal.html">Sal</a>
+                            <a href="sal.html">Şal</a>
                             <a href="fular.html">Fular</a>
                             <a href="pestemal.html">Peştemal</a>
                             <a href="diger.html">Diğer</a>
                         </div>
-
                     </li>
-
-
                     <li class="nav__item">
-                        <a href="accounts.html" class="nav__link"> My Account</a>
+                        <a href="accounts.html" class="nav__link">Hesabım</a>
                     </li>
-
-
                     <li class="nav__item">
-                        <a href="compare.html" class="nav__link">Compare</a>
+                        <a href="iletisim.html" class="nav__link">İletişim</a>
                     </li>
-
-
                     <li class="nav__item">
-                        <a href="login-register.html" class="nav__link">Login</a>
+                        <a href="login-register.html" class="nav__link">Giriş Yap</a>
                     </li>
                 </ul>
 
                 <div class="header__search">
-                    <input type="text" placeholder="Search fot items..." class="form__input" />
-
+                    <input type="text" placeholder="Ürün ara..." class="form__input" />
                     <button class="search__btn">
-                        <i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i>
-
+                        <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
-
                 </div>
-
             </div>
 
             <div class="header__user-actions">
                 <a href="whishlist.html" class="header__action-btn">
-                    <button>
-                        <i class="fa-regular fa-heart" style="color: #000000;"></i>
-                        <span class="count">3</span>
-                    </button>
-                </a>
-
-                <a href="cart.html" class="header__action-btn">
-                    <button>
-                        <i class="fa-solid fa-bag-shopping" style="color: #000000;"></i>
-                        <span class="count">3</span>
-
-                    </button>
-                </a>
-                <!-- <a href="whishlist.html" class="header__action-btn">
-                    <img src="img/heart.png" alt="">
+                    <i class="fa-regular fa-heart"></i>
                     <span class="count">3</span>
-                </a> -->
-
-                <!-- <a href="cart.html" class="header__action-btn">
-                    <img src="img/shopping.png" alt="">
-                    <span class="count">3</span> -->
+                </a>
+                <a href="cart.html" class="header__action-btn">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="count">3</span>
                 </a>
             </div>
         </nav>
@@ -149,21 +119,21 @@
                         </tr>
                     </thead>
                     <tbody id="cart-items">
-                        <?php include 'cart.php'; sepetiGoster(); ?>
+                        <!-- Cart items will be dynamically added here -->
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan="4" class="text-right">Genel Toplam:</td>
-                            <td id="toplam">0.00 TL</td>
+                            <td id="cart-total">0.00 TL</td>
                             <td></td>
                         </tr>
                     </tfoot>
                 </table>
 
                 <div class="cart-actions">
-                    <button class="btn continue-shopping">Alışverişe Devam Et</button>
-                    <button class="btn checkout">Ödemeye Geç</button>
-                    <a href="?temizle=1" class="btn empty-cart">Sepeti Temizle</a>
+                    <button class="btn continue-shopping" onclick="window.location.href='shop.html'">Alışverişe Devam Et</button>
+                    <button class="btn checkout" onclick="checkout()">Ödemeye Geç</button>
+                    <button class="btn empty-cart" onclick="clearCart()">Sepeti Temizle</button>
                 </div>
             </div>
         </section>
@@ -216,7 +186,7 @@
             <div class="footer__content">
                 <h3 class="footer__title">Biz</h3>
                 <ul class="footer__links">
-                    <li>Emel’s Weaving Art olarak, % 100</li><br>
+                    <li>Emel's Weaving Art olarak, % 100</li><br>
 
                     <li>pamuk iplikleriyle dokuduğumuz</li><br>
 
@@ -228,7 +198,7 @@
             <div class="footer__content">
                 <h3 class="footer__title">Biz Ne Yapıyoruz</h3>
                 <ul class="footer__links">
-                    <li>Emel’s Weaving Art</li><br>
+                    <li>Emel's Weaving Art</li><br>
                     <li>olarak, hayalimizdeki</li><br>
                     <li>tasarımlara uygun</li><br>
                     <li>dokumalar yaparak</li><br>
@@ -263,7 +233,104 @@
     <!--============main js===========-->
     <script src="js/main.js"></script>
 
+    <script>
+        // Sepeti yükle
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCartFromLocalStorage();
+            updateCartDisplay();
+        });
 
+        // Sepeti temizle
+        function clearCart() {
+            if (confirm('Sepeti temizlemek istediğinize emin misiniz?')) {
+                cart = [];
+                localStorage.removeItem('cart');
+                updateCartDisplay();
+                showNotification('Sepet temizlendi!');
+            }
+        }
+
+        // Ödemeye geç
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Sepetiniz boş!');
+                return;
+            }
+            // Burada ödeme sayfasına yönlendirme yapılabilir
+            alert('Ödeme sayfasına yönlendiriliyorsunuz...');
+        }
+
+        // Bildirim göster
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 2000);
+        }
+    </script>
+
+    <style>
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 4px;
+            z-index: 1000;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .cart-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .continue-shopping {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .checkout {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .empty-cart {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+    </style>
 
     <!-- Ürün kartlarında sepete ekleme butonunu güncelleyin -->
     <a href="#" class="action__btn cart__btn" aria-label="Add To Cart" data-id="<?= $urun['id'] ?>">

@@ -20,6 +20,181 @@
 
     <title>ECOMMERCE WEBSİTE</title>
 
+    <style>
+        .product__item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .product__bunner {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+        }
+
+        .product__images {
+            display: block;
+            position: relative;
+            width: 100%;
+            height: 300px;
+        }
+
+        .product__img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product__img.hover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        .product__bunner:hover .product__img.hover {
+            opacity: 1;
+        }
+
+        .product__bunner:hover .product__img.default {
+            opacity: 0;
+        }
+
+        .products__container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        @media screen and (max-width: 768px) {
+            .products__container {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .product__images {
+                height: 250px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .products__container {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .product__images {
+                height: 200px;
+            }
+        }
+
+        /* Kategori stilleri */
+        .categories {
+            padding: 40px 0;
+        }
+        
+        .section__title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .category__item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+            padding: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .category__item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category__img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .category__item:hover .category__img {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .category__title {
+            font-size: 16px;
+            font-weight: 500;
+            text-align: center;
+            margin-top: 10px;
+            color: #333;
+            line-height: 1.4;
+            padding: 0 10px;
+        }
+        
+        /* Swiper oklarını özelleştirme */
+        .swiper-button-next,
+        .swiper-button-prev {
+            background: rgba(255,255,255,0.8);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: #333;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* Swiper container düzenlemeleri */
+        .categories__container {
+            padding: 20px 0;
+        }
+
+        .swiper-wrapper {
+            align-items: center;
+        }
+
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+        }
+
+        /* Responsive düzenlemeler */
+        @media screen and (max-width: 768px) {
+            .category__img {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .category__title {
+                font-size: 14px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .category__img {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .category__title {
+                font-size: 13px;
+            }
+        }
+    </style>
+
 </head>
 
 <body>
@@ -52,7 +227,7 @@
                         <a href="index.html" class="nav__link active-link">Ana Sayfa</a>
                     </li>
                     <li class="nav__item">
-                        <a href="shop.html" class="nav__link">Alışveriş</a>
+                        <a href="shop.html" class="nav__link">Mağaza</a>
                         <div class="dropdown-menu" id="shop-dropdown">
                             <a href="tunik.html">Tunik</a>
                             <a href="elbise.html">Elbise</a>
@@ -70,7 +245,7 @@
                         <a href="accounts.html" class="nav__link">Hesabım</a>
                     </li>
                     <li class="nav__item">
-                        <a href="contact.html" class="nav__link">İletişim</a>
+                        <a href="iletisim.html" class="nav__link">İletişim</a>
                     </li>
                     <li class="nav__item">
                         <a href="login-register.html" class="nav__link">Giriş Yap</a>
@@ -99,9 +274,13 @@
     </header>
 
 
+
     <!--=================MAIN=============-->
 
     <main class="main">
+
+        <!--========CATEGORIES==========-->
+     
 
         <!--========PRODUCT==========-->
         <section class="products section--lg container">
@@ -216,6 +395,32 @@
     <script src="js/main.js"></script>
     <script src="js/products.js"></script>
     <script>
+        // Swiper'ı başlatma
+        document.addEventListener('DOMContentLoaded', function() {
+            var swiper = new Swiper('.swiper', {
+                slidesPerView: 4,
+                spaceBetween: 20,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1
+                    },
+                    768: {
+                        slidesPerView: 2
+                    },
+                    1024: {
+                        slidesPerView: 3
+                    },
+                    1200: {
+                        slidesPerView: 4
+                    }
+                }
+            });
+        });
+
         // Ürünleri dinamik olarak yükle
         function loadProducts() {
             const productsContainer = document.querySelector('.products__container');
@@ -223,12 +428,34 @@
 
             // Her ürün için HTML oluştur
             Object.values(products).forEach(product => {
+                // Resim yolunu düzelt
+                let imagePath = product.image;
+                if (!imagePath.startsWith('img/')) {
+                    imagePath = 'img/' + imagePath;
+                }
+
+                // Hover resmi için
+                let hoverImagePath = '';
+                if (Array.isArray(product.images) && product.images.length > 0) {
+                    hoverImagePath = product.images[0];
+                } else if (typeof product.images === 'string') {
+                    hoverImagePath = product.images;
+                } else {
+                    // Eğer hover resmi yoksa, ana resmi kullan
+                    hoverImagePath = imagePath;
+                }
+
+                // Hover resim yolunu düzelt
+                if (!hoverImagePath.startsWith('img/')) {
+                    hoverImagePath = 'img/' + hoverImagePath;
+                }
+
                 const productHTML = `
                     <div class="product__item" data-id="${product.id}">
                         <div class="product__bunner">
                             <a href="details.html?id=${product.id}" class="product__images">
-                                <img src="img/${product.image}" alt="" class="product__img default">
-                                <img src="img/${product.image.replace('-1', '-2')}" alt="" class="product__img hover">
+                                <img src="${imagePath}" alt="${product.name}" class="product__img default">
+                                <img src="${hoverImagePath}" alt="${product.name}" class="product__img hover">
                             </a>
 
                             <div class="product__actions">
@@ -238,32 +465,17 @@
                                 <button class="action__btn view-product" data-id="${product.id}">
                                     <i class="fa-solid fa-eye"></i>
                                 </button>
-                                <button class="action__btn">
-                                    <i class="fa-solid fa-cart-shopping"></i>
-                                </button>
                             </div>
                         </div>
                         <div class="product__content">
-                            <span class="product__category">${product.category}</span>
-                            <a href="details.html?id=${product.id}">
-                                <h3 class="product__title">${product.name}</h3>
-                            </a>
-
-                            <div class="product__rating">
-                                <i class="fi fi-rs-star"></i>
-                                <i class="fi fi-rs-star"></i>
-                                <i class="fi fi-rs-star"></i>
-                                <i class="fi fi-rs-star"></i>
-                                <i class="fi fi-rs-star"></i>
+                            <h3 class="product__title">${product.name}</h3>
+                            <div class="product__price">
+                                <span class="new__price">₺${product.price}</span>
                             </div>
-
-                            <div class="product__price filex">
-                                <span class="new__price">${product.price} TL</span>
-                            </div>
-
-                            <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
-                                <i class="fi fi-rs-shopping-bag-add"></i>
-                            </a>
+                            <button class="cart__btn add-to-cart" data-id="${product.id}">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                Sepete Ekle
+                            </button>
                         </div>
                     </div>
                 `;
