@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- jQuery'yi en başa ekleyelim -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <link rel='stylesheet'
         href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css'>
@@ -15,13 +18,7 @@
 
     <link rel="stylesheet" href="css/styles.css" />
 
-
-    <!-- Mevcut cart.html dosyanıza bu scriptleri ekleyin -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/cart.js"></script>
-
-
-    <title>Document</title>
+    <title>Sepetim</title>
 </head>
 
 <body>
@@ -119,7 +116,7 @@
                         </tr>
                     </thead>
                     <tbody id="cart-items">
-                        <!-- Cart items will be dynamically added here -->
+                        <!-- Sepet öğeleri buraya dinamik olarak eklenecek -->
                     </tbody>
                     <tfoot>
                         <tr>
@@ -234,25 +231,92 @@
     <script src="js/main.js"></script>
 
     <script>
-        // Sepeti yükle
-        document.addEventListener('DOMContentLoaded', function() {
-            loadCartFromLocalStorage();
-            updateCartDisplay();
+        $(document).ready(function() {
+            // Sepet verilerini yükle
+            loadCart();
+
+            // Miktar değişikliği dinleyicisi
+            $(document).on('change', '.miktar-input', function() {
+                const productId = $(this).data('id');
+                const newQuantity = $(this).val();
+                updateCartItem(productId, newQuantity);
+            });
         });
 
-        // Sepeti temizle
+        function loadCart() {
+            $.get('cart.php?get_cart=1', function(cartItems) {
+                if (typeof cartItems === 'string') {
+                    cartItems = JSON.parse(cartItems);
+                }
+                const $cartTableBody = $('#cart-items');
+                let total = 0;
+
+                if (Object.keys(cartItems).length === 0) {
+                    $cartTableBody.html('<tr><td colspan="6">Sepetiniz boş</td></tr>');
+                    $('#cart-total').text('0.00 TL');
+                    return;
+                }
+
+                $cartTableBody.empty();
+                for (let item in cartItems) {
+                    const product = cartItems[item];
+                    const itemTotal = product.fiyat * product.miktar;
+                    total += itemTotal;
+
+                    $cartTableBody.append(`
+                        <tr>
+                            <td><img src="${product.resim}" width="50"></td>
+                            <td>${product.ad}</td>
+                            <td>${product.fiyat.toFixed(2)} TL</td>
+                            <td>
+                                <input type="number" value="${product.miktar}" min="1" 
+                                       class="miktar-input" data-id="${product.id}">
+                            </td>
+                            <td>${itemTotal.toFixed(2)} TL</td>
+                            <td><a href="cart.php?sil=${product.id}" class="sil-btn">Sil</a></td>
+                        </tr>
+                    `);
+                }
+
+                $('#cart-total').text(total.toFixed(2) + ' TL');
+
+                // Miktar inputu değişince AJAX ile güncelle
+                $('.miktar-input').off('change').on('change', function() {
+                    const productId = $(this).data('id');
+                    const newQuantity = $(this).val();
+                    $.post('cart.php', {
+                        urun_id: productId,
+                        miktar: newQuantity
+                    }, function() {
+                        loadCart();
+                    });
+                });
+            });
+        }
+
+        function updateCartItem(productId, quantity) {
+            // Miktar güncelleme için yeni bir endpoint yoksa, mevcut yapıda sadece sayfayı yenileyebiliriz
+            // Gelişmiş bir yapı için cart.php'de miktar güncelleme kodu eklenmeli
+            // Şimdilik sadece sayfayı yenileyelim
+            $.post('cart.php', {
+                urun_id: productId,
+                miktar: quantity
+            }, function() {
+                loadCart();
+            });
+        }
+
         function clearCart() {
             if (confirm('Sepeti temizlemek istediğinize emin misiniz?')) {
-                cart = [];
-                localStorage.removeItem('cart');
-                updateCartDisplay();
-                showNotification('Sepet temizlendi!');
+                $.get('cart.php?temizle=1', function() {
+                    loadCart();
+                    showNotification('Sepet temizlendi!');
+                });
             }
         }
 
-        // Ödemeye geç
         function checkout() {
-            if (cart.length === 0) {
+            if ($('#cart-items tr').length === 0) {
                 alert('Sepetiniz boş!');
                 return;
             }
@@ -260,15 +324,14 @@
             alert('Ödeme sayfasına yönlendiriliyorsunuz...');
         }
 
-        // Bildirim göster
         function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.textContent = message;
-            document.body.appendChild(notification);
+            const $notification = $('<div>')
+                .addClass('notification')
+                .text(message)
+                .appendTo('body');
 
             setTimeout(() => {
-                notification.remove();
+                $notification.remove();
             }, 2000);
         }
     </script>

@@ -6,27 +6,42 @@ if (!isset($_SESSION['sepet'])) {
     $_SESSION['sepet'] = [];
 }
 
+// AJAX isteği mi kontrolü
+$isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+
 // Ürün ekleme
 if (isset($_POST['urun_id'])) {
     $urun_id = $_POST['urun_id'];
+    $urun_ad = isset($_POST['ad']) ? $_POST['ad'] : 'Ürün ' . $urun_id;
+    $urun_fiyat = isset($_POST['fiyat']) ? floatval($_POST['fiyat']) : rand(50, 500);
+    $urun_resim = isset($_POST['resim']) ? $_POST['resim'] : '';
     
     // Ürün sepette var mı kontrol et
     if (isset($_SESSION['sepet'][$urun_id])) {
         $_SESSION['sepet'][$urun_id]['miktar'] += 1;
     } else {
-        // Veritabanından ürün bilgilerini çek (örnek olarak sabit değerler kullanıyorum)
+        // Butondan gelen bilgileri kullan
         $urun = [
             'id' => $urun_id,
-            'ad' => 'Ürün ' . $urun_id,
-            'fiyat' => rand(50, 500),
+            'ad' => $urun_ad,
+            'fiyat' => $urun_fiyat,
             'miktar' => 1,
-            'resim' => 'img/product' . $urun_id . '.jpg'
+            'resim' => $urun_resim
         ];
         $_SESSION['sepet'][$urun_id] = $urun;
     }
     
-    echo json_encode(['success' => true, 'sepet_count' => count($_SESSION['sepet'])]);
-    exit;
+    if ($isAjax) {
+        echo json_encode([
+            'success' => true,
+            'cart_count' => count($_SESSION['sepet'])
+        ]);
+        exit;
+    } else {
+        // JSON yanıtı yerine cart.html'e yönlendir
+        header('Location: cart.html');
+        exit;
+    }
 }
 
 // Sepetten ürün silme
@@ -50,6 +65,29 @@ if (isset($_GET['temizle'])) {
     $_SESSION['sepet'] = [];
     header('Location: cart.html');
     exit;
+}
+
+// Ürün miktarını güncelleme
+if (isset($_POST['urun_id']) && isset($_POST['miktar'])) {
+    $urun_id = $_POST['urun_id'];
+    $miktar = intval($_POST['miktar']);
+    if (isset($_SESSION['sepet'][$urun_id])) {
+        if ($miktar > 0) {
+            $_SESSION['sepet'][$urun_id]['miktar'] = $miktar;
+        } else {
+            unset($_SESSION['sepet'][$urun_id]);
+        }
+    }
+    if ($isAjax) {
+        echo json_encode([
+            'success' => true,
+            'cart_count' => count($_SESSION['sepet'])
+        ]);
+        exit;
+    } else {
+        header('Location: cart.html');
+        exit;
+    }
 }
 
 // Sepet içeriğini gösterme fonksiyonu

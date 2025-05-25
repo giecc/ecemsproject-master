@@ -1,3 +1,23 @@
+// jQuery'yi dinamik olarak yükle
+(function loadjQuery() {
+    if (typeof jQuery === 'undefined') {
+        var script = document.createElement('script');
+        script.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
+        script.type = 'text/javascript';
+        script.onload = function() {
+            console.log('jQuery başarıyla yüklendi.');
+            // jQuery yüklendikten sonra kodları çalıştır
+            initializeApp();
+        };
+        document.head.appendChild(script);
+    } else {
+        console.log('jQuery zaten yüklü.');
+        initializeApp();
+    }
+})();
+
+// Ana uygulama kodları
+function initializeApp() {
 /*=============Reusable css classes=========*/
 
 /*=============image galery=========*/
@@ -6,31 +26,17 @@ function imgGallery() {
   const mainImg = document.querySelector('.details__img'),
     smallImg = document.querySelectorAll('.details__small-img');
 
-
   smallImg.forEach((img) => {
     img.addEventListener('click', function () {
       mainImg.src = this.src;
     })
   })
-
 }
 
 imgGallery();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
+    /*=============SWIPER=========*/
+    $(document).ready(function() {
   var swiper = new Swiper('.categories__container', {
     slidesPerView: 'auto',
     spaceBetween: 20,
@@ -46,68 +52,40 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-
-
-
-
-
-/*=============SWIPER PRODUCTS=========*/
-
-
-
 /*=============PRODUCTS TABS=========*/
-const tabs = document.querySelectorAll('[data-target]'),
-  tabContents = document.querySelectorAll('[data-content]');
-
-
-tabs.forEach((tab) => {
-  tab.addEventListener('click', () => {
-    const target = document.querySelector(tab.dataset.target);
-    console.log(target);
-
-    tabContents.forEach((tabContent) => {
-      tabContent.classList.remove('active-tab');
+    $(document).ready(function() {
+        $('[data-target]').on('click', function() {
+            const target = $($(this).data('target'));
+            
+            $('[data-content]').removeClass('active-tab');
+            target.addClass('active-tab');
+            
+            $('[data-target]').removeClass('active-tab');
+            $(this).addClass('active-tab');
+        });
     });
 
+    /*=============SHOP MENU=========*/
+    $(document).ready(function() {
+        const $shopMenu = $('.shop-menu');
+        const $dropdown = $('.shop-dropdown');
 
-    target.classList.add('active-tab');
-
-
-    tabs.forEach((tab) => {
-      tab.classList.remove('active-tab');
-    });
-
-    tab.classList.add('active-tab');
-
+        $shopMenu.on('mouseenter', function() {
+            $dropdown.css({
+                'display': 'block',
+                'opacity': '1',
+                'visibility': 'visible'
   });
 });
 
-
-
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-  const shopMenu = document.querySelector('shop-menu');
-  const dropdown = document.querySelector('shop-dropdown');
-
-  shopMenu.addEventListener('mouseenter', function () {
-    dropdown.style.display = 'block';
-    dropdown.style.opacity = '1';
-    dropdown.style.visibility = 'visible';
-  });
-
-  shopMenu.addEventListener('mouseleave', function () {
-    dropdown.style.display = 'none';
-    dropdown.style.opacity = '0';
-    dropdown.style.visibility = 'hidden';
+        $shopMenu.on('mouseleave', function() {
+            $dropdown.css({
+                'display': 'none',
+                'opacity': '0',
+                'visibility': 'hidden'
+            });
   });
 });
-
-
-
 
 /*=============cart.html=========*/
 
@@ -141,25 +119,28 @@ function addToCart(product) {
 
 // Sepeti güncelleme fonksiyonu
 function updateCartDisplay() {
-    const cartItemsContainer = document.getElementById('cart-items');
-    const cartTotalElement = document.getElementById('cart-total');
-    const cartCounters = document.querySelectorAll('.header__action-btn .count');
+        const $cartItemsContainer = $('#cart-items');
+        const $cartTotalElement = $('#cart-total');
+        const $cartCounters = $('.header__action-btn .count');
 
     // Sepet boşsa
-    if (!cartItemsContainer) return; // Eğer cart-items elementi yoksa fonksiyondan çık
+        if ($cartItemsContainer.length === 0) return;
 
     if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<tr><td colspan="6" class="text-center">Sepetiniz boş</td></tr>';
-        if (cartTotalElement) cartTotalElement.textContent = '0.00 TL';
-        cartCounters.forEach(counter => counter.textContent = '0');
+            $cartItemsContainer.html('<tr><td colspan="6" class="text-center">Sepetiniz boş</td></tr>');
+            if ($cartTotalElement.length) $cartTotalElement.text('0.00 TL');
+            $cartCounters.text('0');
         return;
     }
 
     // Sepet öğelerini oluştur
-    cartItemsContainer.innerHTML = cart.map(item => `
+        $cartItemsContainer.html(cart.map(item => {
+            // Resim yolunun başındaki assets/ ifadesini kaldır
+            const imagePath = item.image.replace(/^assets\//, '');
+            return `
         <tr data-id="${item.id}">
             <td>
-                <img src="${item.image}" alt="${item.name}" class="table__img">
+                <img src="${imagePath}" alt="${item.name}" class="table__img">
             </td>
             <td>
                 <h3 class="table__title">${item.name}</h3>
@@ -176,15 +157,15 @@ function updateCartDisplay() {
                 </button>
             </td>
         </tr>
-    `).join('');
+        `}).join(''));
 
     // Toplamı hesapla
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    if (cartTotalElement) cartTotalElement.textContent = `${total.toFixed(2)} TL`;
+        if ($cartTotalElement.length) $cartTotalElement.text(`${total.toFixed(2)} TL`);
 
     // Sepet sayacını güncelle
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCounters.forEach(counter => counter.textContent = totalItems);
+        $cartCounters.text(totalItems);
 }
 
 // LocalStorage'a kaydetme
@@ -202,63 +183,56 @@ function loadCartFromLocalStorage() {
 }
 
 // Event listener'lar
-document.addEventListener('DOMContentLoaded', () => {
+    $(document).ready(function() {
     // Sepeti yükle
     loadCartFromLocalStorage();
 
     // Sepete ekleme butonları için event listener
-    document.addEventListener('click', e => {
-        const button = e.target.closest('.cart__btn, .add-to-cart');
-        if (button) {
-            // Doğrudan butondan veri al
+        $(document).on('click', '.cart__btn, .add-to-cart', function() {
+            const $button = $(this);
             const product = {
-                id: button.dataset.id,
-                name: button.dataset.name,
-                price: parseFloat(button.dataset.price),
-                image: button.dataset.image
+                id: $button.data('id'),
+                name: $button.data('name'),
+                price: parseFloat($button.data('price')),
+                image: $button.data('image')
             };
             
             if (product.id && product.name && product.price) {
                 addToCart(product);
-            }
         }
     });
 
     // Sepet içindeki miktar değişiklikleri
-    document.addEventListener('change', e => {
-        if (e.target.classList.contains('quantity')) {
-            const productId = e.target.dataset.id;
-            const newQuantity = parseInt(e.target.value);
+        $(document).on('change', '.quantity', function() {
+            const productId = $(this).data('id');
+            const newQuantity = parseInt($(this).val());
             const item = cart.find(item => item.id === productId);
             if (item) {
                 item.quantity = newQuantity;
                 updateCartDisplay();
                 saveCartToLocalStorage();
-            }
         }
     });
 
     // Ürün silme butonları
-    document.addEventListener('click', e => {
-        if (e.target.classList.contains('remove-item') || e.target.closest('.remove-item')) {
-            const productId = e.target.dataset.id || e.target.closest('.remove-item').dataset.id;
+        $(document).on('click', '.remove-item', function() {
+            const productId = $(this).data('id');
             cart = cart.filter(item => item.id !== productId);
             updateCartDisplay();
             saveCartToLocalStorage();
             showNotification('Ürün sepetten kaldırıldı!');
-        }
     });
 });
 
 // Bildirim gösterme fonksiyonu
 function showNotification(message) {
-    const notification = document.createElement('div');
-    notification.className = 'notification';
-    notification.textContent = message;
-    document.body.appendChild(notification);
+        const $notification = $('<div>')
+            .addClass('notification')
+            .text(message)
+            .appendTo('body');
 
     setTimeout(() => {
-        notification.remove();
+            $notification.remove();
     }, 2000);
 }
 
@@ -274,40 +248,40 @@ function exampleAddToCart() {
   addToCart(product);
 }
 
-
-
-
-
-
 // Ürün sayfalarında sepete ekleme butonları
-document.addEventListener('click', e => {
-  if (e.target.classList.contains('add-to-cart')) {
+    $(document).on('click', '.add-to-cart', function (e) {
+        e.preventDefault();
     const product = {
-      id: e.target.dataset.id,
-      name: e.target.dataset.name,
-      description: e.target.dataset.description || '',
-      price: parseFloat(e.target.dataset.price),
-      image: e.target.dataset.image
+            id: $(this).data('id'),
+            name: $(this).data('name'),
+            description: $(this).data('description') || '',
+            price: parseFloat($(this).data('price')),
+            image: $(this).data('image')
     };
     addToCart(product);
 
     // Bildirim göster
     alert(`${product.name} sepete eklendi!`);
-  }
 });
-
-
-
 
 // Sepete ekleme işlemi
 $(document).on('click', '.cart__btn', function (e) {
   e.preventDefault();
-  const productId = $(this).data('id');
+        const $button = $(this);
+        const productId = $button.data('id');
+        const productName = $button.data('name');
+        const productPrice = $button.data('price');
+        const productImage = $button.data('image');
 
   $.ajax({
     url: 'cart.php',
     type: 'POST',
-    data: { urun_id: productId },
+            data: {
+                urun_id: productId,
+                ad: productName,
+                fiyat: productPrice,
+                resim: productImage
+            },
     dataType: 'json',
     success: function (response) {
       if (response.success) {
@@ -323,7 +297,6 @@ $(document).on('click', '.cart__btn', function (e) {
     }
   });
 });
-
 
 // Miktar güncelleme
 $(document).on('change', '.quantity-input', function () {
@@ -359,9 +332,6 @@ $(document).on('click', '.remove-btn', function () {
     });
   }
 });
-
-
-
 
 // cart.js
 $(document).ready(function () {
@@ -463,16 +433,13 @@ $(document).ready(function () {
   });
 });
 
-
-
-
 //login için
-
-document.getElementById('login-form').addEventListener('submit', async (e) => {
+    $(document).ready(function() {
+        $('#login-form').on('submit', function(e) {
   e.preventDefault();
 
-  const email = document.getElementById('login-email').value.trim();
-  const password = document.getElementById('login-password').value.trim();
+            const email = $('#login-email').val().trim();
+            const password = $('#login-password').val().trim();
 
   // Giriş bilgilerini kontrol et
   if (!email || !password) {
@@ -480,17 +447,13 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     return;
   }
 
-  try {
-    const response = await fetch('login.php', {
+            // Promise kullanarak login işlemini yap
+            $.ajax({
+                url: 'login.php',
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email, password })
-    });
-
-    const result = await response.json();
-
+                contentType: 'application/json',
+                data: JSON.stringify({ email, password }),
+                success: function(result) {
     if (result.success) {
       // Başarılı giriş, kullanıcıyı yönlendir
       alert('Giriş başarılı!');
@@ -499,92 +462,119 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
       // Başarısız giriş
       alert(result.message || 'Giriş başarısız');
     }
-  } catch (error) {
+                },
+                error: function(error) {
     console.error('Hata:', error);
     alert('Bir hata oluştu. Lütfen tekrar deneyin.');
   }
+            });
+        });
 });
 
-
-
-
 // contact.html dosyanıza bu scripti ekleyin
-document.getElementById('contactForm').addEventListener('submit', async function (e) {
+    $(document).ready(function() {
+        $('#contactForm').on('submit', function(e) {
   e.preventDefault();
 
-  const form = e.target;
-  const submitBtn = form.querySelector('button[type="submit"]');
-  const responseMessage = document.getElementById('responseMessage');
+            const form = $(this);
+            const submitBtn = form.find('button[type="submit"]');
+            const responseMessage = $('#responseMessage');
 
   // Buton durumunu güncelle
-  submitBtn.disabled = true;
-  const originalText = submitBtn.textContent;
-  submitBtn.innerHTML = '<span class="spinner"></span> Gönderiliyor...';
+            submitBtn.prop('disabled', true);
+            const originalText = submitBtn.text();
+            submitBtn.html('<span class="spinner"></span> Gönderiliyor...');
 
   // Response mesajını temizle
-  responseMessage.style.display = 'none';
-  responseMessage.textContent = '';
-  responseMessage.className = '';
+            responseMessage.hide();
+            responseMessage.text('');
+            responseMessage.removeClass();
 
-  try {
-    const formData = new FormData(form);
+            // Form verilerini al
+            const formData = new FormData(form[0]);
 
-    // Fetch timeout ayarı (10 saniye)
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
-
-    const response = await fetch('process_contact.php', {
+            // AJAX isteği gönder
+            $.ajax({
+                url: 'process_contact.php',
       method: 'POST',
-      body: formData,
-      signal: controller.signal
-    });
-
-    clearTimeout(timeoutId);
-
-    // HTTP hata kontrolü
-    if (!response.ok) {
-      throw new Error(`HTTP hatası! Durum: ${response.status}`);
-    }
-
-    // Yanıtı işle
-    const responseText = await response.text();
-
-    if (!responseText.trim()) {
-      throw new Error('Sunucu boş yanıt verdi');
-    }
-
-    let data;
-    try {
-      data = JSON.parse(responseText);
-    } catch (e) {
-      console.error('JSON ayrıştırma hatası:', e, 'Yanıt:', responseText);
-      throw new Error('Sunucu yanıtı geçersiz');
-    }
-
+                data: formData,
+                processData: false,
+                contentType: false,
+                timeout: 10000,
+                success: function(data) {
     // Yanıtı göster
-    responseMessage.textContent = data.message;
-    responseMessage.className = data.success ? 'success' : 'error';
+                    responseMessage.text(data.message);
+                    responseMessage.addClass(data.success ? 'success' : 'error');
 
     if (data.success) {
-      form.reset();
+                        form.trigger('reset');
     }
-
-  } catch (error) {
+                },
+                error: function(error) {
     console.error('Form gönderim hatası:', error);
-    responseMessage.textContent = 'İşlem sırasında bir hata oluştu. Lütfen tekrar deneyin.';
-    responseMessage.className = 'error';
-  } finally {
-    responseMessage.style.display = 'block';
-    submitBtn.disabled = false;
-    submitBtn.textContent = originalText;
+                    responseMessage.text('İşlem sırasında bir hata oluştu. Lütfen tekrar deneyin.');
+                    responseMessage.addClass('error');
+                },
+                complete: function() {
+                    responseMessage.show();
+                    submitBtn.prop('disabled', false);
+                    submitBtn.text(originalText);
 
     // Mesajı 8 saniye sonra gizle
     setTimeout(() => {
-      if (responseMessage.textContent.includes('başarıyla')) {
-        responseMessage.style.display = 'none';
+                        if (responseMessage.text().includes('başarıyla')) {
+                            responseMessage.hide();
       }
     }, 8000);
   }
+            });
+        });
+    });
+
+    // === HESABIM SEKME GEÇİŞLERİ ===
+    $(document).ready(function() {
+        const accountTabs = $('.account-nav a');
+        const tabContents = $('.account-tab');
+
+        accountTabs.each(function() {
+            $(this).on('click', function(e) {
+                // Sadece logout linki hariç
+                if ($(this).hasClass('logout')) return;
+                e.preventDefault();
+                // Tüm sekmelerden active kaldır
+                accountTabs.removeClass('active');
+                tabContents.removeClass('active');
+                // Tıklanan sekmeye active ekle
+                $(this).addClass('active');
+                // İlgili içeriği göster
+                const targetId = $(this).attr('href').replace('#', '');
+                const targetContent = $('#' + targetId);
+                if (targetContent.length) targetContent.addClass('active');
+            });
+        });
+    });
+
+    // === HESABIM SEKME GEÇİŞLERİ ===
+    $(document).ready(function() {
+        const accountTabs = $('.account-nav a');
+        const tabContents = $('.account-tab');
+
+        accountTabs.each(function() {
+            $(this).on('click', function(e) {
+                // Sadece logout linki hariç
+                if ($(this).hasClass('logout')) return;
+                e.preventDefault();
+                // Tüm sekmelerden active kaldır
+                accountTabs.removeClass('active');
+                tabContents.removeClass('active');
+                // Tıklanan sekmeye active ekle
+                $(this).addClass('active');
+                // İlgili içeriği göster
+                const targetId = $(this).attr('href').replace('#', '');
+                const targetContent = $('#' + targetId);
+                if (targetContent.length) targetContent.addClass('active');
+            });
+        });
 });
 
 // === HESABIM SEKME GEÇİŞLERİ ===
@@ -611,42 +601,107 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Form Submissions
-const accountForms = document.querySelectorAll('.account-form');
-
-accountForms.forEach(form => {
-    form.addEventListener('submit', (e) => {
+    $(document).ready(function() {
+        $('.account-form').on('submit', function(e) {
         e.preventDefault();
         
-        // Here you would typically send the form data to your backend
-        // For now, we'll just show a success message
+            const form = $(this);
+            const submitBtn = form.find('button[type="submit"]');
+            const responseMessage = form.find('.response-message');
+
+            // Buton durumunu güncelle
+            submitBtn.prop('disabled', true);
+            const originalText = submitBtn.text();
+            submitBtn.html('<span class="spinner"></span> Gönderiliyor...');
+
+            // Form verilerini al
+            const formData = new FormData(form[0]);
+
+            // AJAX isteği gönder
+            $.ajax({
+                url: 'process_account.php',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
         alert('Bilgileriniz başarıyla güncellendi!');
+                        if (response.redirect) {
+                            window.location.href = response.redirect;
+                        }
+                    } else {
+                        alert(response.message || 'Bir hata oluştu. Lütfen tekrar deneyin.');
+                    }
+                },
+                error: function() {
+                    alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+                },
+                complete: function() {
+                    submitBtn.prop('disabled', false);
+                    submitBtn.text(originalText);
+                }
+            });
     });
 });
 
 // Address Actions
-const addressActions = document.querySelectorAll('.address-actions button');
+    $(document).ready(function() {
+        $('.address-actions button').on('click', function() {
+            const $button = $(this);
+            const $addressItem = $button.closest('.address-item');
+            const addressId = $addressItem.data('id');
 
-addressActions.forEach(button => {
-    button.addEventListener('click', () => {
-        if (button.classList.contains('btn--danger')) {
+            if ($button.hasClass('btn--danger')) {
             if (confirm('Bu adresi silmek istediğinizden emin misiniz?')) {
-                // Here you would typically send a delete request to your backend
-                button.closest('.address-item').remove();
+                    $.ajax({
+                        url: 'delete_address.php',
+                        method: 'POST',
+                        data: { address_id: addressId },
+                        success: function(response) {
+                            if (response.success) {
+                                $addressItem.fadeOut(300, function() {
+                                    $(this).remove();
+                                });
+                            } else {
+                                alert(response.message || 'Adres silinirken bir hata oluştu.');
+                            }
+                        },
+                        error: function() {
+                            alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+                        }
+                    });
             }
         } else {
-            // Here you would typically show an edit form
+                // Adres düzenleme formunu göster
             alert('Adres düzenleme özelliği yakında eklenecek!');
         }
     });
 });
 
 // Add to Cart from Favorites
-const addToCartButtons = document.querySelectorAll('.favorite-item .btn');
+    $(document).ready(function() {
+        $('.favorite-item .btn').on('click', function() {
+            const $button = $(this);
+            const productId = $button.data('id');
 
-addToCartButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // Here you would typically add the item to cart
+            $.ajax({
+                url: 'add_to_cart.php',
+                method: 'POST',
+                data: { product_id: productId },
+                success: function(response) {
+                    if (response.success) {
         alert('Ürün sepete eklendi!');
+                        // Sepet sayacını güncelle
+                        $('.cart-count').text(response.cart_count);
+                    } else {
+                        alert(response.message || 'Ürün sepete eklenirken bir hata oluştu.');
+                    }
+                },
+                error: function() {
+                    alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+                }
+            });
     });
 });
 
@@ -978,3 +1033,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+}

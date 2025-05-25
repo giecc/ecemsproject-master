@@ -12,9 +12,14 @@ $urunler = $urunModel->tumUrunleriGetir();
         <img src="<?= htmlspecialchars($urun['ResimURL']) ?>" alt="<?= htmlspecialchars($urun['UrunAdi']) ?>">
         <h3><?= htmlspecialchars($urun['UrunAdi']) ?></h3>
         <p><?= number_format($urun['Fiyat'], 2) ?> TL</p>
-        <a href="#" class="action__btn cart__btn" aria-label="Add To Cart" data-id="<?= $urun['UrunID'] ?>">
-            <i class="fi fi-rs-shopping-bag-add"></i>
-        </a>
+        <button class="cart__btn add-to-cart"
+                data-id="<?= $urun['UrunID'] ?>"
+                data-name="<?= htmlspecialchars($urun['UrunAdi']) ?>"
+                data-price="<?= number_format($urun['Fiyat'], 2) ?>"
+                data-image="<?= htmlspecialchars($urun['ResimURL']) ?>">
+            <i class="fa-solid fa-cart-shopping"></i>
+            Sepete Ekle
+        </button>
     </div>
     <?php endforeach; ?>
 </div>

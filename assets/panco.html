@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,12 @@
     <!--==============CSS===========-->
     <link rel="stylesheet" href="css/styles.css" />
 
-    <title>ECOMMERCE WEBSİTE</title>
+    <!-- jQuery ve diğer scriptler -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/products.js"></script>
+
+    <title>Panço Ürünleri</title>
 
     <style>
         .product__item {
@@ -168,49 +173,31 @@
     <!--=================MAIN=============-->
 
     <main class="main">
-
-        <!--========PRODUCT==========-->
-
-
-
-
-
         <section class="products">
             <div class="products__container grid">
-
                 <div class="product__item" data-id="P001">
                     <div class="product__bunner">
                         <a href="details.html?id=P001" class="product__images">
-                            <img src="img/panco3-1.png.png" alt="" class="product__img default">
-
-
-                            <img src="img/panco3-2.png.png" alt="" class="product__img hover">
+                            <img src="img/panco1-1.png.png" alt="Panço Etnik Çift Taraflı Tüy" class="product__img default">
+                            <img src="img/panco1-2.png.png" alt="Panço Etnik Çift Taraflı Tüy" class="product__img hover">
                         </a>
-
                         <div class="product__actions">
                             <a href="#" class="action__btn" aria-label="Quick View">
                                 <i class="fi fi-rs-eye"></i>
                             </a>
-
-
                             <a href="#" class="action__btn" aria-label="Add To whishlist">
                                 <i class="fi fi-rs-heart"></i>
                             </a>
-
                             <a href="#" class="action__btn" aria-label="Compare">
                                 <i class="fi fi-rs-shuffle"></i>
                             </a>
                         </div>
-
-
-
                     </div>
                     <div class="product__content">
                         <span class="product__category">Giyim</span>
                         <a href="details.html">
                             <h3 class="product__title">Panço Etnik Çift Taraflı Tüy</h3>
                         </a>
-
                         <div class="product__rating">
                             <i class="fi fi-rs-star"></i>
                             <i class="fi fi-rs-star"></i>
@@ -218,52 +205,42 @@
                             <i class="fi fi-rs-star"></i>
                             <i class="fi fi-rs-star"></i>
                         </div>
-
                         <div class="product__price filex">
                             <span class="new__price">1140 TL</span>
                         </div>
-
-                        <button class="cart__btn add-to-cart" data-id="P001">
+                        <button class="cart__btn add-to-cart"
+                                data-id="P001"
+                                data-name="Panço Etnik Çift Taraflı Tüy"
+                                data-price="1140"
+                                data-image="assets/img/panco1-1.png.png">
                             <i class="fa-solid fa-cart-shopping"></i>
                             Sepete Ekle
                         </button>
-
                     </div>
                 </div>
-
                 <div class="product__item" data-id="P002">
                     <div class="product__bunner">
                         <a href="details.html?id=P002" class="product__images">
-                            <img src="img/panco1-1.png.png" alt="" class="product__img default">
-
-
-                            <img src="img/panco1-2.png.png" alt="" class="product__img hover">
+                            <img src="img/panco2-1.png.png" alt="Panço Etnik Mavi Palmiye" class="product__img default">
+                            <img src="img/panco2-2.png.png" alt="Panço Etnik Mavi Palmiye" class="product__img hover">
                         </a>
-
                         <div class="product__actions">
                             <a href="#" class="action__btn" aria-label="Quick View">
                                 <i class="fi fi-rs-eye"></i>
                             </a>
-
-
                             <a href="#" class="action__btn" aria-label="Add To whishlist">
                                 <i class="fi fi-rs-heart"></i>
                             </a>
-
                             <a href="#" class="action__btn" aria-label="Compare">
                                 <i class="fi fi-rs-shuffle"></i>
                             </a>
                         </div>
-
-
-
                     </div>
                     <div class="product__content">
                         <span class="product__category">Giyim</span>
                         <a href="details.html">
-                            <h3 class="product__title">Panço Etnik Mavi Palmiye </h3>
+                            <h3 class="product__title">Panço Etnik Mavi Palmiye</h3>
                         </a>
-
                         <div class="product__rating">
                             <i class="fi fi-rs-star"></i>
                             <i class="fi fi-rs-star"></i>
@@ -271,52 +248,42 @@
                             <i class="fi fi-rs-star"></i>
                             <i class="fi fi-rs-star"></i>
                         </div>
-
                         <div class="product__price filex">
                             <span class="new__price">1140 TL</span>
                         </div>
-
-                        <button class="cart__btn add-to-cart" data-id="P002">
+                        <button class="cart__btn add-to-cart"
+                                data-id="P002"
+                                data-name="Panço Etnik Mavi Palmiye"
+                                data-price="1140"
+                                data-image="img/panco2-1.png.png">
                             <i class="fa-solid fa-cart-shopping"></i>
                             Sepete Ekle
                         </button>
-
                     </div>
                 </div>
-
                 <div class="product__item" data-id="P003">
                     <div class="product__bunner">
                         <a href="details.html?id=P003" class="product__images">
-                            <img src="img/panco2-1.png.png" alt="" class="product__img default">
-
-
-                            <img src="img/panco2-2.png.png" alt="" class="product__img hover">
+                            <img src="img/panco3.1.jpg" alt="Panço İki Taraflı Sarı Tüy" class="product__img default">
+                            <img src="img/panco3.2.jpg" alt="Panço İki Taraflı Sarı Tüy" class="product__img hover">
                         </a>
-
                         <div class="product__actions">
                             <a href="#" class="action__btn" aria-label="Quick View">
                                 <i class="fi fi-rs-eye"></i>
                             </a>
-
-
                             <a href="#" class="action__btn" aria-label="Add To whishlist">
                                 <i class="fi fi-rs-heart"></i>
                             </a>
-
                             <a href="#" class="action__btn" aria-label="Compare">
                                 <i class="fi fi-rs-shuffle"></i>
                             </a>
                         </div>
-
-
-
                     </div>
                     <div class="product__content">
                         <span class="product__category">Giyim</span>
                         <a href="details.html">
                             <h3 class="product__title">Panço İki Taraflı Sarı Tüy</h3>
                         </a>
-
                         <div class="product__rating">
                             <i class="fi fi-rs-star"></i>
                             <i class="fi fi-rs-star"></i>
@@ -324,53 +291,42 @@
                             <i class="fi fi-rs-star"></i>
                             <i class="fi fi-rs-star"></i>
                         </div>
-
                         <div class="product__price filex">
                             <span class="new__price">1020 TL</span>
                         </div>
-
-                        <button class="cart__btn add-to-cart" data-id="P003">
+                        <button class="cart__btn add-to-cart"
+                                data-id="P003"
+                                data-name="Panço İki Taraflı Sarı Tüy"
+                                data-price="1020"
+                                data-image="img/panco3.1.jpg">
                             <i class="fa-solid fa-cart-shopping"></i>
                             Sepete Ekle
                         </button>
-
                     </div>
                 </div>
-
-
-                <div class="product__item">
+                <div class="product__item" data-id="P004">
                     <div class="product__bunner">
-                        <a href="details.html" class="product__images">
-                            <img src="img/Panço4.1.jpg" alt="" class="product__img default">
-
-
-                            <img src="img/Panço4.2.jpg" alt="" class="product__img hover">
+                        <a href="details.html?id=P004" class="product__images">
+                            <img src="img/panco4.1.jpg" alt="Panço Etnik Kırmızı Palmiye" class="product__img default">
+                            <img src="img/panco4.2.jpg" alt="Panço Etnik Kırmızı Palmiye" class="product__img hover">
                         </a>
-
                         <div class="product__actions">
                             <a href="#" class="action__btn" aria-label="Quick View">
                                 <i class="fi fi-rs-eye"></i>
                             </a>
-
-
                             <a href="#" class="action__btn" aria-label="Add To whishlist">
                                 <i class="fi fi-rs-heart"></i>
                             </a>
-
                             <a href="#" class="action__btn" aria-label="Compare">
                                 <i class="fi fi-rs-shuffle"></i>
                             </a>
                         </div>
-
-
-
                     </div>
                     <div class="product__content">
                         <span class="product__category">Giyim</span>
                         <a href="details.html">
-                            <h3 class="product__title">Panço Etnik ip Boya Mint</h3>
+                            <h3 class="product__title">Panço Etnik Kırmızı Palmiye</h3>
                         </a>
-
                         <div class="product__rating">
                             <i class="fi fi-rs-star"></i>
                             <i class="fi fi-rs-star"></i>
@@ -378,329 +334,42 @@
                             <i class="fi fi-rs-star"></i>
                             <i class="fi fi-rs-star"></i>
                         </div>
-
-                        <div class="product__price filex">
-                            <span class="new__price">1020 TL</span>
-                        </div>
-
-
-                        <button class="cart__btn add-to-cart" data-id="P004">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            Sepete Ekle
-                        </button>
-
-                    </div>
-                </div>
-
-
-                <div class="product__item">
-                    <div class="product__bunner">
-                        <a href="details.html" class="product__images">
-                            <img src="img/Panço5.1.jpg" alt="" class="product__img default">
-
-
-                            <img src="img/Panço5.2.jpg" alt="" class="product__img hover">
-                        </a>
-
-                        <div class="product__actions">
-                            <a href="#" class="action__btn" aria-label="Quick View">
-                                <i class="fi fi-rs-eye"></i>
-                            </a>
-
-
-                            <a href="#" class="action__btn" aria-label="Add To whishlist">
-                                <i class="fi fi-rs-heart"></i>
-                            </a>
-
-                            <a href="#" class="action__btn" aria-label="Compare">
-                                <i class="fi fi-rs-shuffle"></i>
-                            </a>
-                        </div>
-
-
-
-                    </div>
-                    <div class="product__content">
-                        <span class="product__category">Giyim</span>
-                        <a href="details.html">
-                            <h3 class="product__title">Panço Etnik ip Boya Pudra</h3>
-                        </a>
-
-                        <div class="product__rating">
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                        </div>
-
-                        <div class="product__price filex">
-                            <span class="new__price">1020 TL</span>
-                        </div>
-
-
-                        <button class="cart__btn add-to-cart" data-id="P005">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            Sepete Ekle
-                        </button>
-
-                    </div>
-                </div>
-
-
-                <div class="product__item">
-                    <div class="product__bunner">
-                        <a href="details.html" class="product__images">
-                            <img src="img/Panço6.1.jpg" alt="" class="product__img default">
-
-
-                            <img src="img/Panço6.2.jpg" alt="" class="product__img hover">
-                        </a>
-
-                        <div class="product__actions">
-                            <a href="#" class="action__btn" aria-label="Quick View">
-                                <i class="fi fi-rs-eye"></i>
-                            </a>
-
-
-                            <a href="#" class="action__btn" aria-label="Add To whishlist">
-                                <i class="fi fi-rs-heart"></i>
-                            </a>
-
-                            <a href="#" class="action__btn" aria-label="Compare">
-                                <i class="fi fi-rs-shuffle"></i>
-                            </a>
-                        </div>
-
-
-
-                    </div>
-                    <div class="product__content">
-                        <span class="product__category">Giyim</span>
-                        <a href="details.html">
-                            <h3 class="product__title">Panço Etnik Turkuaz Sarmaşık</h3>
-                        </a>
-
-                        <div class="product__rating">
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                        </div>
-
-                        <div class="product__price filex">
-                            <span class="new__price">1280 TL</span>
-                        </div>
-
-
-                        <button class="cart__btn add-to-cart" data-id="P006">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            Sepete Ekle
-                        </button>
-
-                    </div>
-                </div>
-
-
-                <div class="product__item">
-                    <div class="product__bunner">
-                        <a href="details.html" class="product__images">
-                            <img src="img/panco7.1.jpg" alt="" class="product__img default">
-
-
-                            <img src="img/panco7.2.jpg" alt="" class="product__img hover">
-                        </a>
-
-                        <div class="product__actions">
-                            <a href="#" class="action__btn" aria-label="Quick View">
-                                <i class="fi fi-rs-eye"></i>
-                            </a>
-
-
-                            <a href="#" class="action__btn" aria-label="Add To whishlist">
-                                <i class="fi fi-rs-heart"></i>
-                            </a>
-
-                            <a href="#" class="action__btn" aria-label="Compare">
-                                <i class="fi fi-rs-shuffle"></i>
-                            </a>
-                        </div>
-
-
-
-                    </div>
-                    <div class="product__content">
-                        <span class="product__category">Giyim</span>
-                        <a href="details.html">
-                            <h3 class="product__title">Panço Tek Beyaz Damask</h3>
-                        </a>
-
-                        <div class="product__rating">
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                        </div>
-
-                        <div class="product__price filex">
-                            <span class="new__price">1280 TL</span>
-                        </div>
-
-
-                        <button class="cart__btn add-to-cart" data-id="P007">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            Sepete Ekle
-                        </button>
-
-                    </div>
-                </div>
-
-
-                <div class="product__item">
-                    <div class="product__bunner">
-                        <a href="details.html" class="product__images">
-                            <img src="img/panco8.1.jpg" alt="" class="product__img default">
-
-
-                            <img src="img/panco8.2.jpg" alt="" class="product__img hover">
-                        </a>
-
-                        <div class="product__actions">
-                            <a href="#" class="action__btn" aria-label="Quick View">
-                                <i class="fi fi-rs-eye"></i>
-                            </a>
-
-
-                            <a href="#" class="action__btn" aria-label="Add To whishlist">
-                                <i class="fi fi-rs-heart"></i>
-                            </a>
-
-                            <a href="#" class="action__btn" aria-label="Compare">
-                                <i class="fi fi-rs-shuffle"></i>
-                            </a>
-                        </div>
-
-
-
-                    </div>
-                    <div class="product__content">
-                        <span class="product__category">Giyim</span>
-                        <a href="details.html">
-                            <h3 class="product__title">Panço Yeşil Maydanoz</h3>
-                        </a>
-
-                        <div class="product__rating">
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                        </div>
-
-                        <div class="product__price filex">
-                            <span class="new__price">1020 TL</span>
-                        </div>
-
-
-                        <button class="cart__btn add-to-cart" data-id="P008">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            Sepete Ekle
-                        </button>
-
-                    </div>
-                </div>
-
-
-                <div class="product__item">
-                    <div class="product__bunner">
-                        <a href="details.html" class="product__images">
-                            <img src="img/panco5.1.jpg" alt="" class="product__img default">
-
-
-                            <img src="img/panco5.2.jpg" alt="" class="product__img hover">
-                        </a>
-
-                        <div class="product__actions">
-                            <a href="#" class="action__btn" aria-label="Quick View">
-                                <i class="fi fi-rs-eye"></i>
-                            </a>
-
-
-                            <a href="#" class="action__btn" aria-label="Add To whishlist">
-                                <i class="fi fi-rs-heart"></i>
-                            </a>
-
-                            <a href="#" class="action__btn" aria-label="Compare">
-                                <i class="fi fi-rs-shuffle"></i>
-                            </a>
-                        </div>
-
-
-
-                    </div>
-                    <div class="product__content">
-                        <span class="product__category">Giyim</span>
-                        <a href="details.html">
-                            <h3 class="product__title">Panço Etnik Pembe Palmiye</h3>
-                        </a>
-
-                        <div class="product__rating">
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                            <i class="fi fi-rs-star"></i>
-                        </div>
-
                         <div class="product__price filex">
                             <span class="new__price">1140 TL</span>
                         </div>
-
-
-                        <button class="cart__btn add-to-cart" data-id="P009">
+                        <button class="cart__btn add-to-cart"
+                                data-id="P004"
+                                data-name="Panço Etnik Kırmızı Palmiye"
+                                data-price="1140"
+                                data-image="img/panco4.1.jpg">
                             <i class="fa-solid fa-cart-shopping"></i>
                             Sepete Ekle
                         </button>
-
                     </div>
                 </div>
-
-
-                <div class="product__item">
+                <div class="product__item" data-id="P005">
                     <div class="product__bunner">
-                        <a href="details.html" class="product__images">
-                            <img src="img/panco10.1.jpg" alt="" class="product__img default">
-
-
-                            <img src="img/panco10.2.jpg" alt="" class="product__img hover">
+                        <a href="details.html?id=P005" class="product__images">
+                            <img src="img/panco5.1.jpg" alt="Panço İki Taraflı Yeşil Tüy" class="product__img default">
+                            <img src="img/panco5.2.jpg" alt="Panço İki Taraflı Yeşil Tüy" class="product__img hover">
                         </a>
-
                         <div class="product__actions">
                             <a href="#" class="action__btn" aria-label="Quick View">
                                 <i class="fi fi-rs-eye"></i>
                             </a>
-
-
                             <a href="#" class="action__btn" aria-label="Add To whishlist">
                                 <i class="fi fi-rs-heart"></i>
                             </a>
-
                             <a href="#" class="action__btn" aria-label="Compare">
                                 <i class="fi fi-rs-shuffle"></i>
                             </a>
                         </div>
-
-
-
                     </div>
                     <div class="product__content">
                         <span class="product__category">Giyim</span>
                         <a href="details.html">
-                            <h3 class="product__title">Panço Etnik Beyaz Çiçek</h3>
+                            <h3 class="product__title">Panço İki Taraflı Yeşil Tüy</h3>
                         </a>
-
                         <div class="product__rating">
                             <i class="fi fi-rs-star"></i>
                             <i class="fi fi-rs-star"></i>
@@ -708,31 +377,236 @@
                             <i class="fi fi-rs-star"></i>
                             <i class="fi fi-rs-star"></i>
                         </div>
-
                         <div class="product__price filex">
-                            <span class="new__price">1280 TL</span>
+                            <span class="new__price">1020 TL</span>
                         </div>
-
-
-                        <button class="cart__btn add-to-cart" data-id="P010">
+                        <button class="cart__btn add-to-cart"
+                                data-id="P005"
+                                data-name="Panço İki Taraflı Yeşil Tüy"
+                                data-price="1020"
+                                data-image="img/panco5.1.jpg">
                             <i class="fa-solid fa-cart-shopping"></i>
                             Sepete Ekle
                         </button>
-
                     </div>
                 </div>
-
-
+                <div class="product__item" data-id="P006">
+                    <div class="product__bunner">
+                        <a href="details.html?id=P006" class="product__images">
+                            <img src="img/panco6.1.jpg" alt="Panço Etnik Mavi Palmiye" class="product__img default">
+                            <img src="img/panco6.2.jpg" alt="Panço Etnik Mavi Palmiye" class="product__img hover">
+                        </a>
+                        <div class="product__actions">
+                            <a href="#" class="action__btn" aria-label="Quick View">
+                                <i class="fi fi-rs-eye"></i>
+                            </a>
+                            <a href="#" class="action__btn" aria-label="Add To whishlist">
+                                <i class="fi fi-rs-heart"></i>
+                            </a>
+                            <a href="#" class="action__btn" aria-label="Compare">
+                                <i class="fi fi-rs-shuffle"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product__content">
+                        <span class="product__category">Giyim</span>
+                        <a href="details.html">
+                            <h3 class="product__title">Panço Etnik Mavi Palmiye</h3>
+                        </a>
+                        <div class="product__rating">
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                        </div>
+                        <div class="product__price filex">
+                            <span class="new__price">1140 TL</span>
+                        </div>
+                        <button class="cart__btn add-to-cart"
+                                data-id="P006"
+                                data-name="Panço Etnik Mavi Palmiye"
+                                data-price="1140"
+                                data-image="img/panco6.1.jpg">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Sepete Ekle
+                        </button>
+                    </div>
+                </div>
+                <div class="product__item" data-id="P007">
+                    <div class="product__bunner">
+                        <a href="details.html?id=P007" class="product__images">
+                            <img src="img/panco7.1.jpg" alt="Panço İki Taraflı Kırmızı Tüy" class="product__img default">
+                            <img src="img/panco7.2.jpg" alt="Panço İki Taraflı Kırmızı Tüy" class="product__img hover">
+                        </a>
+                        <div class="product__actions">
+                            <a href="#" class="action__btn" aria-label="Quick View">
+                                <i class="fi fi-rs-eye"></i>
+                            </a>
+                            <a href="#" class="action__btn" aria-label="Add To whishlist">
+                                <i class="fi fi-rs-heart"></i>
+                            </a>
+                            <a href="#" class="action__btn" aria-label="Compare">
+                                <i class="fi fi-rs-shuffle"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product__content">
+                        <span class="product__category">Giyim</span>
+                        <a href="details.html">
+                            <h3 class="product__title">Panço İki Taraflı Kırmızı Tüy</h3>
+                        </a>
+                        <div class="product__rating">
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                        </div>
+                        <div class="product__price filex">
+                            <span class="new__price">1020 TL</span>
+                        </div>
+                        <button class="cart__btn add-to-cart"
+                                data-id="P007"
+                                data-name="Panço İki Taraflı Kırmızı Tüy"
+                                data-price="1020"
+                                data-image="img/panco7.1.jpg">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Sepete Ekle
+                        </button>
+                    </div>
+                </div>
+                <div class="product__item" data-id="P008">
+                    <div class="product__bunner">
+                        <a href="details.html?id=P008" class="product__images">
+                            <img src="img/panco8.1.jpg" alt="Panço Etnik Yeşil Palmiye" class="product__img default">
+                            <img src="img/panco8.2.jpg" alt="Panço Etnik Yeşil Palmiye" class="product__img hover">
+                        </a>
+                        <div class="product__actions">
+                            <a href="#" class="action__btn" aria-label="Quick View">
+                                <i class="fi fi-rs-eye"></i>
+                            </a>
+                            <a href="#" class="action__btn" aria-label="Add To whishlist">
+                                <i class="fi fi-rs-heart"></i>
+                            </a>
+                            <a href="#" class="action__btn" aria-label="Compare">
+                                <i class="fi fi-rs-shuffle"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product__content">
+                        <span class="product__category">Giyim</span>
+                        <a href="details.html">
+                            <h3 class="product__title">Panço Etnik Yeşil Palmiye</h3>
+                        </a>
+                        <div class="product__rating">
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                        </div>
+                        <div class="product__price filex">
+                            <span class="new__price">1140 TL</span>
+                        </div>
+                        <button class="cart__btn add-to-cart"
+                                data-id="P008"
+                                data-name="Panço Etnik Yeşil Palmiye"
+                                data-price="1140"
+                                data-image="img/panco8.1.jpg">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Sepete Ekle
+                        </button>
+                    </div>
+                </div>
+                <div class="product__item" data-id="P009">
+                    <div class="product__bunner">
+                        <a href="details.html?id=P009" class="product__images">
+                            <img src="img/panco9.1.jpg" alt="Panço İki Taraflı Mavi Tüy" class="product__img default">
+                            <img src="img/panco9.2.jpg" alt="Panço İki Taraflı Mavi Tüy" class="product__img hover">
+                        </a>
+                        <div class="product__actions">
+                            <a href="#" class="action__btn" aria-label="Quick View">
+                                <i class="fi fi-rs-eye"></i>
+                            </a>
+                            <a href="#" class="action__btn" aria-label="Add To whishlist">
+                                <i class="fi fi-rs-heart"></i>
+                            </a>
+                            <a href="#" class="action__btn" aria-label="Compare">
+                                <i class="fi fi-rs-shuffle"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product__content">
+                        <span class="product__category">Giyim</span>
+                        <a href="details.html">
+                            <h3 class="product__title">Panço İki Taraflı Mavi Tüy</h3>
+                        </a>
+                        <div class="product__rating">
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                        </div>
+                        <div class="product__price filex">
+                            <span class="new__price">1020 TL</span>
+                        </div>
+                        <button class="cart__btn add-to-cart"
+                                data-id="P009"
+                                data-name="Panço İki Taraflı Mavi Tüy"
+                                data-price="1020"
+                                data-image="img/panco9.1.jpg">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Sepete Ekle
+                        </button>
+                    </div>
+                </div>
+                <div class="product__item" data-id="P010">
+                    <div class="product__bunner">
+                        <a href="details.html?id=P010" class="product__images">
+                            <img src="img/panco10.1.jpg" alt="Panço Etnik Sarı Palmiye" class="product__img default">
+                            <img src="img/panco10.2.jpg" alt="Panço Etnik Sarı Palmiye" class="product__img hover">
+                        </a>
+                        <div class="product__actions">
+                            <a href="#" class="action__btn" aria-label="Quick View">
+                                <i class="fi fi-rs-eye"></i>
+                            </a>
+                            <a href="#" class="action__btn" aria-label="Add To whishlist">
+                                <i class="fi fi-rs-heart"></i>
+                            </a>
+                            <a href="#" class="action__btn" aria-label="Compare">
+                                <i class="fi fi-rs-shuffle"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product__content">
+                        <span class="product__category">Giyim</span>
+                        <a href="details.html">
+                            <h3 class="product__title">Panço Etnik Sarı Palmiye</h3>
+                        </a>
+                        <div class="product__rating">
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                        </div>
+                        <div class="product__price filex">
+                            <span class="new__price">1140 TL</span>
+                        </div>
+                        <button class="cart__btn add-to-cart"
+                                data-id="P010"
+                                data-name="Panço Etnik Sarı Palmiye"
+                                data-price="1140"
+                                data-image="img/panco10.1.jpg">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Sepete Ekle
+                        </button>
+                    </div>
+                </div>
             </div>
         </section>
-
-
-
-
-
-
-
-
     </main>
 
     <!--========Pfooter==========-->

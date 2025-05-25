@@ -17,7 +17,7 @@ const products = {
        price: 1140,
        category: 'Giyim',
        image: 'img/panco2-1.png.png',
-       images: ['img/panco2-2.png.png'],
+       images: ['assets/img/panco2-2.png.png'],
        description: 'El yapımı etnik desenli çift taraflı tüylü panço. %100 pamuk kumaştan üretilmiştir.',
        sizes: ['XS', 'S', 'M', 'L', 'XL'],
        stock: 15,
@@ -27,8 +27,8 @@ const products = {
        name: 'Panço İki Taraflı Sarı Tüy',
        price: 1020,
        category: 'Giyim',
-       image: 'img/panco3-1.png.png',
-       images: ['img/panco3-2.png.png'],
+       image: 'img/panco3.1.jpg',
+       images: ['img/panco3.2.jpg'],
        description: 'El yapımı etnik desenli çift taraflı tüylü panço. %100 pamuk kumaştan üretilmiştir.',
        sizes: ['XS', 'S', 'M', 'L', 'XL'],
        stock: 15,
@@ -60,7 +60,7 @@ const products = {
        name: 'Panço Etnik Turkuaz Sarmaşık',
        price: 1280,
        category: 'Giyim',
-        image: 'img/panco6.1.jpg',
+       image: 'img/panco6.1.jpg',
        images: ['img/panco6.2.jpg'],
        description: 'El yapımı etnik desenli çift taraflı tüylü panço. %100 pamuk kumaştan üretilmiştir.',
        sizes: ['XS', 'S', 'M', 'L', 'XL'],
@@ -115,7 +115,7 @@ const products = {
    E001: {
        id: 'E001',
        name: 'Elbise Mavi Kontur Çiçek',
-       price:1725,
+       price:1725.00,
        category: 'Giyim',
        image: 'img/kıyafetler2/elbise1-1.png.png',
        images: ['img/kıyafetler2/elbise1-1.png.png'],
@@ -126,7 +126,7 @@ const products = {
    E002: {
        id: 'E002',
        name: 'Elbise Sarı Tekli Yaprak',
-       price:1725,
+       price:1725.00,
        category: 'Giyim',
        image: 'img/kıyafetler2/elbise2-1.png.png',
        images: ['img/kıyafetler2/elbise2-2.png.png'],
@@ -137,10 +137,10 @@ const products = {
    E003: {
        id: 'E003',
        name: 'Elbise Siyah Kırçıllı Buğday Yaprağı',
-       price: 1725,
+       price: 1725.00,
        category: 'Giyim',
-       image: 'img/kıyafetler2/elbise3-1.png.png',
-       images: ['img/kıyafetler2/elbise3-2.png.png'],
+       image: 'img/Elbise3.1.jpg',
+       images: ['img/Elbise3.2.jpg'],
        description: 'El dokuması sarı renkli tekli yaprak desenli elbise. %100 pamuk kumaştan üretilmiştir.',
        sizes: ['S', 'M', 'L'],
        stock: 8,
@@ -398,8 +398,8 @@ const products = {
        name: 'Tunik Tek Mavi Damask',
        price:  1790.00,
        category: 'Giyim',
-       image: 'img/tunik3-1.png.png',
-       images: ['img/tunik3-2.png.png'],
+       image: 'img/tunik3.1.jpg',
+       images: ['img/tunik3.2.jpg'],
        description: 'El yapımı mavi renkli palmiye desenli panço. %100 pamuk kumaştan üretilmiştir.',
        sizes: ['One Size'],
        stock: 12,
@@ -411,7 +411,7 @@ const products = {
        name: 'Otantik Uzun Yelek Siyah Hayat Çiçeği',
        price: 1290,
        category: 'Giyim',
-       image: 'img/uzuny1.1..jpg',
+       image: 'img/uzuny1.1.jpg',
        images: ['img/uzuny1.2.jpg'],
        description: 'El yapımı mavi renkli palmiye desenli panço. %100 pamuk kumaştan üretilmiştir.',
        sizes: ['One Size'],
@@ -465,18 +465,18 @@ const products = {
    },
    B003: {
        id: 'B003',
-       name: 'Bolero Mürdüm Nilüfer',
+       name: 'Bolero Antrasit Tüy',
        price: 1390,
        category: 'Giyim',
-       image: 'img/Bolero3.1.jpg',
-       images: ['img/Bolero3.2.jpg'],
+       image: 'img/Bolero3.1.png',
+       images: ['img/Bolero3.2.png'],
        description: 'El yapımı mavi renkli palmiye desenli panço. %100 pamuk kumaştan üretilmiştir.',
        sizes: ['One Size'],
        stock: 12,
    },
    B004: {
        id: 'B004',
-       name: 'Bolero Turkuaz Hawai',
+       name: 'Bolero Mürdüm Nilüfer',
        price: 1140,
        category: 'Giyim',
        image: 'img/Bolero4.1.jpg',
@@ -709,3 +709,203 @@ const products = {
        stock: 12,
    },
 };
+
+// Ürünleri dinamik olarak ekle
+function renderProducts(products) {
+    const container = document.querySelector('.products__container');
+    if (!container) return;
+    container.innerHTML = '';
+    Object.values(products).forEach(product => {
+        const cardHtml = `
+            <div class="product__item" data-id="${product.id}">
+                <div class="product__bunner">
+                    <a href="details.html?id=${product.id}" class="product__images">
+                        <img src="${product.image}" alt="${product.name}" class="product__img default">
+                    </a>
+                </div>
+                <div class="product__content">
+                    <span class="product__category">${product.category || ''}</span>
+                    <a href="details.html?id=${product.id}">
+                        <h3 class="product__title">${product.name}</h3>
+                    </a>
+                    <div class="product__price filex">
+                        <span class="new__price">${product.price} TL</span>
+                    </div>
+                    <button class="cart__btn add-to-cart"
+                            data-id="${product.id}"
+                            data-name="${product.name}"
+                            data-price="${product.price}"
+                            data-image="${product.image}">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        Sepete Ekle
+                    </button>
+                </div>
+            </div>
+        `;
+        container.innerHTML += cardHtml;
+    });
+}
+
+// Ürünleri yükle
+function loadProducts(category = null) {
+    const productContainer = document.querySelector('.product__items');
+    if (!productContainer) return;
+
+    // Yükleniyor göstergesi
+    productContainer.innerHTML = '<div class="loading">Ürünler yükleniyor...</div>';
+
+    // API endpoint
+    let url = 'get_products.php';
+    if (category) {
+        url += `?category=${encodeURIComponent(category)}`;
+    }
+
+    // Ürünleri getir
+    fetch(url)
+        .then(response => response.json())
+        .then(products => {
+            if (products.length === 0) {
+                productContainer.innerHTML = '<div class="no-products">Bu kategoride ürün bulunamadı.</div>';
+                return;
+            }
+
+            // Ürün kartlarını oluştur
+            productContainer.innerHTML = products.map(product => `
+                <div class="product__item" data-id="${product.id}">
+                    <div class="product__bunner">
+                        <a href="details.html?id=${product.id}" class="product__images">
+                            <img src="${product.image}" alt="${product.name}" class="product__img default">
+                            <img src="${product.image}" alt="${product.name}" class="product__img hover">
+                        </a>
+                        <div class="product__actions">
+                            <a href="#" class="action__btn" aria-label="Hızlı Bakış">
+                                <i class="fi fi-rs-eye"></i>
+                            </a>
+                            <a href="#" class="action__btn" aria-label="Favorilere Ekle">
+                                <i class="fi fi-rs-heart"></i>
+                            </a>
+                            <a href="#" class="action__btn" aria-label="Karşılaştır">
+                                <i class="fi fi-rs-shuffle"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product__content">
+                        <span class="product__category">${product.category}</span>
+                        <a href="details.html?id=${product.id}">
+                            <h3 class="product__title">${product.name}</h3>
+                        </a>
+                        <div class="product__rating">
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                        </div>
+                        <div class="product__price filex">
+                            <span class="new__price">${product.price} TL</span>
+                        </div>
+                        <button class="cart__btn add-to-cart"
+                                data-id="${product.id}"
+                                data-name="${product.name}"
+                                data-price="${product.price}"
+                                data-image="${product.image}">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Sepete Ekle
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Hızlı görüntüleme için event listener
+            document.querySelectorAll('.quick-view').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const productId = this.dataset.id;
+                    // Hızlı görüntüleme modalını aç
+                    showQuickView(productId);
+                });
+            });
+        })
+        .catch(error => {
+            console.error('Ürünler yüklenirken hata oluştu:', error);
+            productContainer.innerHTML = '<div class="error">Ürünler yüklenirken bir hata oluştu.</div>';
+        });
+}
+
+// Hızlı görüntüleme modalı
+function showQuickView(productId) {
+    // Ürün detaylarını getir
+    fetch(`get_products.php?id=${productId}`)
+        .then(response => response.json())
+        .then(product => {
+            // Modal içeriğini oluştur
+            const modal = document.createElement('div');
+            modal.className = 'quick-view-modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div class="product-details">
+                        <img src="${product.image}" alt="${product.name}">
+                        <div class="details">
+                            <h2>${product.name}</h2>
+                            <p class="price">${product.price} TL</p>
+                            <p class="description">${product.description}</p>
+                            <button class="cart__btn" 
+                                data-id="${product.id}"
+                                data-name="${product.name}"
+                                data-price="${product.price}"
+                                data-image="${product.image}">
+                                Sepete Ekle
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Modalı sayfaya ekle
+            document.body.appendChild(modal);
+
+            // Kapatma butonu için event listener
+            modal.querySelector('.close').addEventListener('click', () => {
+                modal.remove();
+            });
+
+            // Modal dışına tıklandığında kapat
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Ürün detayları yüklenirken hata oluştu:', error);
+        });
+}
+
+// Sayfa yüklendiğinde ürünleri yükle
+document.addEventListener('DOMContentLoaded', () => {
+    // URL'den kategori parametresini al
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category');
+    
+    // Ürünleri yükle
+    loadProducts(category);
+
+    // Kategori filtreleme için event listener
+    document.querySelectorAll('.category-filter').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const category = this.dataset.category;
+            loadProducts(category);
+            
+            // URL'yi güncelle
+            const url = new URL(window.location);
+            if (category) {
+                url.searchParams.set('category', category);
+            } else {
+                url.searchParams.delete('category');
+            }
+            window.history.pushState({}, '', url);
+        });
+    });
+});
