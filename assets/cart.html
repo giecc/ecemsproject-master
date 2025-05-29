@@ -66,7 +66,7 @@
                         </div>
                     </li>
                     <li class="nav__item">
-                        <a href="accounts.html" class="nav__link">Hesabım</a>
+                        <a href="accounts.php" class="nav__link">Hesabım</a>
                     </li>
                     <li class="nav__item">
                         <a href="iletisim.html" class="nav__link">İletişim</a>
@@ -85,7 +85,7 @@
             </div>
 
             <div class="header__user-actions">
-                <a href="whishlist.html" class="header__action-btn">
+                <a href="whishlist.php" class="header__action-btn">
                     <i class="fa-regular fa-heart"></i>
                     <span class="count">3</span>
                 </a>
@@ -229,112 +229,6 @@
 
     <!--============main js===========-->
     <script src="js/main.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            // Sepet verilerini yükle
-            loadCart();
-
-            // Miktar değişikliği dinleyicisi
-            $(document).on('change', '.miktar-input', function() {
-                const productId = $(this).data('id');
-                const newQuantity = $(this).val();
-                updateCartItem(productId, newQuantity);
-            });
-        });
-
-        function loadCart() {
-            $.get('cart.php?get_cart=1', function(cartItems) {
-                if (typeof cartItems === 'string') {
-                    cartItems = JSON.parse(cartItems);
-                }
-                const $cartTableBody = $('#cart-items');
-                let total = 0;
-
-                if (Object.keys(cartItems).length === 0) {
-                    $cartTableBody.html('<tr><td colspan="6">Sepetiniz boş</td></tr>');
-                    $('#cart-total').text('0.00 TL');
-                    return;
-                }
-
-                $cartTableBody.empty();
-                for (let item in cartItems) {
-                    const product = cartItems[item];
-                    const itemTotal = product.fiyat * product.miktar;
-                    total += itemTotal;
-
-                    $cartTableBody.append(`
-                        <tr>
-                            <td><img src="${product.resim}" width="50"></td>
-                            <td>${product.ad}</td>
-                            <td>${product.fiyat.toFixed(2)} TL</td>
-                            <td>
-                                <input type="number" value="${product.miktar}" min="1" 
-                                       class="miktar-input" data-id="${product.id}">
-                            </td>
-                            <td>${itemTotal.toFixed(2)} TL</td>
-                            <td><a href="cart.php?sil=${product.id}" class="sil-btn">Sil</a></td>
-                        </tr>
-                    `);
-                }
-
-                $('#cart-total').text(total.toFixed(2) + ' TL');
-
-                // Miktar inputu değişince AJAX ile güncelle
-                $('.miktar-input').off('change').on('change', function() {
-                    const productId = $(this).data('id');
-                    const newQuantity = $(this).val();
-                    $.post('cart.php', {
-                        urun_id: productId,
-                        miktar: newQuantity
-                    }, function() {
-                        loadCart();
-                    });
-                });
-            });
-        }
-
-        function updateCartItem(productId, quantity) {
-            // Miktar güncelleme için yeni bir endpoint yoksa, mevcut yapıda sadece sayfayı yenileyebiliriz
-            // Gelişmiş bir yapı için cart.php'de miktar güncelleme kodu eklenmeli
-            // Şimdilik sadece sayfayı yenileyelim
-            $.post('cart.php', {
-                urun_id: productId,
-                miktar: quantity
-            }, function() {
-                loadCart();
-            });
-        }
-
-        function clearCart() {
-            if (confirm('Sepeti temizlemek istediğinize emin misiniz?')) {
-                $.get('cart.php?temizle=1', function() {
-                    loadCart();
-                    showNotification('Sepet temizlendi!');
-                });
-            }
-        }
-
-        function checkout() {
-            if ($('#cart-items tr').length === 0) {
-                alert('Sepetiniz boş!');
-                return;
-            }
-            // Burada ödeme sayfasına yönlendirme yapılabilir
-            alert('Ödeme sayfasına yönlendiriliyorsunuz...');
-        }
-
-        function showNotification(message) {
-            const $notification = $('<div>')
-                .addClass('notification')
-                .text(message)
-                .appendTo('body');
-
-            setTimeout(() => {
-                $notification.remove();
-            }, 2000);
-        }
-    </script>
 
     <style>
         .notification {

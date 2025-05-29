@@ -8,7 +8,7 @@
     <link rel='stylesheet'
         href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css'>
 
-        <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <!--==============SWIPER CSS===========-->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
@@ -63,6 +63,48 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 2rem;
+        }
+
+        .cart__btn {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #088178;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .cart__btn:hover {
+            background-color: #066e67;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #088178;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
         @media screen and (max-width: 768px) {
@@ -133,7 +175,7 @@
                         </div>
                     </li>
                     <li class="nav__item">
-                        <a href="accounts.html" class="nav__link">Hesabım</a>
+                        <a href="accounts.php" class="nav__link">Hesabım</a>
                     </li>
                     <li class="nav__item">
                         <a href="iletisim.html" class="nav__link">İletişim</a>
@@ -152,7 +194,7 @@
             </div>
 
             <div class="header__user-actions">
-                <a href="whishlist.html" class="header__action-btn">
+                <a href="whishlist.php" class="header__action-btn">
                     <i class="fa-regular fa-heart"></i>
                     <span class="count">3</span>
                 </a>
@@ -184,8 +226,8 @@
                 <div class="product__item" data-id="B001">
                     <div class="product__bunner">
                         <a href="details.html?id=B001" class="product__images">
-                            <img src="img/bolero1-1.png" alt="Bolero Pileli Mavi Çizgili" class="product__img default">
-                            <img src="img/bolero1-2.png" alt="Bolero Pileli Mavi Çizgili" class="product__img hover">
+                            <img src="img/bolero1-1.png.png" alt="Bolero Pileli Mavi Çizgili" class="product__img default">
+                            <img src="img/bolero1-2.png.png " alt="Bolero Pileli Mavi Çizgili" class="product__img hover">
                         </a>
 
                         <div class="product__actions">
@@ -193,10 +235,15 @@
                                 <i class="fi fi-rs-eye"></i>
                             </a>
 
-
-                            <a href="#" class="action__btn" aria-label="Add To whishlist">
+                            <a href="#" onclick="addToFavorites('B001'); return false;">
                                 <i class="fi fi-rs-heart"></i>
-                            </a>
+                              </a>
+                              <script>
+                              function addToFavorites(urunId) {
+                                  alert('Fonksiyon çalıştı! Ürün ID: ' + urunId);
+                                  // fetch kodunu buraya ekleyebilirsin
+                              }
+                              </script>
 
                             <a href="#" class="action__btn" aria-label="Compare">
                                 <i class="fi fi-rs-shuffle"></i>
@@ -241,8 +288,8 @@
                 <div class="product__item" data-id="B002">
                     <div class="product__bunner">
                         <a href="details.html?id=B002" class="product__images">
-                            <img src="img/bolero2-1.png" alt="Bolero Yeşil Sarı Yaprak" class="product__img default">
-                            <img src="img/bolero2-2.png" alt="Bolero Yeşil Sarı Yaprak" class="product__img hover">
+                            <img src="img/bolero2-1.png.png" alt="Bolero Yeşil Sarı Yaprak" class="product__img default">
+                            <img src="img/bolero2-2.png.png" alt="Bolero Yeşil Sarı Yaprak" class="product__img hover">
                         </a>
 
 
@@ -849,6 +896,22 @@
 
     <!--============main js===========-->
     <script src="js/main.js"></script>
+
+    <script>
+    function addToFavorites(urunId) {
+        fetch('add_favorite.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'urun_id=' + encodeURIComponent(urunId)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            // İstersen burada favoriler sayfasına yönlendirebilirsin:
+            // if (data.success) window.location.href = 'accounts.php#favorites';
+        });
+    }
+    </script>
 
 
 

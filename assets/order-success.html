@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sipariş Başarılı - EWA</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .success-container {
+            max-width: 600px;
+            margin: 100px auto;
+            text-align: center;
+            padding: 40px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+        }
+        .success-icon {
+            font-size: 64px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        .success-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .success-message {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .order-details {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .order-number {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .back-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+        .back-button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon">✓</div>
+        <h1 class="success-title">Siparişiniz Alındı!</h1>
+        <p class="success-message">Siparişiniz başarıyla oluşturuldu. Teşekkür ederiz!</p>
+        
+        <div class="order-details">
+            <p>Sipariş Numarası: <span class="order-number" id="order-number"></span></p>
+            <p>Siparişiniz en kısa sürede hazırlanıp kargoya verilecektir.</p>
+        </div>
+        
+        <a href="index.html" class="back-button">Ana Sayfaya Dön</a>
+    </div>
+
+    <script>
+        // URL'den sipariş numarasını al
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderId = urlParams.get('order_id');
+        
+        if (orderId) {
+            document.getElementById('order-number').textContent = orderId;
+        }
+    </script>
+</body>
+</html> 

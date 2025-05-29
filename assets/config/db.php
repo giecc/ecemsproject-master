@@ -1,4 +1,14 @@
 <?php
+// Veritabanı bağlantı bilgileri
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'ecemsproject');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+
+// Hata raporlamayı aktif et
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 class Database {
     // Bağlantı bilgileri
     private $host = "LAPTOP-069B9L8K\SQLEXPRESS"; // SQL Server instance

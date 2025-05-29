@@ -7,7 +7,10 @@
     <title>Giriş Yap / Üye Ol - EWA</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="js/main.js"></script>
 </head>
 
 <body>
@@ -26,15 +29,15 @@
                     </div>
 
                     <!-- Giriş Yap Formu -->
-                    <form id="login-form" class="auth-form active">
+                    <form id="login-form" class="auth-form active" method="post" autocomplete="off">
                         <div class="form-group">
                             <label for="login-email">E-posta Adresi</label>
-                            <input type="email" id="login-email" required>
+                            <input type="email" id="login-email" autocomplete="email" required>
                         </div>
 
                         <div class="form-group">
                             <label for="login-password">Şifre</label>
-                            <input type="password" id="login-password" required>
+                            <input type="password" id="login-password" autocomplete="current-password" required>
                         </div>
 
                         <div class="form-group">
@@ -63,31 +66,31 @@
                     </form>
 
                     <!-- Üye Ol Formu -->
-                    <form id="register-form" class="auth-form" action="kayit_ol.php" method="POST">
+                    <form id="register-form" class="auth-form" action="kayit_ol.html" method="POST">
                         <div class="form-group">
                             <label for="register-ad">Ad</label>
-                            <input type="text" id="register-ad" name="ad" required>
+                            <input type="text" id="register-ad" name="ad" autocomplete="given-name" required>
                         </div>
 
                         <div class="form-group">
                             <label for="register-soyad">Soyad</label>
-                            <input type="text" id="register-soyad" name="soyad" required>
+                            <input type="text" id="register-soyad" name="soyad" autocomplete="family-name" required>
                         </div>
 
                         <div class="form-group">
                             <label for="register-email">E-posta Adresi</label>
-                            <input type="email" id="register-email" name="email" required>
+                            <input type="email" id="register-email" name="email" autocomplete="email" required>
                         </div>
 
                         <div class="form-group">
                             <label for="register-password">Şifre</label>
-                            <input type="password" id="register-password" name="sifre" required minlength="6">
+                            <input type="password" id="register-password" name="sifre" autocomplete="new-password" required minlength="6">
                             <small>En az 6 karakter olmalıdır.</small>
                         </div>
 
                         <div class="form-group">
                             <label for="register-confirm-password">Şifre Tekrar</label>
-                            <input type="password" id="register-confirm-password" required>
+                            <input type="password" id="register-confirm-password" autocomplete="new-password" required>
                         </div>
 
                         <div class="form-group">
@@ -108,7 +111,7 @@
                     <form id="forgot-form" class="auth-form">
                         <div class="form-group">
                             <label for="forgot-email">E-posta Adresi</label>
-                            <input type="email" id="forgot-email" required>
+                            <input type="email" id="forgot-email" autocomplete="email" required>
                         </div>
 
                         <p>Şifre sıfırlama bağlantısı e-posta adresinize gönderilecektir.</p>
@@ -151,6 +154,29 @@
             });
         });
 
+        // Giriş formu işleme
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData();
+            formData.append('email', document.getElementById('login-email').value);
+            formData.append('password', document.getElementById('login-password').value);
+            fetch('login.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = data.redirect || 'accounts.php';
+                } else {
+                    alert(data.message || 'Giriş başarısız!');
+                }
+            })
+            .catch(error => {
+                alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+            });
+        });
+
         // Giriş/Üye ol linkleri
         document.getElementById('go-to-login')?.addEventListener('click', (e) => {
             e.preventDefault();
@@ -178,44 +204,11 @@
             document.getElementById('login-form').classList.add('active');
         });
 
-        // Form gönderme işlemleri
-        document.getElementById('login-form')?.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-
-            // Burada gerçek giriş işlemi yapılacak
-            console.log('Giriş yapılıyor:', email, password);
-            alert('Giriş başarılı! Yönlendiriliyorsunuz...');
-            // window.location.href = 'index.html';
-        });
-
-        document.getElementById('register-form')?.addEventListener('submit', (e) => {
-            const password = document.getElementById('register-password').value;
-            const confirmPassword = document.getElementById('register-confirm-password').value;
-
-            if (password !== confirmPassword) {
-                e.preventDefault();
-                alert('Şifreler eşleşmiyor!');
-                return;
-            }
-        });
-
-        document.getElementById('forgot-form')?.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('forgot-email').value;
-
-            // Burada şifre sıfırlama işlemi yapılacak
-            console.log('Şifre sıfırlama isteği:', email);
-            alert('Şifre sıfırlama bağlantısı e-posta adresinize gönderildi!');
-
-            // Giriş formuna geç
-            tabs.forEach(t => t.classList.remove('active'));
-            forms.forEach(f => f.classList.remove('active'));
-
-            document.querySelector('.auth-tab[data-tab="login"]').classList.add('active');
-            document.getElementById('login-form').classList.add('active');
-        });
+        // URL'den redirect parametresini al
+        function getRedirectUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('redirect') || '../index.html';
+        }
     </script>
 </body>
 

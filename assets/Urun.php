@@ -65,8 +65,8 @@ class Urun {
                 case 'Fular': $prefix = 'F'; break;
                 case 'Tunik': $prefix = 'T'; break;
                 case 'Otantik Yelek': $prefix = 'OY'; break;
-                case 'Bolero': $prefix = 'PE'; break;
-                case 'Pestemel': $prefix = 'B'; break;
+                case 'Bolero': $prefix = 'B'; break;
+                case 'Pestemel': $prefix = 'PE'; break;
                 default: $prefix = 'D';
             }
             

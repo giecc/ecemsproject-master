@@ -133,7 +133,7 @@
                         </div>
                     </li>
                     <li class="nav__item">
-                        <a href="accounts.html" class="nav__link">Hesabım</a>
+                        <a href="accounts.php" class="nav__link">Hesabım</a>
                     </li>
                     <li class="nav__item">
                         <a href="iletisim.html" class="nav__link">İletişim</a>
@@ -152,7 +152,7 @@
             </div>
 
             <div class="header__user-actions">
-                <a href="whishlist.html" class="header__action-btn">
+                <a href="whishlist.php" class="header__action-btn">
                     <i class="fa-regular fa-heart"></i>
                     <span class="count">3</span>
                 </a>
@@ -193,7 +193,7 @@
                             </a>
 
 
-                            <a href="#" class="action__btn" aria-label="Add To whishlist">
+                            <a href="#" class="action__btn" aria-label="Add To whishlist" onclick="addToFavorites('PE001'); return false;">
                                 <i class="fi fi-rs-heart"></i>
                             </a>
 
@@ -251,7 +251,7 @@
                             </a>
 
 
-                            <a href="#" class="action__btn" aria-label="Add To whishlist">
+                            <a href="#" class="action__btn" aria-label="Add To whishlist" onclick="addToFavorites('PE002'); return false;">
                                 <i class="fi fi-rs-heart"></i>
                             </a>
 
@@ -310,7 +310,7 @@
                             </a>
 
 
-                            <a href="#" class="action__btn" aria-label="Add To whishlist">
+                            <a href="#" class="action__btn" aria-label="Add To whishlist" onclick="addToFavorites('PE003'); return false;">
                                 <i class="fi fi-rs-heart"></i>
                             </a>
 
@@ -368,7 +368,7 @@
                             </a>
 
 
-                            <a href="#" class="action__btn" aria-label="Add To whishlist">
+                            <a href="#" class="action__btn" aria-label="Add To whishlist" onclick="addToFavorites('PE004'); return false;">
                                 <i class="fi fi-rs-heart"></i>
                             </a>
 
@@ -426,7 +426,7 @@
                             </a>
 
 
-                            <a href="#" class="action__btn" aria-label="Add To whishlist">
+                            <a href="#" class="action__btn" aria-label="Add To whishlist" onclick="addToFavorites('PE005'); return false;">
                                 <i class="fi fi-rs-heart"></i>
                             </a>
 
@@ -485,7 +485,7 @@
                             </a>
 
 
-                            <a href="#" class="action__btn" aria-label="Add To whishlist">
+                            <a href="#" class="action__btn" aria-label="Add To whishlist" onclick="addToFavorites('PE006'); return false;">
                                 <i class="fi fi-rs-heart"></i>
                             </a>
 
@@ -544,7 +544,7 @@
                             </a>
 
 
-                            <a href="#" class="action__btn" aria-label="Add To whishlist">
+                            <a href="#" class="action__btn" aria-label="Add To whishlist" onclick="addToFavorites('PE007'); return false;">
                                 <i class="fi fi-rs-heart"></i>
                             </a>
 
@@ -603,7 +603,7 @@
                             </a>
 
 
-                            <a href="#" class="action__btn" aria-label="Add To whishlist">
+                            <a href="#" class="action__btn" aria-label="Add To whishlist" onclick="addToFavorites('PE008'); return false;">
                                 <i class="fi fi-rs-heart"></i>
                             </a>
 
@@ -662,7 +662,7 @@
                             </a>
 
 
-                            <a href="#" class="action__btn" aria-label="Add To whishlist">
+                            <a href="#" class="action__btn" aria-label="Add To whishlist" onclick="addToFavorites('PE009'); return false;">
                                 <i class="fi fi-rs-heart"></i>
                             </a>
 
@@ -808,7 +808,24 @@
     <!--============main js===========-->
     <script src="js/main.js"></script>
 
-
+    <script>
+    function addToFavorites(urunId) {
+        fetch('add_favorite.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'urun_id=' + encodeURIComponent(urunId)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            // Başarılıysa kalbi doldurabilirsin veya başka bir görsel feedback verebilirsin
+        })
+        .catch(error => {
+            console.error('Favori eklenirken hata oluştu:', error);
+            alert('Favori eklenirken bir hata oluştu. Lütfen tekrar deneyin.');
+        });
+    }
+    </script>
 
 </body>
 
