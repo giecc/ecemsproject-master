@@ -9,11 +9,15 @@ if (!isset($_SESSION['user_id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = $_SESSION['user_id'];
-    $address_title = $_POST['address_title'];
-    $address = $_POST['address'];
-    $city = $_POST['city'];
-    $district = $_POST['district'];
-    $postal_code = $_POST['postal_code'];
+    $ad = $_POST['ad'];
+    $soyad = $_POST['soyad'];
+    $telefon = $_POST['telefon'];
+    $sehir = $_POST['il'];
+    $ilce = $_POST['ilce'];
+    $mahalle = $_POST['mahalle'];
+    $adres = $_POST['address'];
+    $adres_basligi = $_POST['address_title'];
+    $fatura_turu = $_POST['fatura_turu'];
 
     $serverName = "LAPTOP-069B9L8K\\SQLEXPRESS";
     $connectionInfo = array(
@@ -31,14 +35,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    $sql = "INSERT INTO Adresler (KullaniciID, AdresBasligi, Adres, Sehir, Ilce, PostaKodu) 
-            VALUES (?, ?, ?, ?, ?, ?)";
-    $params = array($user_id, $address_title, $address, $city, $district, $postal_code);
-    
+    $sql = "INSERT INTO Adresler (KullaniciID, Ad, Soyad, Telefon, Sehir, Ilce, Mahalle, Adres, AdresBasligi, FaturaTuru) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $params = array($user_id, $ad, $soyad, $telefon, $sehir, $ilce, $mahalle, $adres, $adres_basligi, $fatura_turu);
+
     $stmt = sqlsrv_query($conn, $sql, $params);
 
     if ($stmt === false) {
-        $_SESSION['error'] = "Adres eklenirken bir hata oluştu!";
+        $errors = sqlsrv_errors();
+        $_SESSION['error'] = "Adres eklenirken bir hata oluştu! " . print_r($errors, true);
     } else {
         $_SESSION['success'] = "Adres başarıyla eklendi!";
     }

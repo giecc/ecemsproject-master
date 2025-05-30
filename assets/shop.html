@@ -395,35 +395,11 @@
     <script src="js/main.js"></script>
     <script src="js/products.js"></script>
     <script>
-        // Swiper'ı başlatma
-        document.addEventListener('DOMContentLoaded', function() {
-            var swiper = new Swiper('.swiper', {
-                slidesPerView: 4,
-                spaceBetween: 20,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 1
-                    },
-                    768: {
-                        slidesPerView: 2
-                    },
-                    1024: {
-                        slidesPerView: 3
-                    },
-                    1200: {
-                        slidesPerView: 4
-                    }
-                }
-            });
-        });
-
         // Ürünleri dinamik olarak yükle
         function loadProducts() {
             const productsContainer = document.querySelector('.products__container');
+            if (!productsContainer) return;
+            
             productsContainer.innerHTML = ''; // Mevcut ürünleri temizle
 
             // Her ürün için HTML oluştur
@@ -457,7 +433,6 @@
                                 <img src="${imagePath}" alt="${product.name}" class="product__img default">
                                 <img src="${hoverImagePath}" alt="${product.name}" class="product__img hover">
                             </a>
-
                             <div class="product__actions">
                                 <button class="action__btn">
                                     <i class="fa-regular fa-heart"></i>
@@ -470,9 +445,13 @@
                         <div class="product__content">
                             <h3 class="product__title">${product.name}</h3>
                             <div class="product__price">
-                                <span class="new__price">₺${product.price}</span>
+                                <span class="new__price">₺${parseFloat(product.price).toFixed(2)}</span>
                             </div>
-                            <button class="cart__btn add-to-cart" data-id="${product.id}">
+                            <button class="cart__btn add-to-cart" 
+                                data-id="${product.id}"
+                                data-name="${product.name}"
+                                data-price="${product.price}"
+                                data-image="${imagePath}">
                                 <i class="fa-solid fa-cart-shopping"></i>
                                 Sepete Ekle
                             </button>
@@ -481,10 +460,28 @@
                 `;
                 productsContainer.innerHTML += productHTML;
             });
+
+            // Sepete ekleme butonları için event listener'ları ekle
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const product = {
+                        id: this.dataset.id,
+                        name: this.dataset.name,
+                        price: this.dataset.price,
+                        image: this.dataset.image
+                    };
+                    console.log('Adding product to cart:', product); // Debug log
+                    addToCart(product);
+                });
+            });
         }
 
         // Sayfa yüklendiğinde ürünleri göster
-        document.addEventListener('DOMContentLoaded', loadProducts);
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Loading products...'); // Debug log
+            loadProducts();
+        });
     </script>
 
 </body>

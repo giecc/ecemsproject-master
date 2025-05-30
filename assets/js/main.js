@@ -40,8 +40,30 @@ function updateCartDisplay() {
     cartItemsContainer.innerHTML = cart.map(item => {
         // Resim yolunu düzelt
         let imagePath = item.image;
-        if (imagePath.includes('.jpg')) {
-            imagePath = imagePath.replace('.jpg', '.png.png');
+        
+        // Resim yolunu düzeltme
+        if (imagePath.includes('bolero')) {
+            // Hem .jpg hem de .png.png uzantılarını destekle
+            if (imagePath.includes('.png.png')) {
+                // .png.png uzantısını koru
+                return imagePath;
+            } else if (imagePath.includes('.jpg')) {
+                // .jpg uzantısını koru
+                return imagePath;
+            } else {
+                // Eğer uzantı yoksa veya farklıysa, .png.png olarak ayarla
+                return imagePath.replace(/\.(png|jpeg|gif)$/, '.png.png');
+            }
+        }
+        
+        // Fiyat işleme düzeltmesi
+        let price = item.price;
+        if (typeof price === 'string') {
+            price = parseFloat(price.replace('₺', '').replace(',', '.'));
+        } else if (typeof price === 'number') {
+            price = price;
+        } else {
+            price = 0;
         }
         
         return `
@@ -52,12 +74,12 @@ function updateCartDisplay() {
                 <td>
                     <h3 class="table__title">${item.name}</h3>
                 </td>
-                <td>${item.price.toFixed(2)} TL</td>
+                <td>₺${price.toFixed(2)}</td>
                 <td>
                     <input type="number" value="${item.quantity}" min="1" 
                             class="quantity" data-id="${item.id}">
                 </td>
-                <td>${(item.price * item.quantity).toFixed(2)} TL</td>
+                <td>₺${(price * item.quantity).toFixed(2)}</td>
                 <td>
                     <button class="remove-item" data-id="${item.id}">
                         <i class="fa-solid fa-trash"></i>
@@ -68,8 +90,14 @@ function updateCartDisplay() {
     }).join('');
 
     // Toplamı hesapla
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    if (cartTotalElement) cartTotalElement.textContent = `${total.toFixed(2)} TL`;
+    const total = cart.reduce((sum, item) => {
+        let price = item.price;
+        if (typeof price === 'string') {
+            price = parseFloat(price.replace('₺', '').replace(',', '.'));
+        }
+        return sum + (price * item.quantity);
+    }, 0);
+    if (cartTotalElement) cartTotalElement.textContent = `₺${total.toFixed(2)}`;
 
     // Sepet sayacını güncelle
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -84,6 +112,12 @@ function addToCart(product) {
         return;
     }
 
+    // Fiyatı sayıya çevir
+    let price = product.price;
+    if (typeof price === 'string') {
+        price = parseFloat(price.replace('₺', '').replace(',', '.'));
+    }
+
     const existingItem = cart.find(item => item.id === product.id);
 
     if (existingItem) {
@@ -92,7 +126,7 @@ function addToCart(product) {
         cart.push({
             id: product.id,
             name: product.name,
-            price: parseFloat(product.price),
+            price: price,
             image: product.image,
             quantity: 1
         });

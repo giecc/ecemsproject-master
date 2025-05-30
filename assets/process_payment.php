@@ -7,6 +7,15 @@ ini_set('error_log', 'payment_errors.log'); // Hata günlüğü dosyası
 
 session_start();
 
+// Kullanıcı giriş kontrolü
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Lütfen önce giriş yapın.'
+    ]);
+    exit();
+}
+
 // JSON header'ı en başta ayarla
 header('Content-Type: application/json');
 
@@ -75,12 +84,12 @@ try {
     $aliciAdres = $address['adres'] . ', ' . $address['mahalle'] . ', ' . $address['ilce'] . '/' . $address['il'];
 
     // Sipariş ana tabloya ekle
-    $stmt = $conn->prepare("INSERT INTO [Siparisler] ([SiparisNo], [KullaniciID], [ToplamTutar], [AliciAdSoyad], [AliciAdres], [Durum], [OdemeDurumu]) VALUES (?, ?, ?, ?, ?, 'Beklemede', 'Beklemede')");
+    $stmt = $conn->prepare("INSERT INTO [Siparisler] ([SiparisNo], [KullaniciID], [ToplamTutar], [AliciAdSoyad], [AliciAdres], [Durum], [OdemeDurumu], [SiparisTarihi]) VALUES (?, ?, ?, ?, ?, 'Beklemede', 'Beklemede', GETDATE())");
     
     // Değerleri logla
     error_log("Siparisler değerleri: " . print_r([
         'SiparisNo' => $siparisNo,
-        'KullaniciID' => (int)($_SESSION['user_id'] ?? 0),
+        'KullaniciID' => $_SESSION['user_id'],
         'ToplamTutar' => $toplamTutar,
         'AliciAdSoyad' => $aliciAdSoyad,
         'AliciAdres' => $aliciAdres
@@ -89,11 +98,12 @@ try {
     try {
         $stmt->execute([
             $siparisNo,
-            (int)($_SESSION['user_id'] ?? 0),
+            $_SESSION['user_id'],
             $toplamTutar,
             $aliciAdSoyad,
             $aliciAdres
         ]);
+        $siparisID = $conn->lastInsertId();
     } catch (PDOException $e) {
         error_log("Siparisler tablosu INSERT hatası: " . $e->getMessage());
         error_log("SQL State: " . $e->getCode());
@@ -102,10 +112,10 @@ try {
     }
 
     // Sipariş detaylarını ekle
-    $stmt = $conn->prepare("INSERT INTO [SiparisDetaylari] ([SiparisNo], [UrunID], [UrunAdi], [UrunResim], [Adet], [BirimFiyat]) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO [SiparisDetaylari] ([SiparisID], [UrunID], [UrunAdi], [UrunResim], [Adet], [BirimFiyat]) VALUES (?, ?, ?, ?, ?, ?)");
     foreach ($cart as $item) {
         error_log('SiparisDetaylari: ' . print_r($item, true));
-        $urunID = (int) $item['id'];
+        $urunID = (string) $item['id'];
         $urunAdi = (string) $item['name'];
         $adet = (int) $item['quantity'];
         
@@ -126,7 +136,7 @@ try {
         
         // Değerleri logla
         error_log("SiparisDetaylari değerleri: " . print_r([
-            'SiparisNo' => $siparisNo,
+            'SiparisID' => $siparisID,
             'UrunID' => $urunID,
             'UrunAdi' => $urunAdi,
             'UrunResim' => $urunResim,
@@ -136,7 +146,7 @@ try {
         
         try {
             $stmt->execute([
-                $siparisNo,
+                $siparisID,
                 $urunID,
                 $urunAdi,
                 $urunResim,
@@ -172,4 +182,4 @@ try {
         'message' => 'Bir hata oluştu: ' . $e->getMessage()
     ]);
 }
-?> 
+?>

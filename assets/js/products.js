@@ -468,8 +468,8 @@ const products = {
        name: 'Bolero Antrasit Tüy',
        price: 1390,
        category: 'Giyim',
-       image: 'img/Bolero3.1.png',
-       images: ['img/Bolero3.2.png'],
+       image: 'img/Bolero3.1.jpg',
+       images: ['img/Bolero3.2.jpg'],
        description: 'El yapımı mavi renkli palmiye desenli panço. %100 pamuk kumaştan üretilmiştir.',
        sizes: ['One Size'],
        stock: 12,
@@ -554,7 +554,7 @@ const products = {
    /*SAL*/
    S001: {
        id: 'S001',
-       name: 'Panço Etnik Mavi Palmiye',
+       name: 'Şal Siyah Üstüne Kenarı Beyaz Suyolu',
        price: 1140,
        category: 'Giyim',
        image: 'sal1-1.png.png',

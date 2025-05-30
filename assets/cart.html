@@ -230,6 +230,123 @@
     <!--============main js===========-->
     <script src="js/main.js"></script>
 
+    <script>
+        // Sepetteki ürünleri yükle
+        function loadCartItems() {
+            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartTableBody = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            let total = 0;
+
+            // Sepet tablosunu temizle
+            cartTableBody.innerHTML = '';
+
+            // Her ürün için tablo satırı oluştur
+            cartItems.forEach((item, index) => {
+                const row = document.createElement('tr');
+                // Fiyat işleme düzeltmesi
+                let price = item.price;
+                if (typeof price === 'string') {
+                    price = parseFloat(price.replace('₺', '').replace(',', '.'));
+                }
+
+                // Resim yolunu düzelt
+                let imagePath = item.image;
+                if (imagePath.includes('bolero')) {
+                    // Hem .jpg hem de .png.png uzantılarını destekle
+                    if (imagePath.includes('.png.png')) {
+                        // .png.png uzantısını koru
+                        imagePath = imagePath;
+                    } else if (imagePath.includes('.jpg')) {
+                        // .jpg uzantısını koru
+                        imagePath = imagePath;
+                    } else {
+                        // Eğer uzantı yoksa veya farklıysa, .png.png olarak ayarla
+                        imagePath = imagePath.replace(/\.(png|jpeg|gif)$/, '.png.png');
+                    }
+                }
+
+                row.innerHTML = `
+                    <td>
+                        <img src="${imagePath}" alt="${item.name}" class="table__img">
+                    </td>
+                    <td>
+                        <h3 class="table__title">${item.name}</h3>
+                    </td>
+                    <td>₺${price.toFixed(2)}</td>
+                    <td>
+                        <input type="number" value="${item.quantity}" min="1" 
+                                class="quantity" data-id="${item.id}">
+                    </td>
+                    <td>₺${(price * item.quantity).toFixed(2)}</td>
+                    <td>
+                        <button class="remove-item" data-id="${item.id}">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                cartTableBody.appendChild(row);
+                total += price * item.quantity;
+            });
+
+            // Toplam tutarı güncelle
+            cartTotal.textContent = `₺${total.toFixed(2)}`;
+
+            // Sepet sayısını güncelle
+            updateCartCount();
+        }
+
+        // Ürün miktarını güncelle
+        function updateQuantity(index, change) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart[index].quantity = Math.max(1, cart[index].quantity + change);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCartItems();
+        }
+
+        // Ürünü sepetten kaldır
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCartItems();
+            showNotification('Ürün sepetten kaldırıldı');
+        }
+
+        // Sepeti temizle
+        function clearCart() {
+            if (confirm('Sepeti temizlemek istediğinizden emin misiniz?')) {
+                localStorage.removeItem('cart');
+                loadCartItems();
+                showNotification('Sepet temizlendi');
+            }
+        }
+
+        // Sepet sayısını güncelle
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCountElements = document.querySelectorAll('.header__action-btn .count');
+            cartCountElements.forEach(element => {
+                element.textContent = cart.length;
+            });
+        }
+
+        // Bildirim göster
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Sayfa yüklendiğinde sepeti göster
+        document.addEventListener('DOMContentLoaded', loadCartItems);
+    </script>
+
     <style>
         .notification {
             position: fixed;
@@ -254,6 +371,35 @@
             }
         }
 
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-controls button {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            background: #f8f8f8;
+            cursor: pointer;
+        }
+
+        .quantity-controls button:hover {
+            background: #eee;
+        }
+
+        .remove-btn {
+            color: #ff4444;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .remove-btn:hover {
+            color: #cc0000;
+        }
+
         .cart-actions {
             margin-top: 20px;
             display: flex;
@@ -261,31 +407,67 @@
             justify-content: flex-end;
         }
 
-        .btn {
+        .cart-actions button {
             padding: 10px 20px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-weight: bold;
         }
 
         .continue-shopping {
-            background-color: #f0f0f0;
+            background: #f8f8f8;
             color: #333;
         }
 
         .checkout {
-            background-color: #4CAF50;
+            background: #4CAF50;
             color: white;
         }
 
         .empty-cart {
-            background-color: #f44336;
+            background: #ff4444;
             color: white;
         }
 
-        .btn:hover {
-            opacity: 0.9;
+        /* Tablo resim boyutları için yeni stiller */
+        .table__img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-table td {
+            vertical-align: middle;
+            padding: 15px;
+        }
+
+        .cart-table th {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .cart-table tr {
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-table tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .table__title {
+            font-size: 1rem;
+            margin: 0;
+            color: #333;
+        }
+
+        .quantity {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
         }
     </style>
 

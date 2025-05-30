@@ -333,6 +333,10 @@
                         <div class="product__price">
                             <span class="new__price">₺1725</span>
                         </div>
+                        <button class="cart__btn add-to-cart" data-id="E002">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Sepete Ekle
+                        </button>
                     </div>
                 </div>
 
@@ -359,6 +363,10 @@
                         <div class="product__price">
                             <span class="new__price">₺1140</span>
                         </div>
+                        <button class="cart__btn add-to-cart" data-id="P003">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Sepete Ekle
+                        </button>
                     </div>
                 </div>
 
@@ -385,6 +393,10 @@
                         <div class="product__price">
                             <span class="new__price">₺1790</span>
                         </div>
+                        <button class="cart__btn add-to-cart" data-id="T002">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Sepete Ekle
+                        </button>
                     </div>
                 </div>
 
@@ -411,6 +423,10 @@
                         <div class="product__price">
                             <span class="new__price">₺1200</span>
                         </div>
+                        <button class="cart__btn add-to-cart" data-id="YD001">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Sepete Ekle
+                        </button>
                     </div>
                 </div>
             </div>
@@ -481,6 +497,56 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script>
+        // Sepete ekleme fonksiyonu
+        document.addEventListener('DOMContentLoaded', function() {
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-id');
+                    const productItem = this.closest('.product__item');
+                    const productName = productItem.querySelector('.product__title').textContent;
+                    const productPrice = productItem.querySelector('.new__price').textContent;
+                    const productImage = productItem.querySelector('.product__img.default').src;
+                    
+                    // Sepet verilerini localStorage'dan al
+                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    
+                    // Ürünü sepete ekle
+                    cart.push({
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        image: productImage,
+                        quantity: 1
+                    });
+                    
+                    // Sepeti localStorage'a kaydet
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    
+                    // Sepet sayısını güncelle
+                    updateCartCount();
+                    
+                    // Kullanıcıya bildirim göster
+                    alert('Ürün sepete eklendi!');
+                });
+            });
+            
+            // Sepet sayısını güncelleme fonksiyonu
+            function updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const cartCountElements = document.querySelectorAll('.header__action-btn .count');
+                
+                cartCountElements.forEach(element => {
+                    element.textContent = cart.length;
+                });
+            }
+            
+            // Sayfa yüklendiğinde sepet sayısını güncelle
+            updateCartCount();
+        });
+    </script>
 </body>
 
 </html>

@@ -15,7 +15,7 @@ $connectionInfo = array(
 $conn = sqlsrv_connect($serverName, $connectionInfo);
 
 $user_id = $_SESSION['user_id'];
-$sql = "SELECT u.* FROM Favoriler f INNER JOIN Urunler u ON f.UrunID = u.UrunID WHERE f.KullaniciID = ?";
+$sql = "SELECT f.FavoriID, u.* FROM Favoriler f INNER JOIN Urunler u ON f.UrunID = u.UrunID WHERE f.KullaniciID = ?";
 $params = array($user_id);
 $stmt = sqlsrv_query($conn, $sql, $params);
 ?>
@@ -25,61 +25,58 @@ $stmt = sqlsrv_query($conn, $sql, $params);
     <meta charset="UTF-8">
     <title>Favorilerim - EWA</title>
     <link rel="stylesheet" href="css/styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
-        .wishlist-section {
-            padding: 2rem 0;
+        .wishlist-list {
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 0;
+            list-style: none;
         }
-        .wishlist-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        .wishlist-card {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-            overflow: hidden;
+        .wishlist-row {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            margin-bottom: 1.2rem;
+            padding: 1rem 1.5rem;
             transition: box-shadow 0.2s;
-            position: relative;
         }
-        .wishlist-card:hover {
+        .wishlist-row:hover {
             box-shadow: 0 4px 24px rgba(0,0,0,0.13);
         }
         .wishlist-img {
-            width: 100%;
-            height: 220px;
+            width: 90px;
+            height: 90px;
             object-fit: cover;
+            border-radius: 8px;
             background: #f7f7f7;
+            margin-right: 1.5rem;
         }
-        .wishlist-content {
-            padding: 1rem 1.2rem 0.5rem 1.2rem;
+        .wishlist-info {
             flex: 1;
             display: flex;
             flex-direction: column;
+            gap: 0.3rem;
         }
         .wishlist-title {
             font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
             color: #222;
         }
         .wishlist-price {
             color: #e67e22;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 500;
-            margin-bottom: 1rem;
         }
         .wishlist-actions {
             display: flex;
             gap: 0.5rem;
-            margin-top: auto;
+            margin-left: 1.5rem;
         }
         .wishlist-btn {
-            flex: 1;
-            padding: 0.5rem 0.7rem;
+            padding: 0.45rem 0.9rem;
             border: none;
             border-radius: 6px;
             font-size: 1rem;
@@ -87,20 +84,20 @@ $stmt = sqlsrv_query($conn, $sql, $params);
             transition: background 0.2s, color 0.2s;
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 6px;
         }
         .wishlist-btn.add-to-cart {
-            background: #222;
-            color: #fff;
+            background: var(--first-color);
+            color: var(--container-color);
         }
         .wishlist-btn.add-to-cart:hover {
-            background: #e67e22;
-            color: #fff;
+            background: var(--first-color-alt);
+            color: var(--title-color);
         }
         .wishlist-btn.remove {
-            background: #fff0f0;
-            color: #e74c3c;
-            border: 1px solid #e74c3c;
+            background: #222;
+            color: #fff;
+            border: none;
         }
         .wishlist-btn.remove:hover {
             background: #e74c3c;
@@ -117,18 +114,96 @@ $stmt = sqlsrv_query($conn, $sql, $params);
             margin-bottom: 1rem;
         }
         @media (max-width: 600px) {
-            .wishlist-grid {
-                grid-template-columns: 1fr;
+            .wishlist-row {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1rem;
             }
             .wishlist-img {
-                height: 160px;
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+            .wishlist-actions {
+                margin-left: 0;
+                margin-top: 1rem;
+                width: 100%;
+                justify-content: flex-start;
             }
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <!-- Projenin header'ı -->
+<header class="header">
+        <div class="header__top">
+            <div class="header__container container">
+                <div class="header__contact">
+                    <span><i class="fas fa-phone"></i> 0533 773 25 05</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Fethiye / MUĞLA</span>
+                </div>
+                <p class="header__alert-news">
+                    Yeni müşterilere özel %10 indirim: HOSGELDİN10
+                </p>
+                <a href="login-register.html" class="header__top-action">
+                    Giriş yap / Üye Ol
+                </a>
+            </div>
+        </div>
+
+        <nav class="nav container">
+            <a href="index.html" class="nav__logo">
+                <img src="img/logo.png" alt="EWA Logo" class="nav__logo-img">
+            </a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link active-link">Ana Sayfa</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="shop.html" class="nav__link">Mağaza</a>
+                        <div class="dropdown-menu" id="shop-dropdown">
+                            <a href="tunik.html">Tunik</a>
+                            <a href="elbise.html">Elbise</a>
+                            <a href="otontikY.html">Otantik Uzun Yelek</a>
+                            <a href="bolero.html">Bolero</a>
+                            <a href="yorselD.html">Yöresel El Dokuması</a>
+                            <a href="panco.html">Panço</a>
+                            <a href="sal.html">Şal</a>
+                            <a href="fular.html">Fular</a>
+                            <a href="pestemal.html">Peştemal</a>
+                            <a href="diger.html">Diğer</a>
+                        </div>
+                    </li>
+                    <li class="nav__item">
+                        <a href="accounts.php" class="nav__link">Hesabım</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="iletisim.html" class="nav__link">İletişim</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="login-register.html" class="nav__link">Giriş Yap</a>
+                    </li>
+                </ul>
+
+                <div class="header__search">
+                    <input type="text" placeholder="Ürün ara..." class="form__input" />
+                    <button class="search__btn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="header__user-actions">
+                <a href="whishlist.php" class="header__action-btn">
+                    <i class="fa-regular fa-heart"></i>
+                    <span class="count">3</span>
+                </a>
+                <a href="cart.html" class="header__action-btn">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="count">3</span>
+                </a>
+            </div>
+        </nav>
     </header>
     <main class="main">
         <section class="wishlist-section container">
@@ -143,25 +218,25 @@ $stmt = sqlsrv_query($conn, $sql, $params);
                 }
             }
             if ($hasFav): ?>
-            <div class="wishlist-grid">
+            <ul class="wishlist-list">
                 <?php foreach ($wishlist as $urun): ?>
-                <div class="wishlist-card" data-id="<?php echo htmlspecialchars($urun['UrunID']); ?>">
+                <li class="wishlist-row" data-id="<?php echo htmlspecialchars($urun['UrunID']); ?>" data-favorite-id="<?php echo htmlspecialchars($urun['FavoriID']); ?>">
                     <img src="<?php echo htmlspecialchars($urun['ResimURL']); ?>" alt="<?php echo htmlspecialchars($urun['UrunAdi']); ?>" class="wishlist-img">
-                    <div class="wishlist-content">
+                    <div class="wishlist-info">
                         <div class="wishlist-title"><?php echo htmlspecialchars($urun['UrunAdi']); ?></div>
                         <div class="wishlist-price">₺<?php echo number_format($urun['Fiyat'], 2); ?></div>
-                        <div class="wishlist-actions">
-                            <button class="wishlist-btn add-to-cart" onclick="addToCart('<?php echo htmlspecialchars($urun['UrunID']); ?>')">
-                                <i class="fa-solid fa-cart-shopping" style="margin-right:6px;"></i> Sepete Ekle
-                            </button>
-                            <button class="wishlist-btn remove" onclick="removeFromFavorites('<?php echo htmlspecialchars($urun['UrunID']); ?>', this)">
-                                <i class="fa-solid fa-trash" style="margin-right:6px;"></i> Kaldır
-                            </button>
-                        </div>
                     </div>
-                </div>
+                    <div class="wishlist-actions">
+                        <button class="wishlist-btn add-to-cart" onclick="addToCart('<?php echo htmlspecialchars($urun['UrunID']); ?>')">
+                            <i class="fa-solid fa-cart-shopping"></i> Sepete Ekle
+                        </button>
+                        <button class="wishlist-btn remove" onclick="removeFromFavorites('<?php echo htmlspecialchars($urun['FavoriID']); ?>', this)">
+                            <i class="fa-solid fa-trash"></i> Kaldır
+                        </button>
+                    </div>
+                </li>
                 <?php endforeach; ?>
-            </div>
+            </ul>
             <?php else: ?>
             <div class="wishlist-empty">
                 <div class="wishlist-empty-icon"><i class="fa-regular fa-heart"></i></div>
@@ -171,27 +246,86 @@ $stmt = sqlsrv_query($conn, $sql, $params);
         </section>
     </main>
     <footer class="footer">
-        <!-- Projenin footer'ı -->
+        <div class="footer__container container grid">
+            <div class="footer__content">
+                <a href="index.html" class="footer__logo">
+                    <img src="img/logo.png" alt="EWA Logo" class="footer__logo-img">
+                </a>
+                <h4 class="footer__subtitle">İletişim</h4>
+                <p class="footer__description">
+                    <span>Adres:</span> Cumhuriyet Mah. 41. Sok. No:8A Fethiye / MUĞLA / TÜRKİYE
+                </p>
+                <p class="footer__description">
+                    0533 773 25 05
+                </p>
+                <p class="footer__description">
+                    emel@ewahandmade.com
+                </p>
+                <div class="footer__social">
+                    <div class="footer__social-links flex">
+                        <a href="#">
+                            <img src="img/facebook-icon.svg" alt="Facebook" class="footer__social-icon">
+                        </a>
+                        <a href="#">
+                            <img src="img/instagram-icon.svg" alt="Instagram" class="footer__social-icon">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">Biz</h3>
+                <ul class="footer__links">
+                    <li>Emel's Weaving Art olarak, %100</li>
+                    <li>pamuk iplikleriyle dokuduğumuz</li>
+                    <li>kumaşlara ruh katarız.</li>
+                </ul>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">Biz Ne Yapıyoruz</h3>
+                <ul class="footer__links">
+                    <li>Emel's Weaving Art olarak,</li>
+                    <li>hayalimizdeki tasarımlara uygun</li>
+                    <li>dokumalar yaparak başlarız işe.</li>
+                    <li>%100 pamuk iplikleri kullanarak.</li>
+                </ul>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">Ürünlerimiz</h3>
+                <ul class="footer__links">
+                    <li><a href="#" class="footer__link">Elbise</a></li>
+                    <li><a href="#" class="footer__link">Tunik</a></li>
+                    <li><a href="#" class="footer__link">Otantik Yelek</a></li>
+                    <li><a href="#" class="footer__link">Bolero</a></li>
+                    <li><a href="#" class="footer__link">Panço</a></li>
+                    <li><a href="#" class="footer__link">Şal/Fular</a></li>
+                    <li><a href="#" class="footer__link">Peştemal</a></li>
+                    <li><a href="#" class="footer__link">Yöresel Dokuma</a></li>
+                </ul>
+            </div>
+        </div>
     </footer>
     <script>
     function addToCart(urunId) {
         // Sepete ekleme işlemi için AJAX yazabilirsin
         alert('Sepete eklendi: ' + urunId);
     }
-    function removeFromFavorites(urunId, btn) {
+    function removeFromFavorites(favoriteId, btn) {
         fetch('remove_favorite.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: 'urun_id=' + encodeURIComponent(urunId)
+            body: 'favorite_id=' + encodeURIComponent(favoriteId)
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // Kartı animasyonla kaldır
-                const card = btn.closest('.wishlist-card');
-                card.style.transition = 'opacity 0.4s';
-                card.style.opacity = 0;
-                setTimeout(() => card.remove(), 400);
+                // Satırı animasyonla kaldır
+                const row = btn.closest('.wishlist-row');
+                row.style.transition = 'opacity 0.4s';
+                row.style.opacity = 0;
+                setTimeout(() => row.remove(), 400);
             }
             // Bildirim göster
             alert(data.message);
