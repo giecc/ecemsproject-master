@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css'>
+
+
+        
+
+    <!--==============SWIPER CSS===========-->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+
+    <!--==============CSS===========-->
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <title>ECOMMERCE WEBSİTE</title>
+
+</head>
+
+<body>
+    <!--==================HEADER===============-->
+    <header class="header">
+        <div class="header__top">
+            <div class="header__container container">
+                <div class="header__contact">
+                    <span><i class="fas fa-phone"></i> 0533 773 25 05</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Fethiye / MUĞLA</span>
+                </div>
+                <a href="login-register.html" class="header__top-action">
+                    Giriş yap / Üye Ol
+                </a>
+            </div>
+        </div>
+
+        <nav class="nav container">
+            <a href="index.html" class="nav__logo">
+                <img src="img/logo.png" alt="EWA Logo" class="nav__logo-img">
+            </a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link active-link">Ana Sayfa</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="shop.html" class="nav__link">Mağaza</a>
+                        <div class="dropdown-menu" id="shop-dropdown">
+                            <a href="tunik.html">Tunik</a>
+                            <a href="elbise.html">Elbise</a>
+                            <a href="otontikY.html">Otantik Uzun Yelek</a>
+                            <a href="bolero.html">Bolero</a>
+                            <a href="yorselD.html">Yöresel El Dokuması</a>
+                            <a href="panco.html">Panço</a>
+                            <a href="sal.html">Şal</a>
+                            <a href="fular.html">Fular</a>
+                            <a href="pestemal.html">Peştemal</a>
+                            <a href="diger.html">Diğer</a>
+                        </div>
+                    </li>
+                    <li class="nav__item">
+                        <a href="accounts.php" class="nav__link">Hesabım</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="contact.html" class="nav__link">İletişim</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="login-register.html" class="nav__link">Giriş Yap</a>
+                    </li>
+                </ul>
+
+                <div class="header__search">
+                    <input type="text" placeholder="Ürün ara..." class="form__input" />
+                    <button class="search__btn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="header__user-actions">
+                <a href="whishlist.php" class="header__action-btn">
+                    <i class="fa-regular fa-heart"></i>
+                    <span class="count">3</span>
+                </a>
+                <a href="cart.html" class="header__action-btn">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="count">3</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+
+    <!--=================MAIN=============-->
+
+    <main class="main">
+
+        <!--========PRODUCT==========-->
+
+
+
+
+
+        <section class="products">
+            <div class="products__container grid">
+
+                <div class="product__item" data-id="D001">
+                    <div class="product__bunner">
+                        <a href="details.html?id=D001" class="product__images">
+                            <img src="img/diğer1.1.jpg" alt="" class="product__img default">
+                            <img src="img/diğer1.2.jpg" alt="" class="product__img hover">
+                        </a>
+                        <div class="product__actions">
+                            <a href="details.html?id=D001" class="action__btn" aria-label="Quick View">
+                                <i class="fi fi-rs-eye"></i>
+                            </a>
+                            <a href="whishlist.php" class="action__btn" aria-label="Add To whishlist">
+                                <i class="fi fi-rs-heart"></i>
+                            </a>
+                          
+                        </div>
+                    </div>
+                    <div class="product__content">
+                        <span class="product__category">Giyim</span>
+                        <a href="details.html">
+                            <h3 class="product__title">Masa Örtüsü Kare Feretikolu Baklava</h3>
+                        </a>
+                        <div class="product__rating">
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                        </div>
+                        <div class="product__price filex">
+                            <span class="new__price">790 TL</span>
+                        </div>
+                        <a href="cart.html" class="action__btn" >  
+                        <button class="cart__btn add-to-cart" data-id="D001">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Sepete Ekle
+                        </button>
+                    </a>
+                    </div>
+                </div>
+
+
+
+                <div class="product__item" data-id="D002">
+                    <div class="product__bunner">
+                        <a href="details.html?id=D002" class="product__images">
+                            <img src="img/diğer2.1.jpg" alt="" class="product__img default">
+                            <img src="img/diğer2.2.jpg" alt="" class="product__img hover">
+                        </a>
+                        <div class="product__actions">
+                            <a href="details.html?id=D002" class="action__btn" aria-label="Quick View">
+                                <i class="fi fi-rs-eye"></i>
+                            </a>
+                            <a href="whishlist.php" class="action__btn" aria-label="Add To whishlist">
+                                <i class="fi fi-rs-heart"></i>
+                            </a>
+                          
+                        </div>
+                    </div>
+                    <div class="product__content">
+                        <span class="product__category">Giyim</span>
+                        <a href="details.html">
+                            <h3 class="product__title">Masa Örtüsü Dikdörtgen Feretikolu Kabak Çiçeği</h3>
+                        </a>
+                        <div class="product__rating">
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                        </div>
+                        <div class="product__price filex">
+                            <span class="new__price">850 TL</span>
+                        </div>
+                        <button class="cart__btn add-to-cart" data-id="D002">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Sepete Ekle
+                        </button>
+                    </div>
+                </div>
+
+
+
+                <div class="product__item" data-id="D003">
+                    <div class="product__bunner">
+                        <a href="details.html?id=D003" class="product__images">
+                            <img src="img/diğer3.1.jpg" alt="" class="product__img default">
+                            <img src="img/diğer3.2.jpg" alt="" class="product__img hover">
+                        </a>
+                        <div class="product__actions">
+                            <a href="details.html?id=D003" class="action__btn" aria-label="Quick View">
+                                <i class="fi fi-rs-eye"></i>
+                            </a>
+                            <a href="whishlist.php" class="action__btn" aria-label="Add To whishlist">
+                                <i class="fi fi-rs-heart"></i>
+                            </a>
+                          
+                        </div>
+                    </div>
+                    <div class="product__content">
+                        <span class="product__category">Giyim</span>
+                        <a href="details.html">
+                            <h3 class="product__title">Masa Örtüsü Kare Çomaklı Kabak Çiçeği</h3>
+                        </a>
+                        <div class="product__rating">
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                        </div>
+                        <div class="product__price filex">
+                            <span class="new__price">790 TL</span>
+                        </div>
+                        <button class="cart__btn add-to-cart" data-id="D003">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Sepete Ekle
+                        </button>
+                    </div>
+                </div>
+
+
+
+                <div class="product__item" data-id="D004">
+                    <div class="product__bunner">
+                        <a href="details.html" class="product__images">
+                            <img src="img/diğer5.1.jpg" alt="" class="product__img default">
+                            <img src="img/diğer5.2.jpg" alt="" class="product__img hover">
+                        </a>
+                        <div class="product__actions">
+                            <a href="details.html?id=D004" class="action__btn" aria-label="Quick View">
+                                <i class="fi fi-rs-eye"></i>
+                            </a>
+                            <a href="whishlist.php" class="action__btn" aria-label="Add To whishlist">
+                                <i class="fi fi-rs-heart"></i>
+                            </a>
+                        
+                        </div>
+                    </div>
+                    <div class="product__content">
+                        <span class="product__category">Giyim</span>
+                        <a href="details.html">
+                            <h3 class="product__title">Masa Örtüsü Dikdörtgen Çomaklı Kabak Çiçeği</h3>
+                        </a>
+                        <div class="product__rating">
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                            <i class="fi fi-rs-star"></i>
+                        </div>
+                        <div class="product__price filex">
+                            <span class="new__price">900 TL</span>
+                        </div>
+                        <button class="cart__btn add-to-cart" data-id="D004">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Sepete Ekle
+                        </button>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </section>
+
+
+
+
+
+
+
+
+    </main>
+
+    <!--========Pfooter==========-->
+    <footer class="footer container">
+        <div class="footer__container grid">
+            <div class="footer__content">
+                <a href="index.html" class="footer__logo">
+
+                </a>
+                <h4 class="footer__subtitle">İletişim</h4>
+                <p class="footer__description">
+                    <span>Adres:</span>Cumhuriyet Mah. 41. Sok. No:8A Fethiye / MUĞLA / TÜRKİYE
+                <p>
+
+                <p class="footer__description">
+                    0533 773 25 05
+                <p>
+
+                <p class="footer__description">
+                    emel@ewahandmade.com
+                <p>
+
+                <div class="footer__social">
+                    <h4 class="footer__subtitle"></h4>
+
+                    <div class="footer__social-links flex">
+                        <a href="">
+                            <img src="img/facebook-icon.svg" alt="" class="footer__social-icon">
+                        </a>
+
+                        <a href="">
+                            <img src="img/instagram-icon.svg" alt="" class="footer__social-icon">
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">Biz</h3>
+                <ul class="footer__links">
+                    <li>Emel's Weaving Art olarak, %100</li><br>
+
+                    <li>pamuk iplikleriyle dokuduğumuz</li><br>
+
+                    <li>kumaşlara ruh katarız.</li>
+
+                </ul>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">Biz Ne Yapıyoruz</h3>
+                <ul class="footer__links">
+                    <li>Emel's Weaving Art</li><br>
+                    <li>olarak, hayalimizdeki</li><br>
+                    <li>tasarımlara uygun</li><br>
+                    <li>dokumalar yaparak</li><br>
+                    <li>başlarız işe. Ama %</li><br>
+                    <li>100 pamuk iplikleri</li><br>
+                    <li>kullanarak.</li>
+
+                </ul>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">Ürünlerimiz</h3>
+                <ul class="footer__links">
+                    <li><a href="" class="footer__link">Elbise</a></li>
+                    <li><a href="" class="footer__link">Tunik</a></li>
+                    <li><a href="" class="footer__link">Otantik Yelek</a></li>
+                    <li><a href="" class="footer__link">Bolero</a></li>
+                    <li><a href="" class="footer__link">Panço</a></li>
+                    <li><a href="" class="footer__link">Şal/Fular</a></li>
+                    <li><a href="" class="footer__link">Peştemal</a></li>
+                    <li><a href="" class="footer__link">Yöresel Dokuma</a></li>
+
+                </ul>
+            </div>
+
+        </div>
+    </footer>
+
+
+
+
+    <!--============swiper js===========-->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!--============main js===========-->
+    <script src="js/main.js"></script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ödeme - EWA</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="turkiye-il-ilce.js"></script>
+    <style>
+        body {
+            background: #f6f6f6;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .checkout-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+            display: flex;
+            gap: 32px;
+            padding: 32px;
+        }
+        .checkout-main {
+            flex: 2;
+        }
+        .checkout-section {
+            margin-bottom: 32px;
+        }
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 18px;
+            color: #333;
+        }
+        .address-box, .payment-box {
+            background: #fafbfc;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 16px;
+            border: 1px solid #ececec;
+        }
+        .address-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .address-select {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .add-address-btn {
+            background: #ff9800;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-left: 8px;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.98rem;
+            margin-bottom: 8px;
+        }
+        .payment-methods {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 18px;
+        }
+        .payment-method {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        .payment-method input[type="radio"] {
+            accent-color: #4CAF50;
+        }
+        .card-info {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .card-info input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            width: 220px;
+        }
+        .installments {
+            margin-top: 12px;
+        }
+        .installments label {
+            margin-right: 18px;
+            font-size: 0.98rem;
+        }
+        .checkout-sidebar {
+            flex: 1;
+            background: #fafbfc;
+            border-radius: 8px;
+            padding: 24px;
+            border: 1px solid #ececec;
+            height: fit-content;
+        }
+        .order-summary {
+            margin-bottom: 18px;
+        }
+        .order-summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        .order-summary-total {
+            font-weight: bold;
+            color: #ff9800;
+            font-size: 1.15rem;
+        }
+        .contract-checkbox {
+            margin-bottom: 18px;
+        }
+        .checkout-btn {
+            width: 100%;
+            background: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 14px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .checkout-btn:disabled {
+            background: #bdbdbd;
+            cursor: not-allowed;
+        }
+        @media (max-width: 900px) {
+            .checkout-container {
+                flex-direction: column;
+                padding: 16px;
+            }
+        }
+        .order-summary-wide {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+            padding: 28px 32px 18px 32px;
+            margin-bottom: 32px;
+        }
+        .order-summary-product-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 32px;
+            background: #fafbfc;
+            border-radius: 10px;
+            padding: 18px 22px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid #ececec;
+            min-height: 90px;
+        }
+        .order-summary-product-card img {
+            width: 72px;
+            height: 72px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            background: #fff;
+        }
+        .order-summary-product-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            justify-content: center;
+        }
+        .order-summary-product-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 4px;
+        }
+        .order-summary-product-qty {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #4CAF50;
+        }
+        .order-summary-product-price {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #ff9800;
+        }
+        .order-summary-product-title {
+            font-weight: 600;
+            font-size: 1.08em;
+            color: #222;
+            margin-bottom: 2px;
+        }
+        .order-summary-product-details {
+            color: #888;
+            font-size: 0.98em;
+        }
+        @media (max-width: 900px) {
+            .order-summary-wide {
+                padding: 12px 6px 8px 6px;
+            }
+            .order-summary-product-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 12px 8px;
+            }
+            .order-summary-product-card img {
+                width: 54px;
+                height: 54px;
+            }
+        }
+        .order-summary-table th, .order-summary-table td {
+            padding: 1rem 0.7rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+        .order-summary-table th {
+            background-color: #f8f8f8;
+            font-weight: 600;
+        }
+        .order-summary-table img {
+            width: 54px;
+            height: 54px;
+            object-fit: cover;
+            border-radius: 7px;
+            border: 1px solid #eee;
+            background: #fff;
+        }
+        @media (max-width: 900px) {
+            .order-summary-table th, .order-summary-table td {
+                padding: 0.5rem 0.3rem;
+                font-size: 0.97em;
+            }
+            .order-summary-table img {
+                width: 38px;
+                height: 38px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <div class="checkout-main">
+            <!-- Sipariş Özeti (geniş ve yatay) -->
+            <div class="order-summary-wide" id="order-summary-products" style="margin-bottom:32px;">
+                <table class="table cart-table order-summary-table" style="width:100%;background:#fff;border-radius:10px;overflow:hidden;">
+                    <thead>
+                        <tr>
+                            <th>Ürün</th>
+                            <th>Adı</th>
+                            <th>Fiyat</th>
+                            <th>Adet</th>
+                            <th>Toplam</th>
+                        </tr>
+                    </thead>
+                    <tbody id="order-summary-tbody">
+                        <!-- Ürünler buraya eklenecek -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- Teslimat Adresi -->
+            <div class="checkout-section">
+                <div class="section-title">Teslimat Adresi</div>
+                <div class="address-box" id="address-list">
+                    <!-- Adres kutuları buraya eklenecek -->
+                </div>
+                <button class="add-address-btn" id="add-address-btn" style="width:100%;margin-bottom:10px;">+ Yeni Adres Ekle</button>
+            </div>
+            <!-- Ödeme Seçenekleri -->
+            <div class="checkout-section">
+                <div class="section-title">Ödeme Seçenekleri</div>
+                <div class="payment-box">
+                    <div class="payment-methods">
+                        <label class="payment-method">
+                            <input type="radio" name="payment" checked> Kart ile Öde
+                        </label>
+                        <label class="payment-method">
+                            <input type="radio" name="payment" disabled> Kapıda Ödeme (Yakında)
+                        </label>
+                    </div>
+                    <div class="card-info">
+                        <input type="text" placeholder="Kart Numarası" maxlength="19">
+                        <input type="text" placeholder="Son Kullanma (AA/YY)" maxlength="5">
+                        <input type="text" placeholder="CVV" maxlength="3">
+                    </div>
+                    <div class="installments">
+                        <label><input type="radio" name="taksit" checked> Tek Çekim</label>
+                        <label><input type="radio" name="taksit"> 2 Taksit</label>
+                        <label><input type="radio" name="taksit"> 3 Taksit</label>
+                        <label><input type="radio" name="taksit"> 6 Taksit</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="checkout-sidebar">
+            <div class="order-summary" id="order-summary-totals">
+                <!-- Toplamlar buraya eklenecek -->
+            </div>
+            <div class="contract-checkbox">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="contract-check"> Ön Bilgilendirme Koşulları'nı ve Mesafeli Satış Sözleşmesi'ni okudum, onaylıyorum.
+                </label>
+            </div>
+            <button class="checkout-btn" id="pay-btn" disabled>Ödeme Yap</button>
+        </div>
+    </div>
+    <!-- Modal: Adres Ekle -->
+    <div id="address-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.3);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:#fff;padding:32px 24px;border-radius:10px;max-width:500px;width:95%;box-shadow:0 4px 24px rgba(0,0,0,0.12);position:relative;max-height:90vh;overflow-y:auto;">
+            <h3 style="margin-top:0;margin-bottom:18px;font-size:1.15rem;">Adres Ekle</h3>
+            <form id="address-form">
+                <div style="display:flex;gap:10px;margin-bottom:10px;">
+                    <input type="text" id="ad" placeholder="Adınız*" required style="flex:1;padding:8px;">
+                    <input type="text" id="soyad" placeholder="Soyadınız*" required style="flex:1;padding:8px;">
+                </div>
+                <div style="display:flex;gap:10px;margin-bottom:10px;">
+                    <input type="tel" id="telefon" placeholder="Telefon*" required pattern="0[0-9]{10}" style="flex:1;padding:8px;">
+                    <select id="il" required style="flex:1;padding:8px;"></select>
+                </div>
+                <div style="display:flex;gap:10px;margin-bottom:10px;">
+                    <select id="ilce" required style="flex:1;padding:8px;"></select>
+                    <input type="text" id="mahalle" placeholder="Mahalle*" required style="flex:1;padding:8px;">
+                </div>
+                <textarea id="adres" placeholder="Adres* (Cadde, sokak, bina, daire vb.)" required style="width:100%;padding:8px;margin-bottom:10px;"></textarea>
+                <input type="text" id="adresBaslik" placeholder="Adres Başlığı* (ör: Ev, İş, Yurt)" required style="width:100%;padding:8px;margin-bottom:10px;">
+                <div style="margin-bottom:10px;">
+                    <label>Fatura Türü: </label>
+                    <label><input type="radio" name="faturaTuru" value="Bireysel" checked> Bireysel</label>
+                    <label style="margin-left:10px;"><input type="radio" name="faturaTuru" value="Kurumsal"> Kurumsal</label>
+                </div>
+                <div style="display:flex;justify-content:flex-end;gap:10px;">
+                    <button type="button" id="close-modal" style="background:#eee;border:none;padding:8px 16px;border-radius:5px;">İptal</button>
+                    <button type="submit" style="background:#4CAF50;color:#fff;border:none;padding:8px 16px;border-radius:5px;">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        // Sözleşme onay kutusu işlevi
+        document.getElementById('contract-check').addEventListener('change', function() {
+            document.getElementById('pay-btn').disabled = !this.checked;
+        });
+
+        // Adresleri localStorage'dan yükle ve kutucuk olarak göster
+        function loadAddresses() {
+            const container = document.getElementById('address-list');
+            container.innerHTML = '';
+            const addresses = JSON.parse(localStorage.getItem('addresses') || '[]');
+            const selected = parseInt(localStorage.getItem('selectedAddressIndex') || '0');
+            if (addresses.length === 0) {
+                container.innerHTML = '<div style="color:#888;text-align:center;padding:16px 0;">Henüz adres eklenmedi</div>';
+                return;
+            }
+            addresses.forEach((addr, i) => {
+                const div = document.createElement('div');
+                div.className = 'address-card';
+                div.style = `border:1.5px solid #ececec;border-radius:8px;padding:16px 16px 16px 40px;margin-bottom:12px;position:relative;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.03);${selected===i?'border:2px solid #ff9800;box-shadow:0 0 0 2px #ff980033;':''}`;
+                div.innerHTML = `
+                    <input type="radio" name="selected-address" value="${i}" ${selected===i?'checked':''} style="position:absolute;left:12px;top:24px;zoom:1.3;cursor:pointer;">
+                    <button class="delete-address-btn" data-index="${i}" style="position:absolute;top:10px;right:10px;background:none;border:none;cursor:pointer;font-size:1.2em;color:#ff5252;" title="Sil"><span style='font-size:1.2em;'>&#128465;</span></button>
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+                        <span style="background:#ff9800;color:#fff;padding:2px 10px;border-radius:4px;font-size:0.95em;">${addr.adresBaslik}</span>
+                        <span style="color:#4CAF50;font-size:1.1em;"><b>${addr.ad} ${addr.soyad}</b></span>
+                        <span style="color:#888;font-size:0.95em;">${addr.telefon}</span>
+                        <span style="color:#888;font-size:0.95em;">${addr.faturaTuru}</span>
+                    </div>
+                    <div style="color:#222;font-size:1em;margin-bottom:4px;">${addr.adres}</div>
+                    <div style="color:#888;font-size:0.97em;">${addr.mahalle}, ${addr.ilce}, ${addr.il}</div>
+                `;
+                container.appendChild(div);
+            });
+            // Radio değişimi
+            container.querySelectorAll('input[name="selected-address"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    localStorage.setItem('selectedAddressIndex', this.value);
+                    loadAddresses();
+                });
+            });
+            // Sil butonu
+            container.querySelectorAll('.delete-address-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const idx = parseInt(this.getAttribute('data-index'));
+                    let addresses = JSON.parse(localStorage.getItem('addresses') || '[]');
+                    addresses.splice(idx, 1);
+                    localStorage.setItem('addresses', JSON.stringify(addresses));
+                    // Seçili adresi güncelle
+                    let selected = parseInt(localStorage.getItem('selectedAddressIndex') || '0');
+                    if (selected >= addresses.length) selected = addresses.length-1;
+                    localStorage.setItem('selectedAddressIndex', selected >= 0 ? selected : 0);
+                    loadAddresses();
+                });
+            });
+        }
+        loadAddresses();
+
+        // İl doldur
+        const ilSelect = document.getElementById('il');
+        const ilceSelect = document.getElementById('ilce');
+
+        function fillIl() {
+            console.log('turkiyeAdres:', turkiyeAdres);
+            ilSelect.innerHTML = '<option value="">İl Seçiniz</option>';
+            Object.keys(turkiyeAdres).forEach(il => {
+                const opt = document.createElement('option');
+                opt.value = il;
+                opt.textContent = il;
+                ilSelect.appendChild(opt);
+            });
+            ilceSelect.innerHTML = '<option value="">İlçe Seçiniz</option>';
+        }
+
+        function fillIlce() {
+            ilceSelect.innerHTML = '<option value="">İlçe Seçiniz</option>';
+            const il = ilSelect.value;
+            if (il && turkiyeAdres[il]) {
+                Object.keys(turkiyeAdres[il]).forEach(ilce => {
+                    const opt = document.createElement('option');
+                    opt.value = ilce;
+                    opt.textContent = ilce;
+                    ilceSelect.appendChild(opt);
+                });
+            }
+        }
+
+        ilSelect.addEventListener('change', fillIlce);
+
+        // Modal açıldığında il/ilçe doldur
+        const openModalBtn = document.getElementById('add-address-btn');
+        openModalBtn.onclick = () => {
+            modal.style.display = 'flex';
+            document.getElementById('address-form').reset();
+            fillIl();
+        };
+
+        // Modal aç/kapat
+        const modal = document.getElementById('address-modal');
+        document.getElementById('close-modal').onclick = () => { modal.style.display = 'none'; };
+        window.onclick = function(e) { if (e.target === modal) modal.style.display = 'none'; };
+
+        // Adres formu gönderildiğinde
+        document.getElementById('address-form').onsubmit = function(e) {
+            e.preventDefault();
+            const adres = {
+                ad: document.getElementById('ad').value.trim(),
+                soyad: document.getElementById('soyad').value.trim(),
+                telefon: document.getElementById('telefon').value.trim(),
+                il: document.getElementById('il').value.trim(),
+                ilce: document.getElementById('ilce').value.trim(),
+                mahalle: document.getElementById('mahalle').value.trim(),
+                adres: document.getElementById('adres').value.trim(),
+                adresBaslik: document.getElementById('adresBaslik').value.trim(),
+                faturaTuru: document.querySelector('input[name="faturaTuru"]:checked').value
+            };
+            let addresses = JSON.parse(localStorage.getItem('addresses') || '[]');
+            addresses.unshift(adres); // En üste ekle
+            localStorage.setItem('addresses', JSON.stringify(addresses));
+            loadAddresses();
+            modal.style.display = 'none';
+        };
+
+        // Sipariş özetinde ürünleri modern kutucuklarla göster
+        function loadOrderSummary() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const tbody = document.getElementById('order-summary-tbody');
+            const totals = document.getElementById('order-summary-totals');
+            if (!cart.length) {
+                tbody.innerHTML = '<tr><td colspan="5" style="color:#888;text-align:center;padding:12px 0;">Sepetiniz boş</td></tr>';
+                totals.innerHTML = '';
+                return;
+            }
+            let genelToplam = 0;
+            let html = '';
+            cart.forEach(item => {
+                const toplam = item.price * item.quantity;
+                genelToplam += toplam;
+                // Fotoğraf yolu düzeltme (her duruma uygun)
+                let imgSrc = item.image || '';
+                if (imgSrc.startsWith('/')) imgSrc = imgSrc.slice(1);
+                if (
+                  !imgSrc.startsWith('img/') &&
+                  !imgSrc.startsWith('assets/') &&
+                  !imgSrc.startsWith('http')
+                ) {
+                  imgSrc = 'img/' + imgSrc;
+                }
+                html += `
+                <tr>
+                    <td><img src="${imgSrc}" alt="${item.name}"></td>
+                    <td style="font-weight:600;">${item.name}</td>
+                    <td>${item.price.toFixed(2)} TL</td>
+                    <td>${item.quantity}</td>
+                    <td>${toplam.toFixed(2)} TL</td>
+                </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+            // Toplamlar
+            let kargo = 44.99; // örnek sabit kargo
+            let toplamHtml = '';
+            toplamHtml += `<div class=\"order-summary-row\"><span>Ürün Toplamı</span><span>${genelToplam.toFixed(2)} TL</span></div>`;
+            toplamHtml += `<div class=\"order-summary-row\"><span>Kargo Toplam</span><span>${kargo.toFixed(2)} TL</span></div>`;
+            toplamHtml += `<div class=\"order-summary-row order-summary-total\"><span>Toplam</span><span>${(genelToplam + kargo).toFixed(2)} TL</span></div>`;
+            totals.innerHTML = toplamHtml;
+        }
+        loadOrderSummary();
+
+        // Ödeme yap butonu için event listener
+        document.getElementById('pay-btn').addEventListener('click', function() {
+            // Sepet verilerini al
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            if (cart.length === 0) {
+                alert('Sepetiniz boş!');
+                return;
+            }
+            
+            // Seçili adresi al
+            const selectedAddress = document.querySelector('input[name="selected-address"]:checked');
+            if (!selectedAddress) {
+                alert('Lütfen bir teslimat adresi seçin!');
+                return;
+            }
+            
+            const addresses = JSON.parse(localStorage.getItem('addresses') || '[]');
+            const address = addresses[selectedAddress.value];
+            
+            // Ödeme bilgilerini al
+            const paymentType = document.querySelector('input[name="payment"]:checked').value;
+            const total = document.querySelector('.order-summary-total span:last-child').textContent;
+            
+            // Form verilerini hazırla
+            const formData = new FormData();
+            formData.append('cart', JSON.stringify(cart));
+            formData.append('address', JSON.stringify(address));
+            formData.append('payment', JSON.stringify({
+                type: paymentType,
+                total: total
+            }));
+            
+            // Ödeme işlemini başlat
+            fetch('process_payment.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        try {
+                            // JSON olarak parse etmeyi dene
+                            const data = JSON.parse(text);
+                            throw new Error(data.message || 'Sunucu hatası');
+                        } catch (e) {
+                            // JSON parse edilemezse, ham metni göster
+                            throw new Error('Sunucu hatası: ' + text);
+                        }
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    // Sepeti temizle
+                    localStorage.removeItem('cart');
+                    // Başarılı sipariş sayfasına yönlendir
+                    window.location.href = 'order-success.html?order_id=' + data.order_id;
+                } else {
+                    alert('Ödeme işlemi başarısız: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Hata:', error);
+                alert('Bir hata oluştu: ' + error.message);
+            });
+        });
+    </script>
+</body>
+</html>

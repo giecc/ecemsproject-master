@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css'>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <title>EWA - Emel's Weaving Art</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header__top">
+            <div class="header__container container">
+                <div class="header__contact">
+                    <span><i class="fas fa-phone"></i> 0533 773 25 05</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Fethiye / MUĞLA</span>
+                </div>
+                <a href="login-register.html" class="header__top-action">
+                    Giriş yap / Üye Ol
+                </a>
+            </div>
+        </div>
+
+        <nav class="nav container">
+            <a href="index.html" class="nav__logo">
+                <img src="img/logo.png" alt="EWA Logo" class="nav__logo-img">
+            </a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link active-link">Ana Sayfa</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="shop.html" class="nav__link">Mağaza</a>
+                        <div class="dropdown-menu" id="shop-dropdown">
+                            <a href="tunik.html">Tunik</a>
+                            <a href="elbise.html">Elbise</a>
+                            <a href="otontikY.html">Otantik Uzun Yelek</a>
+                            <a href="bolero.html">Bolero</a>
+                            <a href="yorselD.html">Yöresel El Dokuması</a>
+                            <a href="panco.html">Panço</a>
+                            <a href="sal.html">Şal</a>
+                            <a href="fular.html">Fular</a>
+                            <a href="pestemal.html">Peştemal</a>
+                            <a href="diger.html">Diğer</a>
+                        </div>
+                    </li>
+                    <li class="nav__item">
+                        <a href="accounts.php" class="nav__link">Hesabım</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="contact.html" class="nav__link">İletişim</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="login-register.html" class="nav__link">Giriş Yap</a>
+                    </li>
+                </ul>
+
+                <div class="header__search">
+                    <input type="text" placeholder="Ürün ara..." class="form__input" />
+                    <button class="search__btn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="header__user-actions">
+                <a href="whishlist.php" class="header__action-btn">
+                    <i class="fa-regular fa-heart"></i>
+                    <span class="count">3</span>
+                </a>
+                <a href="cart.html" class="header__action-btn">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="count">3</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="home section--lg">
+            <div class="home__container container grid">
+                <div class="home__content">
+                    <span class="home__subtitle">
+                        EMEL'S WEAVING ART
+                    </span>
+                    <h1 class="home__title">
+                        HOŞ GELDİNİZ
+                    </h1>
+                    <p class="home__description">
+                        %100 pamuk iplikleriyle dokuduğumuz kumaşlara ruh katarız.
+                    </p>
+                    <a href="shop.html" class="btn">Daha Fazlasını Keşfet</a>
+                </div>
+                <img src="img/home2.png" alt="EWA Ana Sayfa" class="home__img" />
+            </div>
+        </section>
+
+       <html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün Slider</title>
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <!-- Font Awesome (ok ikonları için) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <style>
+        /* Özel stiller */
+        .categories {
+            padding: 40px 0;
+        }
+        
+        .section__title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .category__item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+            padding: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .category__item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category__img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .category__item:hover .category__img {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .category__title {
+            font-size: 16px;
+            font-weight: 500;
+            text-align: center;
+            margin-top: 10px;
+            color: #333;
+            line-height: 1.4;
+            padding: 0 10px;
+        }
+        
+        /* Swiper oklarını özelleştirme */
+        .swiper-button-next,
+        .swiper-button-prev {
+            background: rgba(255,255,255,0.8);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: #333;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* Swiper container düzenlemeleri */
+        .categories__container {
+            padding: 20px 0;
+        }
+
+        .swiper-wrapper {
+            align-items: center;
+        }
+
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+        }
+
+        /* Responsive düzenlemeler */
+        @media screen and (max-width: 768px) {
+            .category__img {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .category__title {
+                font-size: 14px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .category__img {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .category__title {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="categories container section">
+        <h3 class="section__title">Ürünlerimiz</h3>
+        <div class="categories__container swiper">
+            <div class="swiper-wrapper">
+                <a href="elbise.html" class="category__item swiper-slide">
+                    <img src="img/elbise1-1.png.png" alt="Elbise" class="category__img">
+                    <h3 class="category__title">Elbise</h3>
+                </a>
+                <a href="tunik.html" class="category__item swiper-slide">
+                    <img src="img/tunik1-1.png.png" alt="Tunik" class="category__img">
+                    <h3 class="category__title">Tunik</h3>
+                </a>
+                <a href="bolero.html" class="category__item swiper-slide">
+                    <img src="img/bolero1-1.png.png" alt="Bolero" class="category__img">
+                    <h3 class="category__title">Bolero</h3>
+                </a>
+                <a href="panco.html" class="category__item swiper-slide">
+                    <img src="img/panco1-1.png.png" alt="Panço" class="category__img">
+                    <h3 class="category__title">Panço</h3>
+                </a>
+                <a href="yorselD.html" class="category__item swiper-slide">
+                    <img src="img/yoreselD1-1.png.png" alt="Yöresel El Dokuması" class="category__img">
+                    <h3 class="category__title">Yöresel El Dokuması</h3>
+                </a>
+                <a href="sal.html" class="category__item swiper-slide">
+                    <img src="img/sal1-1.png.png" alt="Şal" class="category__img">
+                    <h3 class="category__title">Şal</h3>
+                </a>
+                <a href="pestemal.html" class="category__item swiper-slide">
+                    <img src="img/peştemal3.1.jpg" alt="Peştemal" class="category__img">
+                    <h3 class="category__title">Peştemal</h3>
+                </a>
+            </div>
+            
+            <!-- Oklar -->
+            <div class="swiper-button-next">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="swiper-button-prev">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <script>
+        // Swiper'ı başlatma
+        document.addEventListener('DOMContentLoaded', function() {
+            var swiper = new Swiper('.swiper', {
+                slidesPerView: 4,
+                spaceBetween: 20,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1
+                    },
+                    768: {
+                        slidesPerView: 2
+                    },
+                    1024: {
+                        slidesPerView: 3
+                    },
+                    1200: {
+                        slidesPerView: 4
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+        <section class="products section container">
+            <h2 class="section__title">Öne Çıkan Ürünler</h2>
+            <div class="products__container grid">
+                <div class="product__item" data-id="E002">
+                    <div class="product__bunner">
+                        <a href="details.html?id=E002" class="product__images">
+                            <img src="img/elbise2-1.png.png" alt="Elbise" class="product__img default">
+                            <img src="img/elbise2-2.png.png" alt="Elbise" class="product__img hover">
+                        </a>
+                        <div class="product__actions">
+                            <button class="action__btn">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                            <button class="action__btn">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </button>
+                            <button class="action__btn">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product__content">
+                        <h3 class="product__title">Elbise Sarı Tekli Yaprak</h3>
+                        <div class="product__price">
+                            <span class="new__price">₺1725</span>
+                        </div>
+                        <button class="cart__btn add-to-cart" data-id="E002">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Sepete Ekle
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product__item" data-id="P003">
+                    <div class="product__bunner">
+                        <a href="details.html?id=P003" class="product__images">
+                            <img src="img/panco3-1.png.png" alt="Panço" class="product__img default">
+                            <img src="img/panco3-2.png.png" alt="Panço" class="product__img hover">
+                        </a>
+                        <div class="product__actions">
+                            <button class="action__btn">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                            <button class="action__btn">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </button>
+                            <button class="action__btn">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product__content">
+                        <h3 class="product__title">Panço Etnik Çift Taraflı Tüy</h3>
+                        <div class="product__price">
+                            <span class="new__price">₺1140</span>
+                        </div>
+                        <button class="cart__btn add-to-cart" data-id="P003">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Sepete Ekle
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product__item" data-id="T002">
+                    <div class="product__bunner">
+                        <a href="details.html?id=T002" class="product__images">
+                            <img src="img/tunik2-1.png.png" alt="Tunik" class="product__img default">
+                            <img src="img/tunik2-2.png.png" alt="Tunik" class="product__img hover">
+                        </a>
+                        <div class="product__actions">
+                            <button class="action__btn">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                            <button class="action__btn">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </button>
+                            <button class="action__btn">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product__content">
+                        <h3 class="product__title">Tunik Yavru Ağzı Çiçek</h3>
+                        <div class="product__price">
+                            <span class="new__price">₺1790</span>
+                        </div>
+                        <button class="cart__btn add-to-cart" data-id="T002">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Sepete Ekle
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product__item" data-id="YD001">
+                    <div class="product__bunner">
+                        <a href="details.html?id=YD001" class="product__images">
+                            <img src="img/yoreselD1-1.png.png" alt="Şal" class="product__img default">
+                            <img src="img/yoreselD1-2.png.png" alt="Şal" class="product__img hover">
+                        </a>
+                        <div class="product__actions">
+                            <button class="action__btn">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                            <button class="action__btn">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </button>
+                            <button class="action__btn">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product__content">
+                        <h3 class="product__title">Şal Turkuaz Beyaz Baklava</h3>
+                        <div class="product__price">
+                            <span class="new__price">₺1200</span>
+                        </div>
+                        <button class="cart__btn add-to-cart" data-id="YD001">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Sepete Ekle
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer__container container grid">
+            <div class="footer__content">
+                <a href="index.html" class="footer__logo">
+                    <img src="img/logo.png" alt="EWA Logo" class="footer__logo-img">
+                </a>
+                <h4 class="footer__subtitle">İletişim</h4>
+                <p class="footer__description">
+                    <span>Adres:</span> Cumhuriyet Mah. 41. Sok. No:8A Fethiye / MUĞLA / TÜRKİYE
+                </p>
+                <p class="footer__description">
+                    0533 773 25 05
+                </p>
+                <p class="footer__description">
+                    emel@ewahandmade.com
+                </p>
+                <div class="footer__social">
+                    <div class="footer__social-links flex">
+                        <a href="#">
+                            <img src="img/facebook-icon.svg" alt="Facebook" class="footer__social-icon">
+                        </a>
+                        <a href="#">
+                            <img src="img/instagram-icon.svg" alt="Instagram" class="footer__social-icon">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">Biz</h3>
+                <ul class="footer__links">
+                    <li>Emel's Weaving Art olarak, %100</li>
+                    <li>pamuk iplikleriyle dokuduğumuz</li>
+                    <li>kumaşlara ruh katarız.</li>
+                </ul>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">Biz Ne Yapıyoruz</h3>
+                <ul class="footer__links">
+                    <li>Emel's Weaving Art olarak,</li>
+                    <li>hayalimizdeki tasarımlara uygun</li>
+                    <li>dokumalar yaparak başlarız işe.</li>
+                    <li>%100 pamuk iplikleri kullanarak.</li>
+                </ul>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">Ürünlerimiz</h3>
+                <ul class="footer__links">
+                    <li><a href="#" class="footer__link">Elbise</a></li>
+                    <li><a href="#" class="footer__link">Tunik</a></li>
+                    <li><a href="#" class="footer__link">Otantik Yelek</a></li>
+                    <li><a href="#" class="footer__link">Bolero</a></li>
+                    <li><a href="#" class="footer__link">Panço</a></li>
+                    <li><a href="#" class="footer__link">Şal/Fular</a></li>
+                    <li><a href="#" class="footer__link">Peştemal</a></li>
+                    <li><a href="#" class="footer__link">Yöresel Dokuma</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Sepete ekleme fonksiyonu
+        document.addEventListener('DOMContentLoaded', function() {
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-id');
+                    const productItem = this.closest('.product__item');
+                    const productName = productItem.querySelector('.product__title').textContent;
+                    const productPrice = productItem.querySelector('.new__price').textContent;
+                    const productImage = productItem.querySelector('.product__img.default').src;
+                    
+                    // Sepet verilerini localStorage'dan al
+                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    
+                    // Ürünü sepete ekle
+                    cart.push({
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        image: productImage,
+                        quantity: 1
+                    });
+                    
+                    // Sepeti localStorage'a kaydet
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    
+                    // Sepet sayısını güncelle
+                    updateCartCount();
+                    
+                    // Kullanıcıya bildirim göster
+                    alert('Ürün sepete eklendi!');
+                });
+            });
+            
+            // Sepet sayısını güncelleme fonksiyonu
+            function updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const cartCountElements = document.querySelectorAll('.header__action-btn .count');
+                
+                cartCountElements.forEach(element => {
+                    element.textContent = cart.length;
+                });
+            }
+            
+            // Sayfa yüklendiğinde sepet sayısını güncelle
+            updateCartCount();
+        });
+    </script>
+</body>
+
+</html>

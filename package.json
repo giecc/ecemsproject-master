@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "express": "^5.1.0",
+    "mssql": "^11.0.1",
+    "swiper": "^11.2.6"
+  },
+  "name": "aylinecemproje",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/giecc/aylinecemPROJE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/giecc/aylinecemPROJE/issues"
+  },
+  "homepage": "https://github.com/giecc/aylinecemPROJE#readme"
+}

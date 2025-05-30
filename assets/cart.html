@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- jQuery'yi en başa ekleyelim -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css'>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <title>Sepetim</title>
+</head>
+
+<body>
+
+    <!--============header===========-->
+    <header class="header">
+        <div class="header__top">
+            <div class="header__container container">
+                <div class="header__contact">
+                    <span><i class="fas fa-phone"></i> 0533 773 25 05</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Fethiye / MUĞLA</span>
+                </div>
+                <a href="login-register.html" class="header__top-action">
+                    Giriş yap / Üye Ol
+                </a>
+            </div>
+        </div>
+
+        <nav class="nav container">
+            <a href="index.html" class="nav__logo">
+                <img src="img/logo.png" alt="EWA Logo" class="nav__logo-img">
+            </a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link active-link">Ana Sayfa</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="shop.html" class="nav__link">Mağaza</a>
+                        <div class="dropdown-menu" id="shop-dropdown">
+                            <a href="tunik.html">Tunik</a>
+                            <a href="elbise.html">Elbise</a>
+                            <a href="otontikY.html">Otantik Uzun Yelek</a>
+                            <a href="bolero.html">Bolero</a>
+                            <a href="yorselD.html">Yöresel El Dokuması</a>
+                            <a href="panco.html">Panço</a>
+                            <a href="sal.html">Şal</a>
+                            <a href="fular.html">Fular</a>
+                            <a href="pestemal.html">Peştemal</a>
+                            <a href="diger.html">Diğer</a>
+                        </div>
+                    </li>
+                    <li class="nav__item">
+                        <a href="accounts.php" class="nav__link">Hesabım</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="contact.html" class="nav__link">İletişim</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="login-register.html" class="nav__link">Giriş Yap</a>
+                    </li>
+                </ul>
+
+                <div class="header__search">
+                    <input type="text" placeholder="Ürün ara..." class="form__input" />
+                    <button class="search__btn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="header__user-actions">
+                <a href="whishlist.php" class="header__action-btn">
+                    <i class="fa-regular fa-heart"></i>
+                    <span class="count">3</span>
+                </a>
+                <a href="cart.html" class="header__action-btn">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="count">3</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+
+    <!--============main===========-->
+    <main class="main">
+
+        <!--========cart==========-->
+        <section class="cart section--lg container">
+            <div class="table__container">
+                <table class="table cart-table">
+                    <thead>
+                        <tr>
+                            <th>Ürün</th>
+                            <th>Adı</th>
+                            <th>Fiyat</th>
+                            <th>Adet</th>
+                            <th>Toplam</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items">
+                        <!-- Sepet öğeleri buraya dinamik olarak eklenecek -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" class="text-right">Genel Toplam:</td>
+                            <td id="cart-total">0.00 TL</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div class="cart-actions">
+                    <button class="btn continue-shopping" onclick="window.location.href='shop.html'">Alışverişe Devam Et</button>
+                    <button class="btn checkout" onclick="checkout()">Ödemeye Geç</button>
+                    <button class="btn empty-cart" onclick="clearCart()">Sepeti Temizle</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+
+
+
+
+
+    <!--========footer==========-->
+    <footer class="footer container">
+        <div class="footer__container grid">
+            <div class="footer__content">
+                <a href="index.html" class="footer__logo">
+                    <img src="img/logo.png" alt="" class="footer__logo-img">
+                </a>
+                <h4 class="footer__subtitle">İletişim</h4>
+                <p class="footer__description">
+                    <span>Adres:</span>Cumhuriyet Mah. 41. Sok. No:8A Fethiye / MUĞLA / TÜRKİYE
+                <p>
+
+                <p class="footer__description">
+                    0533 773 25 05
+                <p>
+
+                <p class="footer__description">
+                    emel@ewahandmade.com
+                <p>
+
+                <div class="footer__social">
+                    <h4 class="footer__subtitle"></h4>
+
+                    <div class="footer__social-links flex">
+                        <a href="">
+                            <img src="img/facebook-icon.svg" alt="" class="footer__social-icon">
+                        </a>
+
+                        <a href="">
+                            <img src="img/instagram-icon.svg" alt="" class="footer__social-icon">
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">Biz</h3>
+                <ul class="footer__links">
+                    <li>Emel's Weaving Art olarak, % 100</li><br>
+
+                    <li>pamuk iplikleriyle dokuduğumuz</li><br>
+
+                    <li>kumaşlara ruh katarız.</li>
+
+                </ul>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">Biz Ne Yapıyoruz</h3>
+                <ul class="footer__links">
+                    <li>Emel's Weaving Art</li><br>
+                    <li>olarak, hayalimizdeki</li><br>
+                    <li>tasarımlara uygun</li><br>
+                    <li>dokumalar yaparak</li><br>
+                    <li>başlarız işe. Ama %</li><br>
+                    <li>100 pamuk iplikleri</li><br>
+                    <li>kullanarak.</li>
+
+                </ul>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">Ürünlerimiz</h3>
+                <ul class="footer__links">
+                    <li><a href="" class="footer__link">Elbise</a></li>
+                    <li><a href="" class="footer__link">Tunik</a></li>
+                    <li><a href="" class="footer__link">Otantik Yelek</a></li>
+                    <li><a href="" class="footer__link">Bolero</a></li>
+                    <li><a href="" class="footer__link">Panço</a></li>
+                    <li><a href="" class="footer__link">Şal/Fular</a></li>
+                    <li><a href="" class="footer__link">Peştemal</a></li>
+                    <li><a href="" class="footer__link">Yöresel Dokuma</a></li>
+
+                </ul>
+            </div>
+
+        </div>
+    </footer>
+
+    <!--============swiper js===========-->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!--============main js===========-->
+    <script src="js/main.js"></script>
+
+    <script>
+        // Sepetteki ürünleri yükle
+        function loadCartItems() {
+            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartTableBody = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            let total = 0;
+
+            // Sepet tablosunu temizle
+            cartTableBody.innerHTML = '';
+
+            // Her ürün için tablo satırı oluştur
+            cartItems.forEach((item, index) => {
+                const row = document.createElement('tr');
+                // Fiyat işleme düzeltmesi
+                let price = item.price;
+                if (typeof price === 'string') {
+                    price = parseFloat(price.replace('₺', '').replace(',', '.'));
+                }
+
+                // Resim yolunu düzelt
+                let imagePath = item.image;
+                if (imagePath.includes('bolero')) {
+                    // Hem .jpg hem de .png.png uzantılarını destekle
+                    if (imagePath.includes('.png.png')) {
+                        // .png.png uzantısını koru
+                        imagePath = imagePath;
+                    } else if (imagePath.includes('.jpg')) {
+                        // .jpg uzantısını koru
+                        imagePath = imagePath;
+                    } else {
+                        // Eğer uzantı yoksa veya farklıysa, .png.png olarak ayarla
+                        imagePath = imagePath.replace(/\.(png|jpeg|gif)$/, '.png.png');
+                    }
+                }
+
+                row.innerHTML = `
+                    <td>
+                        <img src="${imagePath}" alt="${item.name}" class="table__img">
+                    </td>
+                    <td>
+                        <h3 class="table__title">${item.name}</h3>
+                    </td>
+                    <td>₺${price.toFixed(2)}</td>
+                    <td>
+                        <input type="number" value="${item.quantity}" min="1" 
+                                class="quantity" data-id="${item.id}">
+                    </td>
+                    <td>₺${(price * item.quantity).toFixed(2)}</td>
+                    <td>
+                        <button class="remove-item" data-id="${item.id}">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                cartTableBody.appendChild(row);
+                total += price * item.quantity;
+            });
+
+            // Toplam tutarı güncelle
+            cartTotal.textContent = `₺${total.toFixed(2)}`;
+
+            // Sepet sayısını güncelle
+            updateCartCount();
+        }
+
+        // Ürün miktarını güncelle
+        function updateQuantity(index, change) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart[index].quantity = Math.max(1, cart[index].quantity + change);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCartItems();
+        }
+
+        // Ürünü sepetten kaldır
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCartItems();
+            showNotification('Ürün sepetten kaldırıldı');
+        }
+
+        // Sepeti temizle
+        function clearCart() {
+            if (confirm('Sepeti temizlemek istediğinizden emin misiniz?')) {
+                localStorage.removeItem('cart');
+                loadCartItems();
+                showNotification('Sepet temizlendi');
+            }
+        }
+
+        // Sepet sayısını güncelle
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCountElements = document.querySelectorAll('.header__action-btn .count');
+            cartCountElements.forEach(element => {
+                element.textContent = cart.length;
+            });
+        }
+
+        // Bildirim göster
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Sayfa yüklendiğinde sepeti göster
+        document.addEventListener('DOMContentLoaded', loadCartItems);
+    </script>
+
+    <style>
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 4px;
+            z-index: 1000;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-controls button {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            background: #f8f8f8;
+            cursor: pointer;
+        }
+
+        .quantity-controls button:hover {
+            background: #eee;
+        }
+
+        .remove-btn {
+            color: #ff4444;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .remove-btn:hover {
+            color: #cc0000;
+        }
+
+        .cart-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .cart-actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .continue-shopping {
+            background: #f8f8f8;
+            color: #333;
+        }
+
+        .checkout {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .empty-cart {
+            background: #ff4444;
+            color: white;
+        }
+
+        /* Tablo resim boyutları için yeni stiller */
+        .table__img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-table td {
+            vertical-align: middle;
+            padding: 15px;
+        }
+
+        .cart-table th {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .cart-table tr {
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-table tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .table__title {
+            font-size: 1rem;
+            margin: 0;
+            color: #333;
+        }
+
+        .quantity {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+        }
+    </style>
+
+    <!-- Ürün kartlarında sepete ekleme butonunu güncelleyin -->
+    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart" data-id="<?= $urun['id'] ?>">
+        <i class="fi fi-rs-shopping-bag-add"></i>
+    </a>
+</body>
+
+</html>
